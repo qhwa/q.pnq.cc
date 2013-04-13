@@ -1,0 +1,200 @@
+---
+layout: post
+title: 利用 Grunt （几乎）无痛地做前端开发 (一)
+tags:
+- ! '- Tools : 工具 -'
+- grunt
+- web develop
+- 前端开发
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '950858348'
+---
+## 前言
+
+> 如果你想开发一个js应用，甭管多简单，都要先创建整个宇宙
+
+来看看我们的Javascript小宇宙:
+
+1. 确定如何根据需求、功能划分模块，如何将代码分成多个文件开发，合成一个发布
+2. 保证上一条的同时，使用 Coffeescript、SCSS/LESS 等技术
+3. 保证上2条的同时，想想怎么在浏览器的刷新后一切都最新
+4. 保证上3条的同时，想想怎么在开发、测试、生产、预发布环境中都OK
+5. 保证上4条的同时，进行TDD式的开发
+6. ...这还是js, 我们还没有涉及到HTML
+
+Grunt 可以将创建小宇宙的工作变得轻松很多。
+
+## 初识 grunt
+
+以一个jQuery插件的开发为例。 开始之前，让我们先安装Grunt. 
+
+首先需要[Nodejs](http://nodejs.org/)环境，这里假设你已经安装好了[Nodejs](http://nodejs.org/)和[NPM](https://npmjs.org/). 
+
+然后安装 grunt :
+
+    npm install grunt
+
+> 命令行方式更适合前端开发。这里我都用命令行来进行操作，windows用户推荐用git-shell或者powershell. 
+
+### 第一招：快速搭建脚手架
+
+Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来。所谓的脚手架，就是指包含了目录结构和初始的一些功能,测试文件的一个环境。我们来搭建一个jquery插件的脚手架：
+
+    grunt init:jquery
+
+这时grunt会问你一些问题，比如项目名称, git地址,作者等等，比如:
+
+![initing](http://qhwa.oss.aliyuncs.com/grunt-init.png)
+
+可以看到，grunt已经帮我们创建了一些经常出现的文件(README, LICENSE等), 单元测试也准备好了。
+
+> 有些问题可以[配置一下默认回答](https://github.com/gruntjs/grunt/blob/master/docs/task_init.md#specifying-default-prompt-answers)，这样就不需要每次都重新输入了，只要敲回车就行。
+
+### 第二招：TDD(测试驱动开发） 和 单元测试
+
+现在我们就可以着手写grunt-demo-1这个插件了。假设我们这个插件的目的是让页面上\*.alibaba.com域名下的a链接都带上一个图标。那么可以写一些简单的qunit用例。
+
+首先在`test/grunt-demo-1.html`准备好HTML用例：
+
+    #!html
+    ...
+    <div id="qunit-fixture">
+        <a href="#functional-link">#nogo</a>
+        <a href="http://alibaba.com">grunt</a>
+        <a href="http://china.alibaba.com">grunt</a>
+        <a href="http://style.china.alibaba.com">grunt</a>
+        <a href="http://q.pnq.cc">qhwa</a>
+    </div>
+    ....
+
+打开上一步grunt已经帮我们生成的`test/grunt-demo-1_test.js`，写上我们自己的单元测试:
+
+    #!javascript
+    // file: test/grunt-demo_test.js
+    module('jQuery#ali-link', {
+      setup: function() {
+        this.elems = $('#qunit-fixture').children();
+      }
+    });
+
+    test('is chainable', 1, function() {
+      strictEqual(this.elems.alilink(), this.elems, 'should be chaninable');
+    });
+
+    test('can select', function() {
+      equal( $('a:alilink', $('#qunit-fixture')).length, 3, 
+        'should select links with alibaba domain' 
+      );
+    });
+
+    test('add icon to alibaba links', function() {
+      this.elems.alilink();
+
+      this.elems.each(function(){
+        var self = $(this);
+        if( /^http:\/\/((.+)\.)?alibaba\.com/.test(this.href) ) {
+          ok(self.hasClass('ali-link'));
+        } else {
+          ok(!self.hasClass('ali-link'));
+        }
+      });
+    });
+    ...
+
+然后在命令行运行一下`grunt qunit`
+运行结果是这样的：
+
+![grunt qunit first run](http://qhwa.oss.aliyuncs.com/grunt-lint-fail.png)
+
+各种报错，对吧？不要紧，因为我们还没有开始写代码。接下来我们的目标就是写功能代码，让这个测试通过。
+
+经过一番敲击键盘，以及运行了几次`grunt qunit`，终于，激动人心时刻到来了，我们通过了所有的单元测试:
+
+![grunt qunit pass](http://qhwa.oss.aliyuncs.com/grunt-qunit-pass.png)
+
+最终的功能js如下：
+
+    #!javascript
+    // file: src/grunt-demo-1.js
+
+    (function($) {
+
+      var ALI_LINK_REG = /^http:\/\/(.+\.)?alibaba\.com/;
+
+      // Collection method.
+      $.fn.alilink = function() {
+        return this.each(function() {
+          var self = $(this);
+          if( isAliLink(this) ){
+            self.addClass('ali-link');
+          } else {
+            self.removeClass('ali-link');
+          }
+        });
+      };
+
+      // Custom selector.
+      $.expr[':'].alilink = function(elem) {
+        return isAliLink(elem);
+      };
+
+      function isAliLink(el) {
+        return /A/i.test(el.tagName) && ALI_LINK_REG.test(el.href);
+      }
+
+    }(jQuery));
+
+
+
+> 想用jasmine? 当然可以了！ 社区有 [grunt-jasmine-runner](https://npmjs.org/package/grunt-jasmine-runner)
+
+功能已经完成了，但是插件就完成了吗？非也！
+
+有了单元测试，我们可以放心重构我们的代码，达到最好的可维护性。先让机器帮我们做个code review——也就是linting。
+
+准备好了，就来看下一招：
+
+### 第三招：利用 lint 提高代码质量
+
+运行命令 `grunt lint` ，果然有报警：
+
+![grunt lint fail](http://qhwa.oss.aliyuncs.com/grunt-lint-fail.png)
+
+嗯，我们的正则表达式写法不太好，那就来优化一下吧！
+
+又经过一阵修改，我们的代码终于在 `grunt lint` 时没有报警了，不错！
+
+![grunt lint pass](http://qhwa.oss.aliyuncs.com/grunt-lint-fail.png)
+
+运行一下 `grunt qunit` ，看到单元测试还能通过，功能正常，不错！
+
+
+### 第四招：利用 watch 自动化
+
+上面我们在重构和优化的时候，每次修改了功能js都要运行一遍`grunt qunit`和`grunt lint`，grunt 可以帮我们做到一旦有修改，自动运行这两个命令，方便吧？
+
+很简单，运行`grunt watch` 就好了。然后试一下修改 src/ 下面的 js，就不需要手动去运行qunit和lint任务了。
+watch 就是这样的一个任务，监测一些文件，都有更新的时候，自动运行需要的任务。
+
+![grunt watch](http://qhwa.oss.aliyuncs.com/grunt-lint-fail.png)
+
+grunt 还自带了一些其他的任务，比如
+
+* 用来压缩js和css的`min` 任务
+* 用来开启一个本地http服务器的 `server` 任务
+* 用来将几个文件合并成一个的 `concat` 任务
+
+这些都是我们经常使用的任务。
+
+## 小结
+
+本文的示例代码已经放到 [github 上](https://github.com/qhwa/grunt-demo)。
+
+这一篇我们认识了 grunt ，下一篇将会看到 grunt 这种以任务为中心的设计，带来的强大扩展性。如果上面的例子已经让你感受到了无痛开发的乐趣，那么那些社区插件保证会让你更过瘾的！敬请期待本系列的第二篇—— 让 grunt 飞起来！
+
+## 参考
+[grunt init](https://github.com/gruntjs/grunt/blob/master/docs/task_init.md)

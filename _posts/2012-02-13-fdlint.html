@@ -1,0 +1,55 @@
+---
+layout: post
+title: ! 'fdlint: 让前端code review更轻松'
+tags:
+- ! '- Misc：其他 -'
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '574363115'
+  dsq_needs_sync: '1'
+---
+<img src="http://img.china.alibaba.com/img/ibank/2012/462/137/490731264_678162280.jpg" alt="fdlint" style="border:none;" />
+
+[fdlint][]是[bencode](http://bencode.org) 和 我最近做的一个实用项目。她的参考是[jslint][]——一个js代码扫描工具。和[jslint][]不同的是，[fdlint][]还可以扫描css和html代码。
+
+## 为什么会做[fdlint][]？
+
+Code review是一项重要却比较花时间的工作，根据阿里巴巴中文站前端Code Review Check List，约有80项检查项目，要完整对照着检查是比较花时间的。太花时间导致的结果就是code review的频率不高。
+
+因此，我们开发了[fdlint][]，对HTML/CSS/JS代码进行分析，找出工具能判断的、不符合规范的代码。[fdlint][]可以节约我们的时间，帮助 code review 更频繁、更深入。
+
+## 特点：
+
+1. 能扫描出不符合规则的常见问题，共49项, 详见[扫描规则](https://github.com/qhwa/fdlint/wiki/fdlint-%E6%89%AB%E6%8F%8F%E8%A7%84%E5%88%99)
+2. 提供多种使用方式，适合不同的应用场景 （命令行、[web](http://fdlint.herokuapp.com)、[VIM插件](https://github.com/qhwa/fdlint-vim)、[Notepad++插件](https://github.com/ThinkBest/fdlint-notepad-plusplus)、Eclipse插件）
+3. 规则定制方便，将用DSL编写的规则放入一个目录，立刻生效。
+4. 可以批量扫描多个文件，支持递归扫描目录
+5. 支持多种输出格式
+
+## 截图
+
+* 命令行运行
+
+    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-cli-500x619.png" alt="" title="fdlint-cli" width="500" height="619" class="alignnone size-medium wp-image-607" />
+
+* web版本
+
+    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-host-500x512.png" alt="" title="fdlint-host" width="500" height="512" class="alignnone size-medium wp-image-609" />
+
+* Eclipse插件
+
+    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-eclipse-500x140.png" alt="" title="fdlint-eclipse" width="500" height="140" class="alignnone size-medium wp-image-608" />
+
+* Notepad++插件
+
+    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-notepad-500x414.png" alt="" title="fdlint-notepad" width="500" height="414" class="alignnone size-medium wp-image-610" />
+
+* VIM插件
+
+    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-vim-500x543.png" alt="" title="fdlint-vim" width="500" height="543" class="alignnone size-medium wp-image-611" />
+
+[fdlint]: https://github.com/qhwa/fdlint
+[jslint]: http://jslint.com

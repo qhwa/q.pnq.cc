@@ -1,0 +1,36 @@
+---
+layout: post
+title: 使用Filereference时的一些注意事项
+tags:
+- ! '- Flash -'
+- filereference
+- flash
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '258617005'
+---
+<a href="http://help.adobe.com/zh_CN/AS3LCR/Flash_10.0/flash/net/FileReference.html">FileReference</a>用来上传文件，结合FileReferenceList使用，可以弹出一次文件选择框就上传很多个文件，比HTML form形式的友好很多。但是使用的时候，有些地方需要注意的：
+<ol>
+	<li><strong>上传文件时，不能增加自定义request header</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">这点不同于URLLoader：URLLoader是可以增加自定义头部信息（request header）的，但是敏感的字段是不可以更改的，比如refer、cookie、host等等；而FileReferrence则不可以增加任何自定义头信息，所有自己添加的自定义header，都被播放器悄无声息地忽略掉了，没有任何报错和提示。如果一定要增加字段，只能添加到POST变量中。</p>
+</li>
+	<li><strong>只有IE才能附带浏览器Cookie信息</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">在非IE浏览器中，利用FileReference发出的HTTP请求，带的cookie资料都是IE的cookie。即便在Firefox或者chrome中，传送的cookie也是IE的！有的同学说这和默认浏览器设置有关，例如将默认浏览器设为Firefox，那么IE就得不到cookie。但是我测试了一下，发现无论默认浏览器是什么，发送的都是IE的cookie。解决方案暂时是借用JS得到cookie（ ExternalInterface.call("javascript:document.cookie") ），当作变量post过去。麻烦的是，服务器端也要做相应的调整。这个BUG到目前（2009年4月6日）为止，已经差不多存在了一年了。</p>
+</li>
+	<li><strong>得不到文件的本地路径</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">Flash10的Reference可以得到本地文件的二进制文件，但是得不到文件路径（file://...）。这个问题还附带导致了一个问题，FilereferrenceList不能判断出重复选择的文件。就是说第一次弹出文件选择对话框的时候，用户选择了一个文件。过了一段时间再继续浏览文件，又选择了这个文件，这时候Flash是没有办法知道重复选择的。</p>
+</li>
+	<li><strong>不能设置上传的content-type</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">可能会让人郁闷的是，这个也没有任何throw/warning报错。</p>
+</li>
+	<li><strong>只支持实际存在的文件的上传下载</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">要是要上传一些动态生成的数据到服务器存储，那就用不得Filereference，也看不到上传进度了。</p>
+</li>
+</ol>
+<blockquote><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">顺便说一下，内存里面的数据，希望上传到服务器保存为文件，可以用URLLoader,URLStream之类的代替。但是FlashPlayer10有个<a href="http://www.adobe.com/devnet/flashplayer/articles/fplayer10_security_changes_02.html#head34">新增的安全性限制</a>，当上传文件的时候，播放器会检查操作是否由用户点击触发。没有点击就上传，会被浏览器阻挡掉请求。播放器判断一个HTTP请求是否是文件上传的依据是form-based-HTML-file-upload规范，有两个标志：
+一<strong>是content-type含有“ multipart”</strong>，例如“</span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;">multipart</span></span><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">/form-data”，“my</span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;">multipart</span></span><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">xxx”；
+<strong>二是字段名含有 </strong></span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;"><strong>filename</strong><span style="color: #000000;">。
+满足了这两点，flash播放器就会把这次请求当作文件上传处理，进而检查是否符合安全限制。要防止被阻挡掉也很简单，不要用<span style="color: #3366ff;">filename</span>这个关键字做数据的字段名即可。</span></span></span></blockquote>

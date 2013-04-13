@@ -1,0 +1,47 @@
+---
+layout: post
+title: crontab无效的原因分析
+tags:
+- ! '- linux -'
+- crontab
+- ruby
+- shell
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '261978430'
+---
+有时候会发生这样的现象，命令是可以在shell中正常运行的，但添加到crontab中定时运行的时候，就发生一些异常的事情。（如果还不知道 <a href="http://baike.baidu.com/view/1229061.html?fromTaglist">Crontab</a> 是什么的话，可以看一下<a href="http://baike.baidu.com/view/1229061.html?fromTaglist">这里</a>先）
+
+比如我今天在目录/home/ued66/asproj-builder 下写了一个<em> build-all.sh</em>:
+<code>svn up <span style="color: #888888;">#更新代码</span>
+./compile.rb --all &gt;&gt; ./log/run.log <span style="color: #999999;">#编译，并将结果记录</span></code>
+
+在shell中运行这个命令是正常的：
+<code>/home/ued66/asproj-builder/build-all.sh</code>
+
+crontab中这样写：
+<code>*/5 * * * * /home/ued66/asproj-builder/build-all.sh</code>
+(为了测试方便，设成每5分钟运行一次，实际是每天运行一次足矣）
+
+虽然是同个命令，但是compile.rb却没有被正确调用。
+
+经过调试，发现问题有两个：
+
+<strong>1. 路径问题</strong>
+既然用了相对路径，必须要把当前目录设置正确。把crontab写成这样：
+<code>*/5 * * * * cd /home/ued66/asproj-builder &amp;&amp; ./build-all.sh</code>
+
+<strong>2. 环境问题</strong>
+compile.rb 是用ruby写的一个脚本，而我的ruby程序是用源码编译安装的，安装目录是/usr/local/ruby。compile.rb的第一行是
+<span style="color: #ff0000;"><code>#!/usr/bin/env ruby</code></span>
+这是告诉shell使用ruby来执行这个脚本。但问题在于crontab运行的时候是没有加载用户环境变量的，“which ruby“运行结果为空也验证了这点。所以compile.rb不能被正确执行也很好理解了。
+
+最后把build-all.sh写成这样，问题解决：
+<code><span style="color: #999999;">#!/bin/sh</span>
+svn up
+<span style="color: #ff0000;"><strong>/usr/local/ruby/bin/ruby</strong></span> compile.rb --all &gt;&gt; ./log/run.log</code>
+
+看着程序自动运作起来，非常开心啊！

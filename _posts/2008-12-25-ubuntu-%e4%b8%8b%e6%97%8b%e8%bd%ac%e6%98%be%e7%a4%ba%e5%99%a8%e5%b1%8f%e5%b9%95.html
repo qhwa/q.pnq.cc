@@ -1,0 +1,33 @@
+---
+layout: post
+title: Ubuntu 下旋转显示器屏幕
+tags:
+- ! '- linux -'
+- ubuntu
+- 旋转屏幕
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '252208692'
+---
+之前说到，我喜欢<a href="http://q.pnq.cc/archives/13" target="_self">把显示器竖过来看网页和电子书</a>，查了一下在Ubuntu里面旋转屏幕的方法，据说用 xrandr -o left 就可以了。不过我运行之后，遇到了这个错误：
+
+<span style="color: #c0c0c0;">$ xrandr -o left
+X Error of failed request:  BadMatch (invalid parameter attributes)
+Major opcode of failed request:  153 (RANDR)
+Minor opcode of failed request:  2 (RRSetScreenConfig)
+Serial number of failed request:  12
+Current serial number in output stream:  12</span>
+
+需要修改一下xorg.conf:
+<span style="color: #000000;"><strong>sudo gedit /etc/X11/xorg.conf</strong></span>
+
+在屏幕(screen)一段，增加一句设置：
+<blockquote><span style="color: #ff0000;">Option????????? "RandRRotation"</span></blockquote>
+然后重启一下X（可以按 Ctrl+Alt+退格键），就可以用 xrandr 旋转屏幕了：
+<blockquote><strong>xrandr -o left</strong> 向左旋转90度
+<strong>xrandr -o right</strong> 向右旋转90度
+<strong>xrandr -o inverted</strong> 上下翻转
+<strong>xrandr -o normal</strong> 回到正常角度</blockquote>

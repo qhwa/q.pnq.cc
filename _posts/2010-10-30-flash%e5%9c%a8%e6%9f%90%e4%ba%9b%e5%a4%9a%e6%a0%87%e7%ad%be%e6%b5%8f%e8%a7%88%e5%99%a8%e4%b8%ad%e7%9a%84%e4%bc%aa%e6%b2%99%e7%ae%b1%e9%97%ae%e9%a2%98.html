@@ -1,0 +1,102 @@
+---
+layout: post
+title: Flash在某些多标签浏览器中的“伪沙箱”问题
+tags:
+- ! '- Flash -'
+- '360'
+- crossdomain
+- flash
+- maxthon
+- sandbox
+- security
+- Tab
+- Tecent Traver
+- 安全
+- 沙箱
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '252208798'
+---
+<p><a href="http://q.pnq.cc/wp-content/uploads/2010/10/sandbox.png"><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="sandbox" border="0" alt="sandbox" src="http://q.pnq.cc/wp-content/uploads/2010/10/sandbox_thumb.png" width="479" height="367"></a></p> <p>在Flash播放器运行时，将不同来源的资源划分到独立的沙箱(sandbox)内，不同沙箱之间不能彼此操作数据（除非目标沙箱做过一些设置，授权其他沙箱可访问），这就是Flash的跨沙箱问题。当Flash文件(.swf) 和页面(.html)不在同一个域名下时，如果不经过Flash内部声明System.allowDomain，html无法访问flash定义的接口；不经过html设置allowScriptAccess为'always'，Flash也无法调用页面上的js函数。</p> <p>那么如果html和flash都设置了互相可以访问，是否Flash和html之间就可以互相访问了呢？理论上是的，然而实际上却不是。<img style="border-bottom-style: none; border-right-style: none; border-top-style: none; border-left-style: none" class="wlEmoticon wlEmoticon-brokenheart" alt="破碎的心" src="http://q.pnq.cc/wp-content/uploads/2010/10/wlEmoticon-brokenheart.png"></p> <!--more--> <p>在Chrome、Firefox等非IE浏览器上，是没有问题的。在“纯正”的IE6、IE7、IE8上也是正常的。但是在傲游、360浏览器、腾讯浏览器等<strong><font color="#ff0000" size="4">基于IE的多标签浏览器</font></strong>中，<strong>刷新</strong>页面的时候，Flash播放器还是会抛安全沙箱错误。</p> <p><a href="http://q.pnq.cc/works/test/test-dmm-crssmn.html" target="_blank">点击访问测试页面</a>。</p> <p>使用上面说的“基于IE的多标签浏览器”访问，你会看到，第一次是正常的，刷新之后就不正常。如果你安装的是debug版本的播放器，可以看到Flash运行时发生了异常。</p> <blockquote> <p>SecurityError: Error #2060: <strong>安全沙箱冲突</strong>:ExternalInterface 调用者 <a href="http://pnq.cc/temp/test-dmm-crssdmn.swf">http://pnq.cc/temp/test-dmm-crssdmn.swf</a> 不能访问 <a href="http://q.pnq.cc/works/test/test-dmm-crssmn.html。">http://q.pnq.cc/works/test/test-dmm-crssmn.html。</a><br>&nbsp;&nbsp;&nbsp; at flash.external::ExternalInterface$/_initJS()<br>&nbsp;&nbsp;&nbsp; at flash.external::ExternalInterface$/call()<br>&nbsp;&nbsp;&nbsp; at Main/start()<br>&nbsp;&nbsp;&nbsp; at Main/init()<br>&nbsp;&nbsp;&nbsp; at Main()</p></blockquote> <p>Flash的源码：</p>
+
+    #!actionscript
+    package 
+    {
+        import flash.display.Sprite;
+        import flash.external.ExternalInterface;
+        import flash.system.Security;
+        import flash.text.TextField;
+        
+        /**
+         * Flash缓存造成的伪沙箱问题演示
+         * @author qhwa
+         */
+        public class Main extends Sprite 
+        {
+            
+            public function Main():void 
+            {	
+                var tf:TextField = new TextField();
+                tf.text = 'flash ready';
+                tf.autoSize = 'left';
+                addChild(tf);
+
+                //允许被所有其他沙箱中的js或flash调用
+                Security.allowDomain("*");
+                
+                start();
+            }
+            
+            private function start():void
+            {
+                //在基于IE的多标签浏览器中，这里运行时可能出错
+                ExternalInterface.call("alert", "Hi, flash is ready!");
+                ExternalInterface.addCallback('drawCircle', drawCircle);
+            }
+            
+            private function drawCircle():void
+            {
+                TextField(getChildAt(0)).appendText('\nDraw a circle');
+                
+                graphics.beginFill(Math.random() * 0xFFFFFF, .5);
+                graphics.drawCircle(
+                    Math.random() * stage.stageWidth,
+                    Math.random() * stage.stageHeight,
+                    50);
+                graphics.endFill();
+            }
+            
+        }
+        
+    }
+
+<p>似乎一旦swf是从缓存中读取的，allowScriptAccess这个配置就不起作用？为了验证是不是缓存引起的，我们每次为swf文件地址后面加上随机的数字，发现就不存在上面的问题了。可见这个问题确实是<strong>浏览器缓存造成</strong>的。</p>
+<p>为swf文件动态加时间戳或随机数，通过防止缓存可以回避掉这个问题。不过这不是一个很好的方案，因为这会极大增加服务器的压力，并且导致页面加载速度一直都很慢。</p>
+<p>不过好消息是，目前有个比这个更好的方案：<strong>延迟Flash的初始化功能</strong>。通过将Flash的ExternalInterface.addCallback时机延后一些，就可以解决这个问题。</p>
+<p>修改一下Flash的代码，加一个setTimeout：</p>
+
+    #!actionscript
+    ...(略)
+
+	public class Main extends Sprite 
+	{
+		
+		public function Main():void 
+		{	
+			...(略)			
+			//start();
+			setTimeout(start, 500);
+		}
+
+		...(略)
+		
+	}
+	
+
+<p><a href="http://q.pnq.cc/works/test/test-dmm-crssmn-edited.html" target="_blank">测试修改后的效果</a></p>
+<p>那么，延迟多少比较合适呢？如果太多，用户会感觉到明显的延迟；太少，一些性能较差的电脑上问题依然存在。根据我一年多总结的经验，<font color="#ff0000">500ms</font>是比较合理的数字。目前阿里巴巴中国网站上使用的Flash应用程序，如果有需要和js通信，都是延迟500ms初始化。</p>
+<p>顺便说一下，延迟500ms还有另外的一个作用。IE6中，Flash初始化的时候无法得到 stage.stageWidth正确的数字，返回是0（stageHeight也一样）。延迟一点初始化就可以得到正确的数值了。</p>
+<p>目前我还没有发现比延迟初始化更好的解决方案，如果你有更好的办法，欢迎交流！</p>

@@ -1,0 +1,29 @@
+---
+layout: post
+title: 关于FlashDevelop中使用中文的一些经验
+tags:
+- ! '- Flash -'
+- flashdevelop
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '252208746'
+---
+<h3>1. 中文乱码问题和解决方案</h3>
+新安装的<a href="http://www.flashdevelop.org"> Flashdevelop </a>打开有中文的文件时，会有乱码现象，如图：
+<img class="alignnone size-full wp-image-299" title="snap0024_flashdevelop" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0024_flashdevelop.png" alt="snap0024_flashdevelop" width="474" height="310" />
+
+手动选择编码为UTF-8格式（<em>File -&gt; encoding -&gt; UTF-8</em> )，会发现如果汉字是奇数个一起的时候，最后几个字符会变成乱码。这是由于 Flashdevelop 读取文件，没有找到文件内的编码标记，就默认以8bit方式读取，再转回utf-8格式的时候就会出问题。
+
+<strong>解决方案：</strong>
+选择菜单 Tools - 将设置中的<span style="color: #ff0000;"><strong> Fallback Codepage</strong> </span>设置为utf-8，这样flashdevelop在不知道文件应该用什么编码的时候，就会以utf-8处理。这里顺便也将其他几个编码设为utf-8，这样就更好了。
+<img class="alignnone size-full wp-image-301" title="snap0026_flashdevelop3" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0026_flashdevelop3.png" alt="snap0026_flashdevelop3" width="539" height="202" />
+<h3>2. 修改默认字体大小</h3>
+默认情况下中文字比较小，看着会比较累。选择<em> Tools -&gt; Syntax Color...</em> 就可以修改了。
+注意哦，默认只是改编辑AS3 的字体。我就犯了错，拿AS3的设置修改，然后看XML文件的显示效果，结果发现怎么改都没效果 -__-!
+
+我用的是<em>Verdanda/10pt</em>, 最终的效果：
+
+<img class="alignnone size-full wp-image-300" title="snap0025_flashdevelop2" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0025_flashdevelop2.png" alt="snap0025_flashdevelop2" width="466" height="311" />

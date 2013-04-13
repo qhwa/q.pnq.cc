@@ -1,0 +1,37 @@
+---
+layout: post
+title: 如何一键启动Virtualbox虚拟机
+tags:
+- ! '- linux -'
+- virtualbox
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '262515365'
+---
+<img class="alignnone size-full wp-image-491" title="Screenshot-2" src="http://q.pnq.cc/wp-content/uploads/2011/03/Screenshot-2.jpg" alt="" width="865" height="136" />
+现在用Ubuntu或者Mac的人越来越多了，但很多情况下还是离不开Windows，所以大多数人都是安装了Virtualbox，在VBox里面运行Windows虚拟机。
+
+你是怎样启动Windows虚拟机的呢？是不是
+1. 运行Virtualbox 2. 点选虚拟机的图标 3.点“启动”
+
+那么可以考虑一下给单个虚拟机创建快捷方式，提高工作效率。别小看这点时间哦，每天节约下来的时间不可小视呢！
+
+在桌面/Dock上创建一个程序快捷方式:
+<code>/usr/bin/VBoxManage startvm 虚拟机名称</code>
+
+例如我的虚拟机叫做XP，那么这个命令就是
+<code>/usr/bin/VBoxManage startvm XP</code>
+
+不同的系统可能VBoxManage所在的地方不一样，用这个命令查找VBoxManage所在路径：
+<code>which VBoxManage</code>
+
+至于怎么创建快捷方式，可以参考网上的教程。这是我的Ubuntu上的效果：
+
+<img class="alignnone size-full wp-image-490" title="Virtualbox shortcut" src="http://q.pnq.cc/wp-content/uploads/2011/03/Screenshot-3.jpg" alt="" width="865" height="725" />
+
+ps. 图标是在<a href="http://www.iconfinder.net" target="_blank">iconfinder</a>找到的
+
+&nbsp;

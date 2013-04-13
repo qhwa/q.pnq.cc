@@ -1,0 +1,22 @@
+---
+layout: post
+title: Virtualbox 网络桥接不起作用？试试装增强功能
+tags:
+- ! '- Misc：其他 -'
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '257342272'
+---
+今天晚上在Ubuntu的服务器上用Virtualbox安装了一个Windows 7的虚拟机，一切都好，但在网络配置的时候遇到了问题。网卡选择桥接（Bridge）模式，运行时能（从DHCP服务器）得到ip地址，却无法上网。外部的计算机也访问不了该ip。
+
+Google之，尝试了很多方法，都没有效果。
+
+最后偶然发现，安装完增强功能包之后，居然桥接模式就正常了。进一步证明，这个增强功能包是必备的东东。
+
+安装增强功能包，一开始是从Virtualbox菜单中安装，发现下载速度太慢。在apt里面搜到原来有个包：virtualbox-guest-additions，所以先执行这句：
+<code>sudo apt-get install virtualbox-guest-additions</code>
+
+然后再到VB虚拟机里面点安装增强功能，可以节约一点时间。

@@ -1,0 +1,17 @@
+---
+layout: post
+title: proftpd的一个bug：已经运行，但是无法连接
+tags:
+- ! '- linux -'
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '261747653'
+---
+今天本来打算升级一下ispcp的，但是升级之后发现很多重大，白天修复不太方便，只好rollback，恢复到之前的版本先。但是proftpd出现了奇怪的问题，明明已经在正常运行，客户端却连接不上，提示：
+<blockquote>421 Service not available</blockquote>
+经过一番debug，发现只要不从mysql数据库读取ftp用户资料就没事，难道是mysql用户名、密码或权限不对？有可能。检查数据库，发现数据库已经不在了（应该是ispcp的升级脚本删掉的），还好备份过，恢复回来。用ftp的mysql帐号登录mysql，一切正常。重启proftp，按理应该可以访问mysql了，但是问题依旧。Google了一下，发现有人遇到同样的问题，方法是<strong>将mysql的用户名换用root</strong>即可，果然可以！不过我发现，随后<strong>再将用户名改回</strong>原来给ftp用的用户名，居然又可以用了！ -___-!
+
+<em>参考：<a href="http://bbs.chinaunix.net/archiver/tid-928029.html">http://bbs.chinaunix.net/archiver/tid-928029.html</a></em>

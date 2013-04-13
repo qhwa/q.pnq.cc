@@ -1,0 +1,34 @@
+---
+layout: post
+title: 异步+Vector版本的JPEG编码器
+tags:
+- ! '- Flash -'
+- actionscript
+- alchemy
+- haxe
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '252208763'
+  dsq_needs_sync: '1'
+---
+业界大牛 <a href="http://bytearray.org">Thibault Imbert</a> (<a href="http://bytearray.org">bytearray.org</a>) 近日将很常用的JPEGEncoder类用vector类改写了一下，做了一个<a href="http://www.bytearray.org/?p=775">vector版本的JPG编码类</a>，效率大幅提升。正好，前不久我也已经做了一个vector版本的JPEG编码类，在项目中使用，最近正在整理代码准备分享出来。当然啦，我所做的没有Thibault那么深入，仅仅是把Array换成Vector，所以现在就拿他的版本重新修改了一下，加上了异步功能。
+
+所谓的异步编码，是延时处理代替循环处理。比如写入1000行文字到一个文件内，可以用for/while循环1000次，一次性写入，这就是同步处理；也可以写1行，隔0.5秒再写下一行，再隔0.5秒继续写下一行，这就是异步处理。同步处理的好处是快速，但是对计算机的压力也比较大，在浏览器中使用时，会造成假死，可能会引发稳定性问题。
+
+Vector的效率比Array高了大约4～10倍，但还是不够高，<a href="http://labs.adobe.com/technologies/alchemy/">Alchemy</a>或者<a href="http://www.haxe.org">haxe</a>的效率会更高一些，因为它们使用了Flash10未公开的<a href="http://ncannasse.fr/blog/adobe_alchemy">opcodes</a>接口，可以直接操作一段内存数据。<a href="http://segfaultlabs.com">Mateusz Malczak</a>（<a href="http://segfaultlabs.com">http://segfaultlabs.com</a>）就做了一个<a href="http://segfaultlabs.com/blog/post/asynchronous-jpeg-encoding">异步Alchemy版的JPEGEncoder</a>，效果很赞，速度比我vector异步版的要快很多，<span><span style="text-decoration: line-through;">但是缺少了一些自定义参数设置（</span><span style="text-decoration: line-through;">在压缩小图片的时候，看上去效率反而不如Vector，其实不然，实际上，这是因为程序中写死了大小2800×2800</span><span style="text-decoration: line-through;">）</span></span><span style="text-decoration: line-through;">。</span>Alchemy的C源码修改起来也比较麻烦，要用Alchemy重新编译。而且因为编译了整个libjpeg，所以文件体积也比较大，用C重新写一遍所有相关的类可以解决大小问题，但问题也会更加麻烦。看起来，<a href="http://www.haxe.org">haxe</a>生成的swc应当是最佳选择，正在考虑有空的时候改写一个。 :)
+
+我将这个几个放在一起，来看一下例子吧！（需要安装Flash Player10）
+
+<object width="500" height="340" data="http://q.pnq.cc/wp-content/uploads/2009/06/test_jpegencoders.swf" type="application/x-shockwave-flash"><param name="src" value="http://q.pnq.cc/wp-content/uploads/2009/06/test_jpegencoders.swf" /></object>
+
+<a href="http://q.pnq.cc/wp-content/uploads/2009/06/test_jpegencoders.zip">下载 源文件</a>
+<a href="http://q.pnq.cc/wp-content/uploads/2009/06/JPGEncoderIMP.as">下载 带有异步压缩功能的vector版JPEGEncoder</a>
+<h3>关于 Alchemy 和 Haxe：</h3>
+<a href="http://labs.adobe.com/technologies/alchemy/">Alchemy</a>是<a href="http://labs.adobe.com/">Adobe实验室</a>的一个项目，它的前身是Scott Petersen的“FlaCC (Flash C Compiler)”，目标是让C语言写的类能够被Flash重用。在<a href="http://mx.adobe.com">MAX 2007</a> 大会上，Scott凭借Flash中畅玩Doom一鸣惊人。Alchemy可以将C语言代码变成Flash可用的swc文件。这种方式类似于在C语言里面直接执行汇编语言，效率自然提高很多。目前Alchemy还只是测试项目，但是已经开放了SDK下载，可以编译许多常用的C类库。
+
+<a href="http://www.haxe.org">Haxe</a> 是传奇的 <a href="http://ncannasse.fr/blog">Nicolas Cannasse </a>创造的语言。Nicolas 发明了大名鼎鼎的<a href="http://www.mtasc.org/">MTASC</a> (Motion-Tween Actionscript Compiler)，在AS2.0的时代，改变了AS开发的方式，Flash也进入开源时代。进入AS3.0时代后，Nicolas选择了自己创造一种语言，这种语言吸取了Flash的优点，并且在语言和编译器上做了很多优化，使得效率上大幅度提升，这就是<a href="http://haxe.org">Haxe</a>。时至今日，Haxe已经发展为一个<a href="http://lib.haxe.org/">丰富</a>、高效的高级语言，也对Actionscript的发展产生了影响，例如Flash10的Vector，就和Haxe的概念和语法非常相似。
+
+Alchemy公开之后，Nicolas <a href="http://ncannasse.fr/blog/adobe_alchemy">找到了 Flash播放器中留给Alchemy的未公开的接口</a>，通过这些接口，AS可以直接操作一段内存中的数据。Haxe也使用了这些接口，并称之为<a href="http://ncannasse.fr/blog/virtual_memory_api">Flash Memory</a>，借助Alchemy的接口，Haxe的效率也大为提升。

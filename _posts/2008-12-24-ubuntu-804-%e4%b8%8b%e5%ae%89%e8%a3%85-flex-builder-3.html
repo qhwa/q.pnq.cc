@@ -1,0 +1,89 @@
+---
+layout: post
+title: Ubuntu 8.04 下安装 Flex Builder 3
+tags:
+- ! '- Flash -'
+- ! '- linux -'
+- flex builder
+- ubuntu
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '257108071'
+---
+说起来挺惭愧的，我很早接触Flash编程，也以此为职业，但是一直没有学习Flex，最近初学（汗）。一方面是对 xHTML+JS 驱动的RIA更加感兴趣，另一方面则是因为Flex在ubuntu下搭建开发环境比较麻烦。不过现在形势已经好很多了，Adobe慢慢丰富了linux下面的RIA开发产品线，在Ubuntu下安装flex已经比之前简单一些，于是一不小心，我就装成功了。。总结了一下安装过程，供需要的朋友参考。
+
+安装之前，有几点需要知道：
+<ol>
+	<li>flex SDK 3.0 是开源的，flex builder这个IDE是收费的，不过linux上面的可以免费试用将近一年，我想够用了；</li>
+	<li>有牛人把Flex_SDK和Emacs编辑器结合在一起，已经有了全开源的开发环境，但是我不大会用Emacs，所以选用Eclipse+Flex Builder；</li>
+	<li>到目前（2008年12月24日），Adobe已经发行的最新的版本是： Flex Builder 3 for Linux Alpha 4，但是这个版本有许多限制：</li>
+</ol>
+<ul>
+	<li>只能写代码，没有“所见即所得”的Design View；</li>
+	<li>只能作为Eclipse的插件方式安装，即需要先安装Eclipse；</li>
+	<li>只支持 Eclipse 3.3版本，Ubuntu源里面的是3.2，所以不能用apt-get安装。</li>
+	<li>不支持 Ubuntu自带的 GNU JAVA VM，需要另外安装Sun JAVA VM；</li>
+</ul>
+####### 华丽的分割线 ####### <!--more-->
+
+下面开始进入安装了：
+<h3>第一步：安装 Sun Java VM</h3>
+<blockquote>apt-get install sun-java6-jre</blockquote>
+<h3>第二步：将sun java设置为主要的java虚拟机</h3>
+<blockquote>update-alternatives --config java</blockquote>
+出现如下的提示：
+<blockquote>现有 3 个可选项，它们都提供了“java”&lt;
+
+选择??????? 可选项
+-----------------------------------------------
+1??? /usr/bin/gij-4.2
+*??????? 2??? /usr/lib/jvm/java-gcj/jre/bin/java
+3??? /usr/lib/jvm/java-6-sun/jre/bin/java</blockquote>
+选择 java-6-sun 这个 （3）
+<h3>第三步：下载并安装 Eclipse</h3>
+因为ubuntu软件源里面的Eclipse只有3.2，而Flex Builder要求的是3.3 （3.4都不行），所以要下载3.3的。
+我找到了一个3.3带PDT（带PHP开发环境）的：
+<a href="http://download.eclipse.org/tools/pdt/downloads/drops/1.0.3/R200806030000/" target="_blank">http://download.eclipse.org/tools/pdt/downloads/drops/1.0.3/R200806030000/</a>
+
+解压缩到一个地方，我用的是 <em>/usr/local/eclipse</em>
+<h3>第四步：下载并安装 Flex Builder</h3>
+到Adobe网站下载Flex Builder for linux
+<a href="http://labs.adobe.com/downloads/flexbuilder_linux.html" target="_blank">http://labs.adobe.com/downloads/flexbuilder_linux.html</a>
+下载并解压缩，运行
+<blockquote>sh ./flexbuilder_linux_install_a4_081408.bin</blockquote>
+可以看到如下界面：
+<a href="http://q.pnq.cc/wp-content/uploads/2008/12/screenshot-adobe_flex_builder_linux-1.png"><img class="alignnone size-medium wp-image-92" title="screenshot-adobe_flex_builder_linux-1" src="http://q.pnq.cc/wp-content/uploads/2008/12/screenshot-adobe_flex_builder_linux-1-300x199.png" alt="screenshot-adobe_flex_builder_linux-1" width="300" height="199" /></a>
+
+根据提示来设置，以下是我的设置：
+
+Install Folder: ????<em>/usr/local/Adobe_Flex_Builder_Linux</em>
+Adobe Flash Player Installation: ????Debugging Flash Player 9 will not be installed for any browsers.
+Eclipse Folder to be Extended: ????<em>/usr/local/eclipse</em>
+
+如果顺利，这时候就可以运行带Flex Builder的eclipse了
+<blockquote>/usr/local/eclipse/eclipse</blockquote>
+新建一个flex项目
+<img class="alignnone size-full wp-image-94" title="screenshot-new-flex-project" src="http://q.pnq.cc/wp-content/uploads/2008/12/screenshot-new-flex-project.png" alt="screenshot-new-flex-project" width="374" height="500" />
+
+创建一个MXML并运行。
+
+<a href="http://q.pnq.cc/wp-content/uploads/2008/12/screenshot-flash-player-not-found.png"><img class="alignnone size-medium wp-image-93" title="screenshot-flash-player-not-found" src="http://q.pnq.cc/wp-content/uploads/2008/12/screenshot-flash-player-not-found-300x68.png" alt="screenshot-flash-player-not-found" width="300" height="68" /></a>
+
+提示缺少播放器？没关系下载一个去啦！
+<h3>第五步：下载并安装Flash Player 10 (debugger)</h3>
+<a href="http://www.adobe.com/support/flashplayer/downloads.html" target="_blank">http://www.adobe.com/support/flashplayer/downloads.html</a>
+
+下载并解压缩后，把 <em>libflashplayer.so.tar.gz</em> 解压缩，然后复制到firefox插件目录
+<blockquote>tar -xzvf debugger/libflashplayer.so.tar.gz
+cp libflashplayer.so /usr/lib/firefox-addons/plugins/</blockquote>
+重启FireFox和Eclipse，调试一下看看。正常的话，就可以看到console的输出了：
+
+<img class="alignnone size-full wp-image-95" title="screenshot-flex-console" src="http://q.pnq.cc/wp-content/uploads/2008/12/screenshot-flex-console.png" alt="screenshot-flex-console" width="433" height="481" />
+
+ok，接着就是开心地玩flex啦！
+
+参考：《ubuntu 8.04 安装flash player debugger》
+<a href="http://blog.sban.com.cn/2008/06/18/install-adobe-flash-10-debug-or-release-in-ubuntu-804.html" target="_blank">http://blog.sban.com.cn/2008/06/18/install-adobe-flash-10-debug-or-release-in-ubuntu-804.html</a>

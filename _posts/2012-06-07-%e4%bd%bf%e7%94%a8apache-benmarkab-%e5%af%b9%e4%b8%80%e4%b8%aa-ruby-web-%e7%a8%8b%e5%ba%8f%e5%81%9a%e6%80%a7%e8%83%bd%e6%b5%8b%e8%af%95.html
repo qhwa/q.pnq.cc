@@ -1,0 +1,97 @@
+---
+layout: post
+title: 使用Apache Benmark(ab) 对一个 Ruby Web 程序做性能测试
+tags:
+- ! '- linux -'
+- ! '- Ruby -'
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '2'
+  dsq_thread_id: '716370621'
+  dsq_needs_sync: '1'
+---
+最近要在一些内部系统中嵌入[fdlint](https://github.com/qhwa/fdlint-host/)的功能，检查HTML的语法是否正确。涉及到了系统性能测试的问题，学习了一下，在这里记录一下。
+
+首先是工具的选择，apache自带的性能测试工具ab简单方便，就用他了！
+
+
+首页（静态页面）的测试
+-----------------------
+
+
+很简单的一个命令搞定:
+
+    #!bash
+    ab -n <总数> -c <并发上限> http://fdlint.mysite.com/
+
+注意最后的斜杠("/")没有的话命令会报错。-__-
+
+
+功能页面(动态)的测试
+--------------------
+
+
+这个页面需要接受一个form表单(POST形式). 这时可以用ab的参数q指定一个POST数据的内容。
+
+第一步先准备原始数据素材。我这需要提交一段HTML代码，所以找了一个HTML页面，临时下载一个也是很方便的：
+
+    #!bash
+    wget http://china.alibaba.com/ -O fixture.html
+
+第二步是把这个素材变成ab需要的方式，一是做URL编码，二是写成表单的形式。
+
+我写了一个ruby脚本来做编码的工作: 
+
+    #!ruby
+    require 'uri'
+
+    str = IO.read('fixture.html')
+    output = URI.escape(str.gsub(/\\n|\\r/m, ''))
+
+    File.open('post.txt', 'w') do |file|
+      file << %Q(data=#{output}&type=html)
+    end
+
+这样就在当前目录下生成了一个post.txt文件，格式是
+
+    data=<编码过的HTML代码>&type=html
+
+这是我的程序需要的数据格式，你可以根据实际需要调整。
+
+然后就用ab命令了，我也写了一个shell脚本，减少反复修改执行的重复劳动：
+
+    #!bash
+    # 测试目标url
+    server=http://fdlint.mysite.com/
+    amount=5000
+    samual=500
+
+    ab -q \\
+       -n $amount -c $samual \\
+       -p post.txt \\
+       -T application/x-www-form-urlencoded \\
+       $server
+
+运行这个脚本，看到如下输出，表示性能测试完成:
+
+    > Benchmarking fdlint.mysite.com (be patient).....done
+
+
+实际执行的时候遇到几个问题。首先是"-T"参数一定要有，而且一定是这个值才可以。官方文档里面只是说如果用了-p来POST, 一定设置T参数指定content-type.
+            
+经验总结
+--------
+
+1. 如上面所说，url如果是站点根目录，一定要以斜杠("/")结尾
+2. 使用-p之后一定要设置-T参数
+3. 如何确定post过去之后，服务器的返回是正常的?
+
+    a. 可以用ab的`-v`参数输出详细的日志，例如：`ab -v 4 -n 500 -c 5 $url`
+    b. 在服务器可以记录日志
+
+参考文档
+--------
+
+[官方文档链接](http://httpd.apache.org/docs/2.4/programs/ab.html)
