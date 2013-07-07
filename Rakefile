@@ -9,6 +9,8 @@ ssh_port       = "22"
 document_root  = "~/q.pnq.cc/"
 deploy_default = "push"
 deploy_repo    = "blog"
+deploy_server  = "xiaotuhe.com"
+deploy_path    = "/home/webapp/pnq.cc/qhwa-blog.git"
 
 # This will be configured for you when you run config_deploy
 deploy_branch  = "master"
@@ -245,21 +247,10 @@ end
 
 desc "deploy public directory to github pages"
 multitask :push do
-  puts "## Deploying branch to Github Pages "
-  (Dir["#{deploy_dir}/*"]).each { |f| rm_rf(f) }
-  Rake::Task[:copydot].invoke(public_dir, deploy_dir)
-  puts "\n## copying #{public_dir} to #{deploy_dir}"
-  cp_r "#{public_dir}/.", deploy_dir
-  cd "#{deploy_dir}" do
-    system "git add ."
-    system "git add -u"
-    puts "\n## Commiting: Site updated at #{Time.now.utc}"
-    message = "Site updated at #{Time.now.utc}"
-    system "git commit -m \"#{message}\""
-    puts "\n## Pushing generated #{deploy_dir} website"
-    system "git push #{deploy_repo} #{deploy_branch} --force"
-    puts "\n## Github Pages deploy complete"
-  end
+  puts "## Deploying to #{deploy_repo}"
+  puts "\n## Pushing generated #{deploy_dir} website"
+  system "git push #{deploy_repo} #{deploy_branch} --force"
+  system "ssh #{ssh_user}@#{deploy_server} 'cd #{deploy_path}; bundle exec rake generate'"
 end
 
 desc "Update configurations to support publishing to root or sub directory"
