@@ -18,18 +18,20 @@ meta:
 
 解决方法是运行：
 
-    #!bash
-    echo 'alias gvim="env UBUNTU_MENUPROXY=0 gvim"' >> ~/.bashrc
-    source ~/.bashrc
+{% codeblock lang:sh %}
+echo 'alias gvim="env UBUNTU_MENUPROXY=0 gvim"' >> ~/.bashrc
+source ~/.bashrc
+{% endcodeblock %}
 
 ----
 
 ## 解决gvim在[Ubuntu][] 11.10中导致电脑很卡的问题
 运行：
 
-    #!bash
-    echo 'alias gvim="gvim -f"' >> ~/.bashrc
-    source ~/.bashrc
+{% codeblock lang:sh %}
+echo 'alias gvim="gvim -f"' >> ~/.bashrc
+source ~/.bashrc
+{% endcodeblock %}
 
 ----
 
@@ -39,8 +41,9 @@ meta:
 
 解决方法是运行：
 
-    #!bash
-    sudo apt-get install gtk2-engines-pixbuf  
+{% codeblock lang:sh %}
+sudo apt-get install gtk2-engines-pixbuf  
+{% endcodeblock %}
 
 
 [Vim]: http://www.vim.org

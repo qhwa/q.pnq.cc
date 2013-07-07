@@ -40,6 +40,7 @@ Grunt 可以将创建小宇宙的工作变得轻松很多。
 
 > 命令行方式更适合前端开发。这里我都用命令行来进行操作，windows用户推荐用git-shell或者powershell. 
 
+
 ### 第一招：快速搭建脚手架
 
 Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来。所谓的脚手架，就是指包含了目录结构和初始的一些功能,测试文件的一个环境。我们来搭建一个jquery插件的脚手架：
@@ -48,7 +49,7 @@ Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来
 
 这时grunt会问你一些问题，比如项目名称, git地址,作者等等，比如:
 
-![initing](http://qhwa.oss.aliyuncs.com/grunt-init.png)
+![initing](http://img03.taobaocdn.com/tfscom/T1EwSRXyNhXXaCwpjX.png_620x10000.jpg)
 
 可以看到，grunt已经帮我们创建了一些经常出现的文件(README, LICENSE等), 单元测试也准备好了。
 
@@ -60,93 +61,98 @@ Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来
 
 首先在`test/grunt-demo-1.html`准备好HTML用例：
 
-    #!html
-    ...
-    <div id="qunit-fixture">
-        <a href="#functional-link">#nogo</a>
-        <a href="http://alibaba.com">grunt</a>
-        <a href="http://china.alibaba.com">grunt</a>
-        <a href="http://style.china.alibaba.com">grunt</a>
-        <a href="http://q.pnq.cc">qhwa</a>
-    </div>
-    ....
+{% codeblock lang:html %}
+...
+<div id="qunit-fixture">
+    <a href="#functional-link">#nogo</a>
+    <a href="http://alibaba.com">grunt</a>
+    <a href="http://china.alibaba.com">grunt</a>
+    <a href="http://style.china.alibaba.com">grunt</a>
+    <a href="http://q.pnq.cc">qhwa</a>
+</div>
+....
+{% endcodeblock %}
 
 打开上一步grunt已经帮我们生成的`test/grunt-demo-1_test.js`，写上我们自己的单元测试:
 
-    #!javascript
-    // file: test/grunt-demo_test.js
-    module('jQuery#ali-link', {
-      setup: function() {
-        this.elems = $('#qunit-fixture').children();
-      }
-    });
 
-    test('is chainable', 1, function() {
-      strictEqual(this.elems.alilink(), this.elems, 'should be chaninable');
-    });
+{% codeblock lang:javascript %}
+// file: test/grunt-demo_test.js
+module('jQuery#ali-link', {
+  setup: function() {
+    this.elems = $('#qunit-fixture').children();
+  }
+});
 
-    test('can select', function() {
-      equal( $('a:alilink', $('#qunit-fixture')).length, 3, 
-        'should select links with alibaba domain' 
-      );
-    });
+test('is chainable', 1, function() {
+  strictEqual(this.elems.alilink(), this.elems, 'should be chaninable');
+});
 
-    test('add icon to alibaba links', function() {
-      this.elems.alilink();
+test('can select', function() {
+  equal( $('a:alilink', $('#qunit-fixture')).length, 3, 
+    'should select links with alibaba domain' 
+  );
+});
 
-      this.elems.each(function(){
-        var self = $(this);
-        if( /^http:\/\/((.+)\.)?alibaba\.com/.test(this.href) ) {
-          ok(self.hasClass('ali-link'));
-        } else {
-          ok(!self.hasClass('ali-link'));
-        }
-      });
-    });
-    ...
+test('add icon to alibaba links', function() {
+  this.elems.alilink();
+
+  this.elems.each(function(){
+    var self = $(this);
+    if( /^http:\/\/((.+)\.)?alibaba\.com/.test(this.href) ) {
+      ok(self.hasClass('ali-link'));
+    } else {
+      ok(!self.hasClass('ali-link'));
+    }
+  });
+});
+...
+{% endcodeblock %}
 
 然后在命令行运行一下`grunt qunit`
 运行结果是这样的：
 
-![grunt qunit first run](http://qhwa.oss.aliyuncs.com/grunt-lint-fail.png)
+![grunt qunit first run](http://img03.taobaocdn.com/tfscom/T181NBFn4fXXaCwpjX.png)
 
 各种报错，对吧？不要紧，因为我们还没有开始写代码。接下来我们的目标就是写功能代码，让这个测试通过。
 
 经过一番敲击键盘，以及运行了几次`grunt qunit`，终于，激动人心时刻到来了，我们通过了所有的单元测试:
 
-![grunt qunit pass](http://qhwa.oss.aliyuncs.com/grunt-qunit-pass.png)
+![grunt qunit pass](http://img01.taobaocdn.com/tfscom/T1p5RDFn4bXXaCwpjX.png_620x10000.jpg)
 
 最终的功能js如下：
 
-    #!javascript
-    // file: src/grunt-demo-1.js
 
-    (function($) {
+{% codeblock lang:javascript %}
+// file: src/grunt-demo-1.js
 
-      var ALI_LINK_REG = /^http:\/\/(.+\.)?alibaba\.com/;
+(function($) {
 
-      // Collection method.
-      $.fn.alilink = function() {
-        return this.each(function() {
-          var self = $(this);
-          if( isAliLink(this) ){
-            self.addClass('ali-link');
-          } else {
-            self.removeClass('ali-link');
-          }
-        });
-      };
+  var ALI_LINK_REG = /^http:\/\/(.+\.)?alibaba\.com/;
 
-      // Custom selector.
-      $.expr[':'].alilink = function(elem) {
-        return isAliLink(elem);
-      };
-
-      function isAliLink(el) {
-        return /A/i.test(el.tagName) && ALI_LINK_REG.test(el.href);
+  // Collection method.
+  $.fn.alilink = function() {
+    return this.each(function() {
+      var self = $(this);
+      if( isAliLink(this) ){
+        self.addClass('ali-link');
+      } else {
+        self.removeClass('ali-link');
       }
+    });
+  };
 
-    }(jQuery));
+  // Custom selector.
+  $.expr[':'].alilink = function(elem) {
+    return isAliLink(elem);
+  };
+
+  function isAliLink(el) {
+    return /A/i.test(el.tagName) && ALI_LINK_REG.test(el.href);
+  }
+
+}(jQuery));
+{% endcodeblock %}
 
 
 
@@ -162,13 +168,13 @@ Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来
 
 运行命令 `grunt lint` ，果然有报警：
 
-![grunt lint fail](http://qhwa.oss.aliyuncs.com/grunt-lint-fail.png)
+![grunt lint fail](http://img03.taobaocdn.com/tfscom/T1qp8CFmXbXXaCwpjX.png_620x10000.jpg)
 
 嗯，我们的正则表达式写法不太好，那就来优化一下吧！
 
 又经过一阵修改，我们的代码终于在 `grunt lint` 时没有报警了，不错！
 
-![grunt lint pass](http://qhwa.oss.aliyuncs.com/grunt-lint-fail.png)
+![grunt lint pass](http://img01.taobaocdn.com/tfscom/T1KuBqFhthXXaCwpjX.png_620x10000.jpg)
 
 运行一下 `grunt qunit` ，看到单元测试还能通过，功能正常，不错！
 
@@ -180,7 +186,7 @@ Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来
 很简单，运行`grunt watch` 就好了。然后试一下修改 src/ 下面的 js，就不需要手动去运行qunit和lint任务了。
 watch 就是这样的一个任务，监测一些文件，都有更新的时候，自动运行需要的任务。
 
-![grunt watch](http://qhwa.oss.aliyuncs.com/grunt-lint-fail.png)
+![grunt watch](http://img03.taobaocdn.com/tfscom/T1bb4BFodfXXaCwpjX.png_620x10000.jpg)
 
 grunt 还自带了一些其他的任务，比如
 

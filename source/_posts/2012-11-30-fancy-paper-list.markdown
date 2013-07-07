@@ -13,8 +13,6 @@ meta:
   _edit_last: '2'
   dsq_thread_id: '951002116'
 ---
-# 折纸折叠菜单效果
-
 这个效果原先是给团队内部的一个协作网站开发的
 
 <iframe src="http://cssdeck.com/labs/full/fancy-paper-list" width="100%" height="700" ></iframe>

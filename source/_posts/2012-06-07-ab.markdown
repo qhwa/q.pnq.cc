@@ -22,8 +22,9 @@ meta:
 
 很简单的一个命令搞定:
 
-    #!bash
-    ab -n <总数> -c <并发上限> http://fdlint.mysite.com/
+{% codeblock lang:bash %}
+ab -n <总数> -c <并发上限> http://fdlint.mysite.com/
+{% endcodeblock %}
 
 注意最后的斜杠("/")没有的话命令会报错。-__-
 
@@ -36,22 +37,24 @@ meta:
 
 第一步先准备原始数据素材。我这需要提交一段HTML代码，所以找了一个HTML页面，临时下载一个也是很方便的：
 
-    #!bash
-    wget http://china.alibaba.com/ -O fixture.html
+{% codeblock lang:bash %}
+wget http://china.alibaba.com/ -O fixture.html
+{% endcodeblock %}
 
 第二步是把这个素材变成ab需要的方式，一是做URL编码，二是写成表单的形式。
 
 我写了一个ruby脚本来做编码的工作: 
 
-    #!ruby
-    require 'uri'
+{% codeblock lang:ruby %}
+require 'uri'
 
-    str = IO.read('fixture.html')
-    output = URI.escape(str.gsub(/\\n|\\r/m, ''))
+str = IO.read('fixture.html')
+output = URI.escape(str.gsub(/\\n|\\r/m, ''))
 
-    File.open('post.txt', 'w') do |file|
-      file << %Q(data=#{output}&type=html)
-    end
+File.open('post.txt', 'w') do |file|
+  file << %Q(data=#{output}&type=html)
+end
+{% endcodeblock %}
 
 这样就在当前目录下生成了一个post.txt文件，格式是
 
@@ -61,17 +64,18 @@ meta:
 
 然后就用ab命令了，我也写了一个shell脚本，减少反复修改执行的重复劳动：
 
-    #!bash
-    # 测试目标url
-    server=http://fdlint.mysite.com/
-    amount=5000
-    samual=500
+{% codeblock lang:bash %}
+# 测试目标url
+server=http://fdlint.mysite.com/
+amount=5000
+samual=500
 
-    ab -q \\
-       -n $amount -c $samual \\
-       -p post.txt \\
-       -T application/x-www-form-urlencoded \\
-       $server
+ab -q \\
+   -n $amount -c $samual \\
+   -p post.txt \\
+   -T application/x-www-form-urlencoded \\
+   $server
+{% endcodeblock %}
 
 运行这个脚本，看到如下输出，表示性能测试完成:
 
