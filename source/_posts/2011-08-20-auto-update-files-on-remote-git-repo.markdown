@@ -23,13 +23,16 @@ meta:
 
 2.把以下内容保存为服务器端repo中的钩子文件（**.git/hooks/post-receive**）
 
-    #!bash
-    \#!/bin/sh
-    cd ..
-    env -i git reset --hard
+{% codeblock lang:sh %}
+#!/bin/sh
+cd ..
+env -i git reset --hard
+{% endcodeblock %}
 
 3.设置权限为可运行
 
-    chmod a+x post-receive
+{% codeblock lang:sh %}
+chmod a+x post-receive
+{% endcodeblock %}
 
 好了，这样每当服务器收到客户端的push，就会自动更新文件列表了
