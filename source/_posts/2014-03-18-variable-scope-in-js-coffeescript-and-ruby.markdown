@@ -1,12 +1,11 @@
 ---
 layout: post
-title: "variable scope in js coffeescript and ruby"
+title: "《代码的未来》 阅读笔记（1）—— JavaScript/CoffeScript/ruby 局部变量处理的异同"
+
 date: 2014-03-18 16:21
 comments: true
 categories: 
 ---
-
-# 《代码的未来》 阅读笔记（1）—— JavaScript/CoffeScript/ruby 局部变量处理的异同
 
 > …… 身为 JavaScript 程序员的好友说，对 javascript 的不满之一，就是它的变量声明和作用域。 —— Mats
 
