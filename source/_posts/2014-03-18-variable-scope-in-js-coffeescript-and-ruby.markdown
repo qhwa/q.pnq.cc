@@ -34,7 +34,7 @@ alert( a );
 
 很灵活。不幸的是，不小心漏写最外层 `var` 之后，变量有可能会变成全局变量，这是容易滋生 bug 的地方。
 
-~~~coffee
+~~~coffeescript
 a = 「out」
 (() ->
   a = 「in」
