@@ -12,9 +12,6 @@ categories:
 
 用法很简单：
 
-很奇怪没有找到这样的gem，所以刚写了一个：
-https://github.com/qhwa/chinse_number
-
 {% codeblock lang:ruby %}
 require 'chinese_number'
 
