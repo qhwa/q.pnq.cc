@@ -18,6 +18,9 @@ require 'chinese_number'
 ChineseNumber.trans '今天二十万'
 #=> "今天200000"
 
+ChineseNumber.find "一年有十二个月三百六十五天"
+#=> [{"一"=>1}, {"十二"=>12}, {"三百六十五"=>365}]
+
 ChineseNumber.extract "今天二十晚"
 #=> [20]
 
