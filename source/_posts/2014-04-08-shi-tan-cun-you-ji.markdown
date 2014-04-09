@@ -6,13 +6,13 @@ comments: true
 categories: 
 ---
 
-![石潭村](http://img2.ph.126.net/vk_iVHPQE3RiczsFx_QvoA==/2674856703781518773.jpg)
+![石潭村](http://pnqcc.qiniudn.com/shitancun2674856703781518773.jpg)
 
 石潭村在安徽省黄山市徽州区歙县霞坑镇，距离黄山市50多公里，离杭州余杭150公里多点。我们在杭州，所以过去很近，非常适合清明小长假自驾游。从杭州往西，一路有天目山、青山湖这样的景区，即便是在高速公路上，也能看到路边的小风景。
 
 杭徽高速西行大约120km，之后是省道。经过一段蜿蜒刺激的盘山公路，又穿过几个热闹的小镇子，就来到了车子能开到的尽头——石潭村。啰嗦几句，实际上还能往前开，只是政府封了路，里面的路外地车进不去，只能乘坐当地的小商务车，一辆车可以坐八个人。网上也有老的攻略说石潭村里面还有十几个村子，进去需要徒步。其实我们发现已经修了不少水泥路进去，车子可以一直开到5公里深的大龙湾。一路依山傍水，满目都是油菜花，黑砖白墙的村落点缀其间，风景很美。
 
-![路边](http://img1.ph.126.net/egMuEYqb_W7EAbbx9ZIdHA==/2162572246168650691.jpg)
+![路边](http://pnqcc.qiniudn.com/shitancun2162572246168650691.jpg)
 
 我们是当天下午到的石潭村，在村口打尖吃饭，人还挺少的。暗自庆幸来对了地方，是个清净的地方。吃完饭再往前走了1公里路，正式进了村子，才发现实际情况稍微糟糕了一点。人虽然没有比肩继踵，但是已经把小村子挤得满满的了，很困难地找了车位，然后随便选了一家名字看上去比较正规的旅店住下，放了行李。
 
@@ -24,27 +24,27 @@ categories:
 
 村子依山傍水而建。山并不高，一条小溪从山间穿过，将石潭村一分为二。溪水不算多，但是很清澈。河滩上有许多青色的鹅卵石。
 
-![玩水](http://img0.ph.126.net/OfBytiEsMZUez4zSr9E_Aw==/6599324865005478015.jpg)
+![玩水](http://pnqcc.qiniudn.com/shitancun6599324865005478015.jpg)
 
 我们在小溪边玩了一会，然后就开始随便行走。
 
 村边菜地里面油菜花还开着一些，但是也有许多已经谢了，结了果实。还有葱，一些蚕豆，长得都很粗壮。村子里面很安静。房子都很老，但历史并不长。清一色的白墙，绘了深色的花边，古色古香。有几间木结构的老屋子，看上去很精致。
 
-![村子](http://img0.ph.126.net/_056KcpYltiV5CachHJJCw==/1505328175549109622.jpg)
+![村子](http://pnqcc.qiniudn.com/shitancun1505328175549109622.jpg)
 
-![村子](http://img2.ph.126.net/h6hTlL85nPmqxJw85uzWAw==/2670916054107569546.jpg)
+![村子](http://pnqcc.qiniudn.com/shitancun2670916054107569546.jpg)
 
-![村子](http://img2.ph.126.net/7hRxCiqqlhVTo1IEfGTptw==/4926093567513430064.jpg)
+![村子](http://pnqcc.qiniudn.com/shitancun4926093567513430064.jpg)
 
-![村子](http://img1.ph.126.net/VJq4RDYiQ2GwpKzv7fli-Q==/4884998220913673644.jpg)
+![村子](http://pnqcc.qiniudn.com/shitancun4884998220913673644.jpg)
 
 走着走着，就出了村子，来到了后山。看上去有路往里面走，据说是到另外的村子去的。这时候太阳已经快下山了，我们就决定不继续往前了。但是往回走又心有不甘，才没出来多久呢！边上的小山上，菜地里面中了很多油菜花，好像可以上去的样子，可是又不见有路。这时鸽子mm 咻咻地爬了上去，大家也跟着，顺着隐隐约约的小坎，爬了上去。
 
 上去之后，穿过齐头高的油菜田，来到另一边山头，美景就这么突然映入眼帘。山下的村子，小溪，对面的林子、夕阳，和清新的空气一起，像画一样。
 
-![山坡](http://img1.ph.126.net/-JHKmX6Mbxq7oKHUGME-8A==/3027263374623346861.jpg)
+![山坡](http://pnqcc.qiniudn.com/shitancun3027263374623346861.jpg)
 
-![夕阳](http://img2.ph.126.net/3M5sSwREHKUam914mw4wHQ==/6608181431166740222.jpg)
+![夕阳](http://pnqcc.qiniudn.com/shitancun6608181431166740222.jpg)
 
 放下野餐毯，大家坐在一起，吃吃喝喝，好不快活！
 
@@ -68,15 +68,15 @@ categories:
 
 早上出门没有带相机，只有一个效果很差、不能自动对焦的手机。。。你们勉强感受一下好了。。
 
-![早晨](http://img2.ph.126.net/uGRUfKYZAY9-FC_cHgTk2g==/6608410129585315688.jpg)
+![早晨](http://pnqcc.qiniudn.com/shitancun6608410129585315688.jpg)
 
-![早晨](http://img2.ph.126.net/JKT5FZ4085TiFRd6ISqgKw==/6608212217492318021.jpg)
+![早晨](http://pnqcc.qiniudn.com/shitancun6608212217492318021.jpg)
 
-![早晨](http://img0.ph.126.net/ItGiU03i_NIGMjRSVzVhWw==/2849652664319389629.jpg)
+![早晨](http://pnqcc.qiniudn.com/shitancun2849652664319389629.jpg)
 
-![早晨](http://img1.ph.126.net/I-MacGNoDSaKOlTBoWBMdw==/4874302171798598062.jpg)
+![早晨](http://pnqcc.qiniudn.com/shitancun4874302171798598062.jpg)
 
-![早晨](http://img2.ph.126.net/merQY9JWnRq6ojvnMZgMJg==/147211412920378673.jpg)
+![早晨](http://pnqcc.qiniudn.com/shitancun147211412920378673.jpg)
 
 信步所至，都是美景。去哪应该都不错。
 
@@ -90,7 +90,7 @@ categories:
 
 下车的地方，是村子外的桥头。清澈的山泉水沿着村民搭的竹筒子流在路上，又流进小溪。桥下的溪水很清，很多小鱼在不停嬉戏。
 
-![大龙湾](http://img1.ph.126.net/pBksu5-ecGuh1_WWJdi43Q==/3020789450159004124.jpg)
+![大龙湾](http://pnqcc.qiniudn.com/shitancun3020789450159004124.jpg)
 
 穿过桥就到了村子里面。
 
@@ -102,18 +102,18 @@ categories:
 
 水边有一颗上了年纪的樟树，落下的叶子盖满了竹林间的小路。
 
-![樟树竹林](http://img0.ph.126.net/dFXjlmDLoyciiuMnZ357Pg==/2986449503000247180.jpg)
+![樟树竹林](http://pnqcc.qiniudn.com/shitancun2986449503000247180.jpg)
 
 中饭本来想在水边烧烤的，但是走的时候没有带吃的东西，于是问一位采茶归来的老奶奶买了一些粽子、年糕，准备烧烤。不过老奶奶听说我们要生火，很是担心安全。。最后我们在老奶奶家借了灶，生火做饭。菜都是问老奶奶买的。
 
 人们开始大秀厨艺。。
 
-![做中饭](http://img2.ph.126.net/UnD7bNuTkKgz1umTkLoiwg==/1145040205359656732.jpg)
+![做中饭](http://pnqcc.qiniudn.com/shitancun1145040205359656732.jpg)
 
 吃了一顿饱饱的中饭，时间也是下午两点了，刚好适合回杭州。打电话叫上午送我们过来的师傅来接我们回去，不过他有事，另外找了一个师傅来接我们。
 
 这是我们在等车：
 
-![等车](http://img0.ph.126.net/Yr1oPTBU-Fh1KoUBJBDeGw==/3024448624856241351.jpg)
+![等车](http://pnqcc.qiniudn.com/shitancun3024448624856241351.jpg)
 
 回到石潭村，我们就心满意足地开车回杭州啦！
