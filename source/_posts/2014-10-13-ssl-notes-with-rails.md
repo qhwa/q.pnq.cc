@@ -41,5 +41,5 @@ end
 
 #### 用工具检查
 有很多工具可以检查 https 部署情况，例如这个：
-https://www.sslshopper.com
+https://www.sslshopper.com/ssl-checker.html
 
