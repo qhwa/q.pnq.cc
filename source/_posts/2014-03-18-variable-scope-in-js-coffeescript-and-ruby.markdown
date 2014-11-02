@@ -59,14 +59,13 @@ a = "out"
 end).call
 puts a
 #=> "in"
-~~~
 {% endcodeblock %}
 
 {% codeblock lang:ruby %}
 # version 2
 # ruby 1.9+
 a = "out"
-1..2.each do |i; a|
+1..2.each do |i; a| #<= 注意这里的分号
   a = "in"
 end
 puts a
