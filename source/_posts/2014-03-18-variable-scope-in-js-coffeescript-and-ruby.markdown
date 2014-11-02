@@ -46,7 +46,6 @@ a = "out"
 )()
 alert( a )
 // "in"
-~~~
 {% endcodeblock %}
 
 ## Ruby
