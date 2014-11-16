@@ -14,11 +14,26 @@ categories:
 这个项目已开源，地址是：
 https://github.com/qhwa/huaban_exporter
 
+这个工具下载后，可以用执行 `huaban` 命令
+
+{% codeblock lang:sh %}
+huaban export boards --of qhwa
+{% endcodeblock %}
+
+
 我喜欢用命令行工作，之前做的几个 gem（[lfd](https://github.com/qhwa/lfd), [fdlint](https://github.com/qhwa/fdlint)）也都提供了命令行。这次就趁这个项目总结了一下怎样用 ruby 开发友好的命令行工具。
 
 ### I. 初期怎样提高开发效率？
 
 在写了基础的一些逻辑 model 后，我写个简单的 [rake 文件](https://github.com/qhwa/huaban_exporter/blob/69b16009357a87f2e6e645801694a16b65803a41/Rakefile)，初期用 rake 来作为入口，边开发边测试。
+
+一开始我只建了这样的一个 rake 任务，来调试获取画板列表功能：
+
+{% codeblock lang:sh %}
+rake boards         # 列出一个用户的所有画板 (user=用户名 rake boards)
+{% endcodeblock %}
+
+后来随着功能不断完成，逐渐增加了几个新的任务，最后是完整的任务：
 
 {% codeblock lang:sh %}
 rake boards         # 列出一个用户的所有画板 (user=用户名 rake boards)
@@ -35,7 +50,7 @@ rakefile 很适合自己用，但是要分发别人用，用 rakefile 就不方�
 * 加上执行权限(`chmod a+x`)
 * 加上 [shebang](http://zh.wikipedia.org/zh-cn/Shebang), 比如 `#!/usr/bin/env ruby`
 
-> 这一步我以前是用下面提到的 gli 来自动进行，但后来改成手动做了，因为很简单，并且 gli 生成了一些额外的文件，和 bundle 有点冲突。
+> 这一步我以前是用下面提到的 gli 来自动进行，但后来改成手动做了。因为 gli 生成了一些额外的文件，和 bundle 有点冲突。
 
 ### III. 怎样让命令变得友好?
 
