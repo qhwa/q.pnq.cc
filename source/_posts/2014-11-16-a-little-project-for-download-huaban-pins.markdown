@@ -7,7 +7,7 @@ categories:
 ---
 
 
-最近太太的 [花瓣账号](http://huaban.com/pigeonzhu) 突然被封，苦心采集的很多图片一下子全部看不到了！
+最近 @季子乌 的 [花瓣账号](http://huaban.com/pigeonzhu) 突然被封，苦心采集的很多图片一下子全部看不到了！
 
 后来虽然联系客服重新开通了账号，但还是心有余悸，觉得还是 [pinterest](http://www.pinterest.com/) 靠谱一些，准备把图片全部迁移到 pinterest 上。由于图片数量比较多，我就用 ruby 写了一个工具，将花瓣上的图片下载下来。（不过 pinterest 不能批量上传，这些图片也只是备份到本地，这是后话了）
 
@@ -19,6 +19,10 @@ https://github.com/qhwa/huaban_exporter
 {% codeblock lang:sh %}
 huaban export boards --of qhwa
 {% endcodeblock %}
+
+执行效果：
+
+![preview](https://xiaotuhe.com/uploads/share/file/58904c1c21892b12963cca37291e6547.gif)
 
 
 我喜欢用命令行工作，之前做的几个 gem（[lfd](https://github.com/qhwa/lfd), [fdlint](https://github.com/qhwa/fdlint)）也都提供了命令行。这次就趁这个项目总结了一下怎样用 ruby 开发友好的命令行工具。
