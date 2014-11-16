@@ -19,12 +19,12 @@ https://github.com/qhwa/huaban_exporter
 
     在写了基础的一些逻辑 model 后，我写个简单的 [rake 文件](https://github.com/qhwa/huaban_exporter/blob/69b16009357a87f2e6e645801694a16b65803a41/Rakefile)，初期用 rake 来作为入口，边开发边测试。
 
-    ~~~sh
+    {% codeblock lang:sh %}
     rake boards         # 列出一个用户的所有画板 (user=用户名 rake boards)
     rake export_board   # 导出一个画板的所有图片到本地 (board_id=画板id  rake export_board)
     rake export_boards  # 导出用户所有的画板图片到本地 (user=用户名 rake export_boards)
     rake pins           # 列出一个画板所有的采集 (board_id=画板id rake pins)
-    ~~~
+    {% endcodeblock %}
 
 2. 项目后期功能稳定后，怎么做命令行入口
 
@@ -33,15 +33,15 @@ https://github.com/qhwa/huaban_exporter
     1. 在 bin 目录下写一个文件，名字就是最终别人要用的命令
     2. 给这个文件加上 [shebang](http://zh.wikipedia.org/zh-cn/Shebang):
 
-        ~~~sh
+        {% codeblock lang:sh %}
         #!/usr/bin/env ruby
-        ~~~
+        {% endcodeblock %}
 
     3. 给这个文件加上执行权限:
 
-        ~~~sh
+        {% codeblock lang:sh %}
         chmod a+x bin/YOUR_SCRIPT
-        ~~~
+        {% endcodeblock %}
 
     > 这一步我以前是用下面提到的 gli 来自动进行，但后来改成手动做了，因为很简单，并且 gli 生成了一些额外的文件，和 bundle 有点冲突。
 
