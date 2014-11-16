@@ -16,7 +16,7 @@ https://github.com/qhwa/huaban_exporter
 
 我喜欢用命令行工作，之前做的几个 gem（[lfd](https://github.com/qhwa/lfd), [fdlint](https://github.com/qhwa/fdlint)）也都提供了命令行。这次就趁这个项目总结了一下怎样用 ruby 开发友好的命令行工具。
 
-### 初期怎样提高开发效率？
+### I. 初期怎样提高开发效率？
 
 在写了基础的一些逻辑 model 后，我写个简单的 [rake 文件](https://github.com/qhwa/huaban_exporter/blob/69b16009357a87f2e6e645801694a16b65803a41/Rakefile)，初期用 rake 来作为入口，边开发边测试。
 
@@ -27,31 +27,22 @@ rake export_boards  # 导出用户所有的画板图片到本地 (user=用户名
 rake pins           # 列出一个画板所有的采集 (board_id=画板id rake pins)
 {% endcodeblock %}
 
-### 项目后期功能稳定后，怎么做命令行入口
+### II. 项目后期功能稳定后，怎么做命令行入口
 
 rakefile 很适合自己用，但是要分发别人用，用 rakefile 就不方便了。做成带命令行脚本的 gem 更加方便。
 
-1. 在 bin 目录下写一个文件，名字就是最终别人要用的命令
-2. 给这个文件加上 [shebang](http://zh.wikipedia.org/zh-cn/Shebang):
-
-    {% codeblock lang:sh %}
-    #!/usr/bin/env ruby
-    {% endcodeblock %}
-
-3. 给这个文件加上执行权限:
-
-    {% codeblock lang:sh %}
-    chmod a+x bin/YOUR_SCRIPT
-    {% endcodeblock %}
+* 把你的脚本放到 `bin` 目录下
+* 加上执行权限(`chmod a+x`)
+* 加上 [shebang](http://zh.wikipedia.org/zh-cn/Shebang), 比如 `#!/usr/bin/env ruby`
 
 > 这一步我以前是用下面提到的 gli 来自动进行，但后来改成手动做了，因为很简单，并且 gli 生成了一些额外的文件，和 bundle 有点冲突。
 
-### 怎样让命令变得友好?
+### III. 怎样让命令变得友好?
 
 有个超棒的 gem 叫做 [gli][gli]，帮你很容易实现出类似 git 这样风格的脚本
 
 
-### 项目完成后，怎么用做成一个 gem，分享给别人?
+### IV. 项目完成后，怎么用做成一个 gem，分享给别人?
 
 [bundler][bundler] 提供了生成 gem 的功能
 
