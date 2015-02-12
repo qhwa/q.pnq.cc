@@ -6,6 +6,8 @@ require "stringex"
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
 ssh_user       = "qhwa"
 ssh_port       = "22"
+deploy_host    = "pnq.cc"
+deploy_path    = "/home/webapp/pnq.cc/public_html/q/"
 document_root  = "~/q.pnq.cc/"
 deploy_default = "push"
 deploy_repo    = "blog"
@@ -215,15 +217,7 @@ end
 
 desc "Default deploy task"
 task :deploy do
-  # Check if preview posts exist, which should not be published
-  if File.exists?(".preview-mode")
-    puts "## Found posts in preview mode, regenerating files ..."
-    File.delete(".preview-mode")
-    Rake::Task[:generate].execute
-  end
-
-  Rake::Task[:copydot].invoke(source_dir, public_dir)
-  Rake::Task["#{deploy_default}"].execute
+  system "scp -r public/* #{deploy_host}:#{deploy_path}"
 end
 
 desc "Generate website and deploy"
