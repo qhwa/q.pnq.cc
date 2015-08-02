@@ -1,3 +1,12 @@
+---
+layout: post
+title: "SSL Notes With Ruby on Rails"
+date: 2014-10-13 15:54:01 +0800
+comments: true
+categories: 
+---
+
+
 上周我给[小兔盒](https://xiaotuhe.com)加上了https，比想象中容易许多。记录一下
 
 ### 免费的CA: 
