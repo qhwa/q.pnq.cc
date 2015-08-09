@@ -58,14 +58,14 @@ categories:
 
 * 查看当前用户的 limits
 
-    ulimit -a
+        ulimit -a
 
 * 查看另外一个用户的 limits
 
-    # 注意 ulimit 不是命令，而是 shell 方法
-    sudo -u <USER> sh -c 'ulimit -a'
+        # 注意 ulimit 不是命令，而是 shell 方法
+        sudo -u <USER> sh -c 'ulimit -a'
 
 * 经过 ssh 查看用户的 limits
 
-    ssh example.com 'ulimit -a'
+        ssh example.com 'ulimit -a'
 
