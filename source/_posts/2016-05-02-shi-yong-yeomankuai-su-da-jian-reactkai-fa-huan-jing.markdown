@@ -28,9 +28,14 @@ cd test-project
 yo react-webpack
 {% endcodeblock %}
 
-Thanks to [generator-react-webpack](https://github.com/newtriks/generator-react-webpack), answer some questions from `yo` and you will get your project setup.
+Thanks to [generator-react-webpack](https://github.com/newtriks/generator-react-webpack), after answering some questions from `yo` you will get your project setup in seconds.
 
-Easy and quick.
+Easy and quick, right? Here's what we have got out of the box:
+
+* a project with Webpack and React configured;
+* a solution for diffrent environments both for runtime and webpack configuration;
+* a [flux](https://facebook.github.io/flux/) project structure;
+* an optional [PostCSS](http://postcss.org/) setup
 
 Also this generator can help [generate React components](https://github.com/newtriks/generator-react-webpack#generating-new-components) via command line.
 

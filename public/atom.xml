@@ -4,7 +4,7 @@
   <title><![CDATA[qhwa's blog]]></title>
   <link href="http://q.pnq.cc/atom.xml" rel="self"/>
   <link href="http://q.pnq.cc/"/>
-  <updated>2016-05-02T22:59:37+08:00</updated>
+  <updated>2016-05-02T23:07:49+08:00</updated>
   <id>http://q.pnq.cc/</id>
   <author>
     <name><![CDATA[qhwa]]></name>
@@ -47,9 +47,17 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Thanks to <a href="https://github.com/newtriks/generator-react-webpack">generator-react-webpack</a>, answer some questions from <code>yo</code> and you will get your project setup.</p>
+<p>Thanks to <a href="https://github.com/newtriks/generator-react-webpack">generator-react-webpack</a>, after answering some questions from <code>yo</code> you will get your project setup in seconds.</p>
 
-<p>Easy and quick.</p>
+<p>Easy and quick, right? Here&rsquo;s what we have got out of the box:</p>
+
+<ul>
+<li>a project with Webpack and React configured;</li>
+<li>a solution for diffrent environments both for runtime and webpack configuration;</li>
+<li>a <a href="https://facebook.github.io/flux/">flux</a> project structure;</li>
+<li>an optional <a href="http://postcss.org/">PostCSS</a> setup</li>
+</ul>
+
 
 <p>Also this generator can help <a href="https://github.com/newtriks/generator-react-webpack#generating-new-components">generate React components</a> via command line.</p>
 ]]></content>
