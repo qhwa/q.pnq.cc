@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>为什么写不出博客了 - qhwa's blog</title>
+	<title>Setting Up Your React Project Is Easier Than You Think - qhwa's blog</title>
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="近几年以来，我写博客的数量每况愈下，从几个月一篇，到几个季度一篇，现在已经将近一年一篇了。。 (✖╭╮✖) 今天也是无意间提起，让我思考这个问题 为什么越来越不写博客了呢？ 首先想到的是「懒」+「忙」 但其实「没时间」是一个最不成立的理由，所谓的「没时间」往往是「优先级不高」的幌子罢了。 &hellip;">
+	<meta name="description" content="I have heard some ones complaining that setting up a Webpack + React project is not an easy job. It&rsquo;s only partly true. Webpack is not well &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,33 +76,36 @@
 		
 	
 	<div id="content" class="inner"><article class="post">
-	<h2 class="title">为什么写不出博客了</h2>
-	<div class="entry-content"><p>近几年以来，我写博客的数量每况愈下，从几个月一篇，到几个季度一篇，现在已经将近一年一篇了。。 (✖╭╮✖)</p>
+	<h2 class="title">Setting Up Your React Project Is Easier Than You Think</h2>
+	<div class="entry-content"><p>I have heard some ones complaining that setting up a <a href="https://webpack.github.io/">Webpack</a> + <a href="https://facebook">React</a> project is not an easy job. It&rsquo;s only partly true. <a href="https://webpack.github.io/">Webpack</a> is not well documented at this moment, and has many powerful features and plugins. This makes configuration on <a href="https://webpack.github.io/">Webpack</a> seeming difficult to new developers. To make things even worse, there are tons of &lsquo;starter kit&rsquo; projects over there, most of which are lack of maintainance.</p>
 
-<p>今天也是无意间提起，让我思考这个问题</p>
+<p><img src="http://yeoman.io/static/yeoman-02.83c46c7213.png" alt="Yeoman" /></p>
 
-<h2>为什么越来越不写博客了呢？</h2>
+<p>Indeed, it is super easy to setup a brand new <a href="https://webpack.github.io/">Webpack</a> + <a href="https://facebook">React</a> project using <a href="http://yeoman.io/">Yeoman</a>.</p>
 
-<ol>
-<li><p>首先想到的是「懒」+「忙」</p>
+<p><a href="http://yeoman.io/">Yeoman</a> is a scaffolding tool for web developers. With diffrent <code>generators</code> we can generate different kinds of web projects quickly by lines of command.</p>
 
-<p> 但其实「没时间」是一个最不成立的理由，所谓的「没时间」往往是「优先级不高」的幌子罢了。很多时候不忙，心里知道有很多事情应该去做，却什么也不想做。<a href="http://baike.baidu.com/subview/26649/19131821.htm?fromtitle=%E7%8E%8B%E9%98%B3%E6%98%8E&amp;fromid=5710&amp;type=syn">阳明先生</a> 说没有「知易行难」这件事，不「行」是由于「知」得还不彻底。是的，我没有在自己心里把写博客重视起来当一回事，当成一定<strong>非完成不可的</strong>的事情。</p></li>
-<li><p>追求的事物已发生了转移?</p>
+<p>Here&rsquo;s how it is done:</p>
 
-<p> 是以前对技术更感兴趣一些，现在不感兴趣了吗？似乎也不是，现在每天起来之后也会阅读技术文章。对技术反而比以前更执着了。</p></li>
-<li><p>害怕写不好</p>
+<p>~~~sh</p>
 
-<p> 以前反而大胆一些，也不怕误导别人；现在反而一些就想写很多，想写一个系列，系统地传授一系列的知识，系统地引导别人掌握一个东西。想做的事情太大，又没有足够的精力去做，于是就这样了。</p></li>
-</ol>
+<h1>install Yeoman command and generator</h1>
 
+<p>npm install -g yo
+npm install -g generator-react-webpack</p>
 
-<p>原因算是找到了。</p>
+<h1>generate project</h1>
 
-<h2>Done better than perfect</h2>
+<p>mkdir test-project
+cd test-project
+yo react-webpack
+~~~</p>
 
-<p>写得差总比不写要好，其实我的 blog 访问量那么低，也误导不了几个人。何况我最近也想明白了，没有所谓的「误导」，每个人都需要有自己的判断力，看到别人的论点需要有甄别的能力。阅读是自己的权利，判断也是自己的义务。坚持推荐我认为「好」的事物，就算因此让别人走了弯路，相信这种弯路也会是一种积累的。</p>
+<p>Thanks to <a href="https://github.com/newtriks/generator-react-webpack">generator-react-webpack</a>, answer some questions from <code>yo</code> and you will get your project setup.</p>
 
-<p>所以我决定，从这篇开始，要多写写一些短小的技术文章了。即便没有人看也没关系，回归当初写 blog 的心境，记录自己的成长。</p>
+<p>Easy and quick.</p>
+
+<p>Also this generator can help <a href="https://github.com/newtriks/generator-react-webpack#generating-new-components">generate React components</a> via command line.</p>
 </div>
 
 
@@ -119,7 +122,7 @@
   
 
 
-<time datetime="2016-05-02T21:41:39+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2016</time></div>
+<time datetime="2016-05-02T22:16:08+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2016</time></div>
 	<div class="tags">
 
 </div>
@@ -166,8 +169,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://q.pnq.cc/blog/2016/05/02/why-not-write-any-more/';
-        var disqus_url = 'http://q.pnq.cc/blog/2016/05/02/why-not-write-any-more/';
+        var disqus_identifier = 'http://q.pnq.cc/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing/';
+        var disqus_url = 'http://q.pnq.cc/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing/';
         var disqus_script = 'embed.js';
       
     (function () {

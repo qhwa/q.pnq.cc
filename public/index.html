@@ -7,7 +7,7 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="近几年以来，我写博客的数量每况愈下，从几个月一篇，到几个季度一篇，现在已经将近一年一篇了。。 (✖╭╮✖) 今天也是无意间提起，让我思考这个问题 为什么越来越不写博客了呢？ 首先想到的是「懒」+「忙」 但其实「没时间」是一个最不成立的理由，所谓的「没时间」往往是「优先级不高」的幌子罢了。 &hellip;">
+	<meta name="description" content="I have heard some ones complaining that setting up a Webpack + React project is not an easy job. It&rsquo;s only partly true. Webpack is not well &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -81,6 +81,71 @@
     <article class="post">
 	<h2 class="title">
 		
+		<a href="/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing/">
+		
+			Setting Up Your React Project Is Easier Than You Think</a>
+	</h2>
+	<div class="entry-content">
+		<p>I have heard some ones complaining that setting up a <a href="https://webpack.github.io/">Webpack</a> + <a href="https://facebook">React</a> project is not an easy job. It&rsquo;s only partly true. <a href="https://webpack.github.io/">Webpack</a> is not well documented at this moment, and has many powerful features and plugins. This makes configuration on <a href="https://webpack.github.io/">Webpack</a> seeming difficult to new developers. To make things even worse, there are tons of &lsquo;starter kit&rsquo; projects over there, most of which are lack of maintainance.</p>
+
+<p><img src="http://yeoman.io/static/yeoman-02.83c46c7213.png" alt="Yeoman" /></p>
+
+<p>Indeed, it is super easy to setup a brand new <a href="https://webpack.github.io/">Webpack</a> + <a href="https://facebook">React</a> project using <a href="http://yeoman.io/">Yeoman</a>.</p>
+
+<p><a href="http://yeoman.io/">Yeoman</a> is a scaffolding tool for web developers. With diffrent <code>generators</code> we can generate different kinds of web projects quickly by lines of command.</p>
+
+<p>Here&rsquo;s how it is done:</p>
+
+<p>~~~sh</p>
+
+<h1>install Yeoman command and generator</h1>
+
+<p>npm install -g yo
+npm install -g generator-react-webpack</p>
+
+<h1>generate project</h1>
+
+<p>mkdir test-project
+cd test-project
+yo react-webpack
+~~~</p>
+
+<p>Thanks to <a href="https://github.com/newtriks/generator-react-webpack">generator-react-webpack</a>, answer some questions from <code>yo</code> and you will get your project setup.</p>
+
+<p>Easy and quick.</p>
+
+<p>Also this generator can help <a href="https://github.com/newtriks/generator-react-webpack#generating-new-components">generate React components</a> via command line.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-05-02T22:16:08+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2016</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/blog/2016/05/02/why-not-write-any-more/">
 		
 			为什么写不出博客了</a>
@@ -95,7 +160,7 @@
 <ol>
 <li><p>首先想到的是「懒」+「忙」</p>
 
-<p> 但其实「没时间」是一个最不成立的理由，所谓的「没时间」往往是「优先级不高」的幌子罢了。很多时候不忙，心里知道有很多事情应该去做，却什么也不想做。阳明先生说没有「知易行难」这件事，不「行」是由于「知」得还不彻底。是的，我没有在自己心里把写博客重视起来当一回事，当成一定<strong>非完成不可的</strong>的事情。</p></li>
+<p> 但其实「没时间」是一个最不成立的理由，所谓的「没时间」往往是「优先级不高」的幌子罢了。很多时候不忙，心里知道有很多事情应该去做，却什么也不想做。<a href="http://baike.baidu.com/subview/26649/19131821.htm?fromtitle=%E7%8E%8B%E9%98%B3%E6%98%8E&amp;fromid=5710&amp;type=syn">阳明先生</a> 说没有「知易行难」这件事，不「行」是由于「知」得还不彻底。是的，我没有在自己心里把写博客重视起来当一回事，当成一定<strong>非完成不可的</strong>的事情。</p></li>
 <li><p>追求的事物已发生了转移?</p>
 
 <p> 是以前对技术更感兴趣一些，现在不感兴趣了吗？似乎也不是，现在每天起来之后也会阅读技术文章。对技术反而比以前更执着了。</p></li>
@@ -969,48 +1034,6 @@
 
 
 <time datetime="2013-07-18T11:49:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/30/fancy-paper-list/">
-		
-			折纸折叠菜单效果</a>
-	</h2>
-	<div class="entry-content">
-		<p>这个效果原先是给团队内部的一个协作网站开发的</p>
-
-<iframe src="http://cssdeck.com/labs/full/fancy-paper-list" width="100%" height="700" ></iframe>
-
-
-<p>暂时还没有时间详细写过程，有兴趣的可以看看代码，交流一下</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-30T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
