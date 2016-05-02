@@ -1,0 +1,189 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Flash真的适合做网站应用吗？ - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="两年前，我们开发了一套基于Flash的文件（主要是图片）上传RIA应用，提供给阿里巴巴的用户使用。如果你使用过Wordpress或flickr上传图片，你应该已经用过类似的产品。这个程序基于YUI Uploader开发，增加了一个实用的功能——在客户端先将图片缩小，再上传到服务器。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Flash真的适合做网站应用吗？</h2>
+	<div class="entry-content">两年前，我们开发了一套基于Flash的文件（主要是图片）上传RIA应用，提供给阿里巴巴的用户使用。如果你使用过Wordpress或flickr上传图片，你应该已经用过类似的产品。这个程序基于<a title="YUI Uploader" href="http://developer.yahoo.com/yui/uploader/">YUI Uploader</a>开发，增加了一个实用的功能——在客户端先将图片缩小，再上传到服务器。用户用数码相机拍摄的照片往往有600万以上的像素，但产品图片放到阿里巴巴网站上显示，并不需要这么大的像素，通常等比例缩小到1024×1024之内就可以了。借助于Flash对图片先缩小再上传的技术，我们在没有增加服务器投入的情况下，将原先上传图片的尺寸限制由250KB/张提升到了5MB/张。同时，Flash上传还比传统HTML表单方式上传有更好的体验，例如可以多选一批文件同时上传、可以实时展示上传进度、选择文件时可以过滤非图片文件。
+
+<img class="alignnone size-full wp-image-512" style="margin: 5px; border: 1px solid black;" title="Screenshot" src="http://q.pnq.cc/wp-content/uploads/2011/03/Screenshot.png" alt="" width="782" height="352" />
+
+这个组件获得了很大的成功。上线后不久，阿里巴巴网站上用户的图片上传数量由日均1万张左右上升至日均15万张左右。但在这个上传应用投入应用的两年中，我们遇到了各种问题。
+<h2>1. bug</h2>
+<img class="alignnone size-medium wp-image-508" title="man062" src="http://q.pnq.cc/wp-content/uploads/2011/03/man062-500x494.jpg" alt="" width="500" height="494" />
+
+在<a title="Flash在某些多标签浏览器中的“伪沙箱”问题" href="http://q.pnq.cc/archives/443">基于IE多标签浏览器中的伪沙箱问题</a>就不说了，最严重的是cookie的问题。使用FileReference.upload的方式上传文件，http请求中附带的cookie信息不一定是当前浏览器进程的cookie，在Firefox、chrome等非IE浏览器中非常严重，可能传输的是IE中的cookie。即便是IE，也可能传输的cookie内容和当前页面的cookie记录不符合。这直接导致服务器端在收到文件之后的安全验证中失败。而对于阿里巴巴这样的大型网站，有比较成熟的java web框架，要去掉对cookie的依赖非常麻烦。于是结果就是，首先我们只有在用户使用IE系浏览器的时候才使用Flash上传，其次我们隔三岔五的还会收到使用IE的某些客户的投诉，在花费了大量的时间排查之后，我发现是由于cookie的问题导致上传失败。<a href="http://cookbooks.adobe.com/post_Why_is_session_info__cookies__not_sent_when_upload-12029.html">这个bug</a>已经存在很多年，但是随着Flash从9升级到10，许多版本过去了，问题依然没有被解决。对于闭源的Flash，我们也帮不上忙。
+<h2>2.性能</h2>
+<img class="alignnone size-medium wp-image-498" title="Mignight_Run_by_Orikon" src="http://q.pnq.cc/wp-content/uploads/2011/03/Mignight_Run_by_Orikon-500x340.jpg" alt="" width="500" height="340" />
+
+相对于现今数码相机的像素量，5MB的大小限制非常保守。但大于5M的时候，在一些低配置的电脑上，读取文件内容的时候就会发生浏览器假死现象。假死很容易导致浏览器崩溃，所以我们采取了保守的限制——5MB。
+
+另外一个性能消耗是将BitmapData编码成JPEG文件的时候。Adobe提供了JPEGEncoder，但由于是Array实现的，所以性能是个问题。编码一个2880×2880的图片在一台中等配置的电脑上大约需要15秒时间。
+
+我用Vector改写了这个类，时间缩短为3.5秒左右。使用Alchemy，时间进一步缩短到1.5秒左右。但还是不够安全，所以最后采用了异步Vector的方式，延长编码的时间，以保证程序的稳定性。（评测在<a title="异步+Vector版本的JPEG编码器" href="http://q.pnq.cc/archives/307">这里</a>）
+<h2>3.图片质量</h2>
+<img class="alignnone size-medium wp-image-505" title="iblrst00076625" src="http://q.pnq.cc/wp-content/uploads/2011/03/iblrst00076625-500x332.jpg" alt="" width="500" height="332" />
+
+Flash内置的最好的图片缩小算法（用BitmapData.draw，并将smoothing参数设为true），在缩小图片的时候容易产生锯齿。因此我改写了<a href="http://jacwright.com/">Jacwright</a>提供的<a href="http://code.google.com/p/jacwright/source/browse/trunk/flash/jac/src/jac/image/ImageUtils.as">缩小算法</a>，图片质量的问题解决，但代价是性能又降低了一些。
+<h2>4.安全限制</h2>
+<img class="alignnone size-medium wp-image-511" title="rad600-02833372s" src="http://q.pnq.cc/wp-content/uploads/2011/03/rad600-02833372s-500x333.jpg" alt="" width="500" height="333" />
+
+Flash10.0之后，增加了一个安全限制——当URLLoader以标准文件上传的方式发送POST请求的时候，需要由用户的UI操作（鼠标点击或按键事件）触发。因为我们对用户的图片做了处理，已经无法再通过FileReference上传，只能通过URLLoader。这个安全性限制规定每次发起一个上传文件的URLLoader请求，都必须让用户点击一下鼠标才可以。如果用户选择了20张图片，就要点击20次鼠标。这显然是无法接受的。因此我们放弃了用标准文件上传，采用普通post形式。代价是失去了对上传进度的跟踪，不知道文件上传的百分比；同时服务器端也需要改造。
+<h2>改变</h2>
+最近，我们做了一个决定：开发一个类似功能的ActiveX控件，替代Flash作为图片上传的主要解决方案。ActiveX的优势是性能，不足之处在于只能在Windows+IE浏览器中使用，但实际上我们的Flash上传目前也只能在IE中使用。Flash真的适合像阿里巴巴这样的网站使用吗？闭源和性能是Flash最大的问题。但在HTML5被广泛支持前，Flash和传统Ajax还是我们最主要的富客户端应用开发技术，相对于ActiveX、Silverlight、JavaFX、Gear等技术来说，Flash还是有安装率优势的。我们看到Adobe最近在新功能开发方面非常给力，值得称赞，但基础的功能的持续完善对开发者也同样重要。目前Flash依然是我们很重要的RIA技术，但是HTML5完全到来的那一天，现在很难说。
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-31T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

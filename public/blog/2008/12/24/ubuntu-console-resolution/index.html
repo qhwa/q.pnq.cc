@@ -1,0 +1,216 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ubuntu - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="根据我的几次教训，更换软件源很容易导致ubuntu出问题，上一次出错之后，图形界面无法进入（但能使用shell），我因为太忙一直没管它。今天重装了一下，又升级回8.04LTS～ 我是对系统的易用性和美感很感冒的，很享受在我的液晶显示器上用文本控制台操作的感觉，像是重回了我的DOS年代。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Ubuntu</h2>
+	<div class="entry-content">根据我的几次教训，更换软件源很容易导致ubuntu出问题，上一次出错之后，图形界面无法进入（但能使用shell），我因为太忙一直没管它。今天重装了一下，又升级回8.04LTS～
+
+我是对系统的易用性和美感很感冒的，很享受在我的液晶显示器上用文本控制台操作的感觉，像是重回了我的DOS年代。不过默认的控制台只有800x600的分辨率，丑死了，改回1280x1024就完美得厉害了。
+<blockquote>
+<ol>
+	<li>sudo gedit /boot/grub/menu.list</li>
+	<li>在每条 kernel 后面加一个 vga=794</li>
+	<li>保存，重启就可以看到效果了，COOL！</li>
+</ol>
+</blockquote>
+其它的分辨率要查这个表：
+<table style="height: 112px;" border="1" cellspacing="0" cellpadding="3" width="456" bordercolor="#660000">
+<tbody>
+<tr>
+<td style="text-align: center;" width="20%"><strong>色深</strong></td>
+<td style="text-align: center;" width="20%"><strong>640×480</strong></td>
+<td style="text-align: center;" width="20%"><strong>800×600</strong></td>
+<td style="text-align: center;" width="20%"><strong>1024×768</strong></td>
+<td style="text-align: center;" width="20%"><strong>1280×1024</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;" width="20%"><strong>256</strong></td>
+<td style="text-align: center;" width="20%">769</td>
+<td style="text-align: center;" width="20%">771</td>
+<td style="text-align: center;" width="20%">773</td>
+<td style="text-align: center;" width="20%">775</td>
+</tr>
+<tr>
+<td style="text-align: center;" width="20%"><strong>32000</strong></td>
+<td style="text-align: center;" width="20%">784</td>
+<td style="text-align: center;" width="20%">787</td>
+<td style="text-align: center;" width="20%">790</td>
+<td style="text-align: center;" width="20%">793</td>
+</tr>
+<tr>
+<td style="text-align: center;" width="20%"><strong>65000</strong></td>
+<td style="text-align: center;" width="20%">785</td>
+<td style="text-align: center;" width="20%">788</td>
+<td style="text-align: center;" width="20%">791</td>
+<td style="text-align: center;" width="20%">794</td>
+</tr>
+<tr>
+<td style="text-align: center;" width="20%"><strong>16.7 Mill.</strong></td>
+<td style="text-align: center;" width="20%">786</td>
+<td style="text-align: center;" width="20%">789</td>
+<td style="text-align: center;" width="20%">792</td>
+<td style="text-align: center;" width="20%">795</td>
+</tr>
+</tbody></table>
+顺便换了一个firefox主题（类似<a href="http://www.google.cn/aclk?sa=l&amp;ai=CW7Qf94VRSYuoOovbkAXBz-HjBavUlH6j6-HwCYLgthsIABABILZUUJDO87_4_____wFgnQGgAe_zyPYDyAEBqgQTT9DH6jl8M12MYJCFKiMEBd1AUg&amp;sig=AGiWqtzNqfZcT_e09Dqs7OtMAKpk6Na12A&amp;q=http://www.google.com/chrome/index.html%3Fhl%3Dzh-CN%26brand%3DCHMB%26utm_campaign%3Dzh-CN%26utm_source%3Dzh-CN-ha-apac-zh-CN-sk%26utm_medium%3Dha%26utm_term%3Dchrome" target="_blank">chrome</a>的），和系统的很搭配哦！
+
+<a href="http://q.pnq.cc/wp-content/uploads/2008/12/screenshot-ubuntu.png"><img class="size-medium wp-image-82" title="screenshot-ubuntu" src="http://q.pnq.cc/wp-content/uploads/2008/12/screenshot-ubuntu-300x240.png" alt="点击可查看大图" width="300" height="240" /></a>
+<div class="mceTemp"><dl id="attachment_82" class="wp-caption alignnone" style="width: 310px;"> <dd class="wp-caption-dd">桌面截图</dd> </dl></div>
+Firefox Chromifox 主题下载地址： <a href="https://addons.mozilla.org/zh-CN/firefox/addon/8782" target="_blank">https://addons.mozilla.org/zh-CN/firefox/addon/8782</a>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-24T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

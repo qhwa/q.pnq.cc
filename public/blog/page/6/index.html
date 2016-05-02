@@ -1,0 +1,540 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="今天本来打算升级一下ispcp的，但是升级之后发现很多重大，白天修复不太方便，只好rollback，恢复到之前的版本先。但是proftpd出现了奇怪的问题，明明已经在正常运行，客户端却连接不上，提示：
+421 Service not available
+经过一番debug， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/12/18/proftpd-problem/">
+		
+			Proftpd的一个bug：已经运行，但是无法连接</a>
+	</h2>
+	<div class="entry-content">
+		今天本来打算升级一下ispcp的，但是升级之后发现很多重大，白天修复不太方便，只好rollback，恢复到之前的版本先。但是proftpd出现了奇怪的问题，明明已经在正常运行，客户端却连接不上，提示：
+<blockquote>421 Service not available</blockquote>
+经过一番debug，发现只要不从mysql数据库读取ftp用户资料就没事，难道是mysql用户名、密码或权限不对？有可能。检查数据库，发现数据库已经不在了（应该是ispcp的升级脚本删掉的），还好备份过，恢复回来。用ftp的mysql帐号登录mysql，一切正常。重启proftp，按理应该可以访问mysql了，但是问题依旧。Google了一下，发现有人遇到同样的问题，方法是<strong>将mysql的用户名换用root</strong>即可，果然可以！不过我发现，随后<strong>再将用户名改回</strong>原来给ftp用的用户名，居然又可以用了！ -___-!
+
+<em>参考：<a href="http://bbs.chinaunix.net/archiver/tid-928029.html">http://bbs.chinaunix.net/archiver/tid-928029.html</a></em>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/12/17/my-minigames/">
+		
+			整理了一下一些flash游戏作品</a>
+	</h2>
+	<div class="entry-content">
+		<a href="http://q.pnq.cc/works/mg/"><img class="alignnone size-full wp-image-30" title="minigame list" src="http://q.pnq.cc/wp-content/uploads/2008/12/resume2.png" alt="minigame list" width="265" height="101" /></a>
+
+整理了一下以前在公司做的一些flash游戏，自己只能给打75分，离满意还是差太多了。
+
+废话不多说了，请看：
+<a href="http://q.pnq.cc/works/mg/">http://q.pnq.cc/works/mg/</a>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-17T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/12/16/server-too-high-load/">
+		
+			一个服务器负载过高的问题</a>
+	</h2>
+	<div class="entry-content">
+		今天服务器出了许多问题，首先是几乎所有服务都停止了，http,ftp,mysql&#8230; 都访问不到，但是能ping到。客服帮忙重启了一下服务器后，ping不通。发现rc.local中设置网关的地方，被改成一个错误网关地址了，不知为何。修复后发现，在同时，系统的负载就不断升高，一直到了110以上，响应越来越慢。用top看了一下，发现有两个diff进程，比较的文件是邮件系统的log，占了极高的资源，4分钟了还没运行完。。。kill掉，顺便删掉过大的log文件（人工rotate，估计被邮件洪水了），暂停邮件系统，终于正常了，负载恢复到0.1+。
+<blockquote>btw. 用 top -bcisSH 发现哪些家伙在啃CPU</blockquote>
+但还没完呢……
+
+
+		
+		<a href="/blog/2008/12/16/server-too-high-load/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-16T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2008/12/15/reading-on-screen/">
+		
+			在电脑上看书</a>
+	</h2>
+	<div class="entry-content">
+		[caption id=&#8221;attachment_12&#8221; align=&#8221;alignnone&#8221; width=&#8221;438&#8221; caption=&#8221;很大一本书。。&#8221;]<img class="size-full wp-image-12" title="bigbook" src="http://q.pnq.cc/wp-content/uploads/2008/12/bigbook.jpg" alt="我的大书" width="438" height="597" />[/caption]
+
+很舒服，有个可以转动的显示器：）
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-15T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2007/11/18/cod4_review/">
+		
+			在玩电影？还是游戏？—— 《使命召唤4：现代战争》单人模式试玩有感</a>
+	</h2>
+	<div class="entry-content">
+		游戏：《使命召唤4：现代战争》（Call of Duty 4: Morden Warfare)<a title="play bloxorz" href="http://www.addictinggames.com/bloxors.html" target="_blank">
+</a>类型：第一人称射击(FPS)游戏
+作者：<a href="www.infinityward.com">Infinity Ward</a> 开发 / <a title="activision" href="www.activision.com">Activision</a> 发布
+发布时间：2007年11月6日
+
+<a title="Screenshot" href="http://q.pnq.cc/wp-content/uploads/2007/11/071103014806828.jpg"><img src="http://q.pnq.cc/wp-content/uploads/2007/11/cod4_1.jpg" alt="cod4_1.jpg" /></a>
+
+战争的残酷，我们这些身处和平时代的人们很难想象。但也正因如此，我们才对战争充满好奇，幻想自己像电影中的英雄一样，谱写自己的史诗。有无数关于战争的经典小说、电影、游戏作品，留给我们难以磨灭的印象，游戏《使命召唤：现代战争》就是这样的一个经典。
+
+这款游戏是由Infinity开发的广受好评度使命召唤系列的第四部，于2007年11月6日发行，发售2天即告罄，<a href="http://www.firingsquad.com/news/newsarticle.asp?searchid=18238">分析师预计可售出400万份</a>，风头大大盖过Xbox360的旗帜游戏<a href="http://www.halo3.com">Halo 3</a>，已被多家国外媒体高度评价，几乎已提前锁定2007年度最佳FPS（第一人称射击）游戏的头衔。
+
+销量高，是因这游戏确实好玩。玩完一遍单人游戏，就已经被游戏的感觉深深折服，沉浸在游戏的世界中不能自已。在花了一周时间细细体味之后，才终于爆机（一般5小时即可通关），大为过瘾！而更加好玩的对战模式，还没机会玩。下面就将我玩这个游戏的感觉和大家分享一下。
+
+首先不得不说的是，这个游戏安装文件有2.5G大，装完之后有5G多，真是吃硬盘的家伙。另外对系统要求一般，640×480模式下已经足够清晰。安装需要的时间也比较长，在安装过程中可以出门走走……
+
+首先能感觉到的是，<strong>游戏的效果非常好</strong>。好莱坞级别的片头和过场动画，观看之后还余味不绝（通关之后我还特意翻了一下video文件夹，希望能找到一些作为珍藏）。战斗中的效果也非常不错，例如管道被击破时候冒烟，水流从船的内壁汹涌而入的感觉，还有带伤狂奔时候屏幕的模糊效果……等等，配上恰到好处的紧张音乐，以及完全仿真的无线电通话效果，对比好莱坞的战争大片也不逊色。很多时候我都已分不清，究竟是在玩游戏呢，还是在拍一部我自己导演的电影。CoD4中好几个镜头，都可圈可点，例如从行将沉没的货轮上撤退，直升机方队呼啸着掠过海面，核弹爆炸时直升机被巨大的气流冲飞……这些场面令游戏带有恢宏的气势，晋升为一部大片级电影。
+
+<img src="http://q.pnq.cc/wp-content/uploads/2007/11/145468-17-1.jpg" alt="145468-17-1.jpg" />
+
+但，光效果好还不够，这只是成为一部好电影的必要条件。曲折感人的情节，鲜明活泼的人物，也是必不可少的。CoD4在这些方面也没有让玩家失望。整个游戏<a href="http://article.pchome.net/content-484384.html">剧情</a>跌宕起伏，设有很多悬念，让人思考、吸引、感叹，同时又与游戏的任务无缝连接在了一起。
+<blockquote>俄国激进分子Zakhaev希望让世界重新回到两大超级大国对峙的冷战时代，他和中东军阀Al-Asad勾结，以俄制武器和伊斯兰宗教力量，构建了一个严重威胁世界和平与安定的恐怖主义政权，并且拥有正规化的军队和小型核武器。Zakhaev、Al-Asad和另外两名参谋人员，组成了绰号为“四骑士”的核心团伙，其魔爪已经深入到了乌克兰、阿塞拜疆、埃及等地。美英两国派出了各自的精锐——海军陆战队武装侦察分队（Marine Force Recon）和皇家特勤团（SAS），试图解决这一危机。</blockquote>
+大部分时候故事都以两条线索发展，一条是以SAS部队为主角的情报性任务，是故事的主线，交代故事的背景，这些任务又直接影响了故事的整体发展；另一条是US 海军陆战队为主角的激烈巷战，这些任务让人置身于硝烟弥漫、弹火纷飞的中东战场。当巷战部分战役结束后，两条线并成一条，进入最紧张的部分，两国的勇士联合行动，捣毁敌人的老巢，粉碎笼罩在美国上空的核弹危机。不要小看SAS的情报任务没有巷战那么刺激，大部分时候都是在敌占区行动，面对潮水般的敌人，不仅要勇敢，还有机智、谨慎。例如我最喜欢的切尔诺贝利关，就是15年前，年轻的Price中尉和长官MacMillian上尉一起渗透到乌克兰，执行狙杀任务。
+
+<img src="http://q.pnq.cc/wp-content/uploads/2007/11/cod4_2.jpg" alt="cod4_2.jpg" />
+
+这个任务之所以给我留下了深刻的印象，不仅是场面紧张刺激（隆隆的战车和巡逻队敌人从身边慢慢经过，撤退时面对潮水般的敌人背水一战等等），更重要的是，里面的人物MacMillian沉着冷静，处变不惊，对“我”无微不至（当然了，这是游戏，我是主角……），是一个可以信任的生死战友。这种感觉——与信任的战友一起出生入死，是我最向往的。任务中MacMillian受伤，“我”当然不能扔下他不管了，背着他撤离到Escape Zone，面对穷追不舍的敌人“保护”他（其实是他在保护“我”，汗……），登上直升机的那一刻，才终于松了一口气，真想拍拍他，问：伙计，还好吧？
+
+<img src="http://q.pnq.cc/wp-content/uploads/2007/11/145468-6-1.jpg" alt="145468-6-1.jpg" />
+
+除了Price, MacMillian，还有其他的一些角色，也有自己的鲜明个性。例如美国的Griggs中士，乐观幽默，是所有人中最可爱的，因为只有他穿无袖，只有他在占领电视台之后跳HipHop，当然，也是很勇敢的。最后的战役，就是“我”和Price, Griggs组成3人小分队一起合作来到核武器控制中心，输入取消指令。在撤离的时候，公路桥被直升机炸毁，走投无路的我们面对蜂拥的敌人，Griggs被杀那一刻，我分明体会到一种悲伤的感觉。
+
+<img src="http://q.pnq.cc/wp-content/uploads/2007/11/cod4_3.jpg" alt="cod4_3.jpg" />
+
+但别忘记，CoD4还是一款游戏，除了好看，还有更重要的一点：<strong>它很好玩！</strong>画面效果好的游戏数不胜数，但成功的神作却为数不多，CoD4可以算作一个。
+
+CoD4分为两大部分：单人游戏和对战模式。单人游戏又有普通模式和<a href="http://www.gamespot.com.cn/cheats/2007/1101/52408.shtml">街机模式</a>之分，普通模式下可以无限生命，街机模式下则是有限生命，根据射击精度获得得分。游戏难度分为4个等级，在最高难度下可以体会到最残酷的战场氛围，必须小心翼翼检查每个角落，确保要经过的每个敌人都已经被击毙（如果敌人中弹但没死，会躺在地上突然用手枪射击）。
+
+游戏中所有的枪械、武器都是现代社会的真实装备，手感真实。像远距离的<a href="http://www.globalsecurity.org/military/systems/ground/m82.htm">M82.50 Caliber</a>，射击时就要考虑到风向、湿度的弹道修正（但玩的时候可以通过多尝试几次找到规律），而且会感觉到一股后座力，像极了真实的感觉。游戏中每种枪械都忠实于其真实的准确率和威力，手感不一，可以在杀死敌人后拾取他的武器。
+
+但游戏中的武器可不只是“枪”这么简单，肩扛式导弹，C4，地雷这些也都没什么，比较令人印象深刻的是空军火力支援的重要性。一个坚固的阵地，从地面进攻会相当困难，但有了空军支援，情况就大不一样。有些关卡可以召唤直升机甚至战斗机支援，抢得宝贵的时间。但，最酷的是，有一关中，你可以亲自操纵战机上的火炮，为地面部队提供火力支援，感受AC130的威猛和空军的强大优势。
+
+多人模式的设计，也备受好评。可以看看《家用电脑与游戏》的<a href="http://www.ccnec.com/z/pcgame/2007/10/17/017454.shtml">这篇文章</a>。既有常见的各种竞赛模式（营救、除弹、夺旗等），也有RPG形式的技能和军衔升级模式，非常好玩，相信可以成为新的热门竞技游戏。
+
+《使命召唤：现代战争》，这款出身名门的精致游戏，已经让全世界的FPS迷为之疯狂。加上游戏中各大游戏平台（PC、PS3、Xbox甚至NDS）上都有发布版本，大有席卷全世界所有游戏迷的气势，相信若干年之后，一定还会被很多玩家津津乐道，这，就是经典的力量!
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2007/08/08/bloxorz/">
+		
+			Bloxorz: 立方体难题</a>
+	</h2>
+	<div class="entry-content">
+		<img border="0" vspace="5" align="left" src="http://q.pnq.cc/wp-content/uploads/2007/08/snap_bloxorz.thumbnail.gif" hspace="5" alt="Bloxorz" title="Bloxorz" />
+游戏：<a target="_blank" href="http://www.addictinggames.com/bloxors.html" title="play bloxorz">Bloxorz
+</a>类型：多关卡益智游戏
+作者：<a target="_blank" href="http://www.dxinteractive.com" title="visit DX Interactive">DX Interactive</a>
+<p>
+<a target="_blank" href="http://www.addictinggames.com/bloxors.html" title="play bloxorz">Bloxorz</a>是一款颇有水准的智力游戏，游戏创意、可玩性、画面、控制感、难度、音效均无可挑剔，是不可多得的休闲益智游戏。游戏中，玩家利用上下左右四个方向键控制一个立方体方块滚动，掉进目标的小洞内即算过关。规则虽然简单，玩起来却很费思考，要充分利用有限的空间辗转腾挪，掌握规律，预先判断出方案才能又快又好地完成任务，对于提高逻辑思考能力很有帮助。</p>
+
+		
+		<a href="/blog/2007/08/08/bloxorz/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-08T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2007/08/05/missile-3d/">
+		
+			Missile 3D: 紧张到窒息</a>
+	</h2>
+	<div class="entry-content">
+		<a rel="attachment wp-att-7" href="http://q.pnq.cc/archives/8/missile-game-3d/" title="Missile Game 3D"><img border="0" vspace="5" align="left" src="http://q.pnq.cc/wp-content/uploads/2007/08/snap_misile3d.thumbnail.gif" hspace="5" alt="Missile Game 3D" title="Missile Game 3D" /></a>游戏：<a target="_blank" href="http://www.addictinggames.com/missilegame3d.html" title="Play Missile 3D">The Missile?Game 3D</a>
+类型：敏捷躲避型动作游戏，Flash游戏
+作者：<a target="_blank" href="http://www.dxinteractive.com/">DX Interactive</a>
+
+the Missile Game 3D 是一个紧张刺激的小游戏。游戏中玩家以导弹的视角在一个狭长的通道内前进，穿过通道内的重重障碍到达终点。游戏的特点在于控制的难度造成的紧张感与成就感，简单而不简陋，绝对令你印象深刻。
+
+
+		
+		<a href="/blog/2007/08/05/missile-3d/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-05T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2007/08/04/tactical-assassin/">
+		
+			Tactical Assassin : 让你过把杀手瘾</a>
+	</h2>
+	<div class="entry-content">
+		<p><img align="left" src="http://q.pnq.cc/wp-content/uploads/2007/08/snap_tactical.thumbnail.gif" hspace="5" alt="Tactical Assasin" title="Tactical Assasin" /></p>
+<p>游戏：<a target="_blank" href="http://www.wiicade.com/playGame.aspx?gameID=29">Tactical Assassin</a><br />
+分类：策略性动作游戏，Flash游戏<br />
+作者：Simon Hason</p>
+<p>在<a target="_blank" href="http://www.wiicade.com/playGame.aspx?gameID=29">Tactical Assassin</a>中玩家扮演的是一个职业杀手, 受命刺杀敌对组织的目标。游戏分为不同的关卡/任务，不同任务需要不同的策略, 许多任务都要求不能触发警报, 颇费些思量。 遗憾的是关数比较少, 而且都比较简单, 让人意犹未尽. 据说会有二代， 让我们期待2代吧 :)</p>
+<p>ps. 这个游戏的音效很专业，音效是用游戏 Counter Strike 的，音乐是取自<a target="_blank" href="http://en.wikipedia.org/wiki/Harry_Gregson-Williams">Herry Gregson Williams</a>的作品。</p>
+<p>
+		
+		<a href="/blog/2007/08/04/tactical-assassin/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-04T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2007/08/04/interactive-go/">
+		
+			交互式围棋教程</a>
+	</h2>
+	<div class="entry-content">
+		<img align="left" src="http://q.pnq.cc/wp-content/uploads/2007/08/go.thumbnail.gif" hspace="5" alt="交互式围棋教程" title="交互式围棋教程" />?如果你有兴趣学习围棋，不妨看一下这个：
+<a target="_blank" href="http://playgo.to/interactive/chinese/lesson/" title="交互式围棋教程">交互式围棋教程（中文版）</a> |? <a target="_blank" href="http://playgo.to/interactive/" title="interactive go lesseons">英文版</a>?。
+这套教程发扬多媒体的优势，由浅入深，十分适合自学！ :)
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-04T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+<nav id="pagenavi">
+    
+        <a href="/blog/page/5/" class="prev">Prev</a>
+    
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

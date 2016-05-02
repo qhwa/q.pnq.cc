@@ -1,0 +1,185 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>使用Filereference时的一些注意事项 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="FileReference用来上传文件，结合FileReferenceList使用，可以弹出一次文件选择框就上传很多个文件，比HTML form形式的友好很多。但是使用的时候，有些地方需要注意的： 上传文件时，不能增加自定义request header
+这点不同于URLLoader： &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">使用Filereference时的一些注意事项</h2>
+	<div class="entry-content"><a href="http://help.adobe.com/zh_CN/AS3LCR/Flash_10.0/flash/net/FileReference.html">FileReference</a>用来上传文件，结合FileReferenceList使用，可以弹出一次文件选择框就上传很多个文件，比HTML form形式的友好很多。但是使用的时候，有些地方需要注意的：
+<ol>
+	<li><strong>上传文件时，不能增加自定义request header</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">这点不同于URLLoader：URLLoader是可以增加自定义头部信息（request header）的，但是敏感的字段是不可以更改的，比如refer、cookie、host等等；而FileReferrence则不可以增加任何自定义头信息，所有自己添加的自定义header，都被播放器悄无声息地忽略掉了，没有任何报错和提示。如果一定要增加字段，只能添加到POST变量中。</p>
+</li>
+	<li><strong>只有IE才能附带浏览器Cookie信息</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">在非IE浏览器中，利用FileReference发出的HTTP请求，带的cookie资料都是IE的cookie。即便在Firefox或者chrome中，传送的cookie也是IE的！有的同学说这和默认浏览器设置有关，例如将默认浏览器设为Firefox，那么IE就得不到cookie。但是我测试了一下，发现无论默认浏览器是什么，发送的都是IE的cookie。解决方案暂时是借用JS得到cookie（ ExternalInterface.call(&#8220;javascript:document.cookie&#8221;) ），当作变量post过去。麻烦的是，服务器端也要做相应的调整。这个BUG到目前（2009年4月6日）为止，已经差不多存在了一年了。</p>
+</li>
+	<li><strong>得不到文件的本地路径</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">Flash10的Reference可以得到本地文件的二进制文件，但是得不到文件路径（file://&#8230;）。这个问题还附带导致了一个问题，FilereferrenceList不能判断出重复选择的文件。就是说第一次弹出文件选择对话框的时候，用户选择了一个文件。过了一段时间再继续浏览文件，又选择了这个文件，这时候Flash是没有办法知道重复选择的。</p>
+</li>
+	<li><strong>不能设置上传的content-type</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">可能会让人郁闷的是，这个也没有任何throw/warning报错。</p>
+</li>
+	<li><strong>只支持实际存在的文件的上传下载</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">要是要上传一些动态生成的数据到服务器存储，那就用不得Filereference，也看不到上传进度了。</p>
+</li>
+</ol>
+<blockquote><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">顺便说一下，内存里面的数据，希望上传到服务器保存为文件，可以用URLLoader,URLStream之类的代替。但是FlashPlayer10有个<a href="http://www.adobe.com/devnet/flashplayer/articles/fplayer10_security_changes_02.html#head34">新增的安全性限制</a>，当上传文件的时候，播放器会检查操作是否由用户点击触发。没有点击就上传，会被浏览器阻挡掉请求。播放器判断一个HTTP请求是否是文件上传的依据是form-based-HTML-file-upload规范，有两个标志：
+一<strong>是content-type含有“ multipart”</strong>，例如“</span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;">multipart</span></span><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">/form-data”，“my</span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;">multipart</span></span><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">xxx”；
+<strong>二是字段名含有 </strong></span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;"><strong>filename</strong><span style="color: #000000;">。
+满足了这两点，flash播放器就会把这次请求当作文件上传处理，进而检查是否符合安全限制。要防止被阻挡掉也很简单，不要用<span style="color: #3366ff;">filename</span>这个关键字做数据的字段名即可。</span></span></span></blockquote>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-06T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ubuntu下使用Array SSL VPN客户端连接VPN网络 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="公司用的Array Networks提供的SSL VPN系统，vpn网页在Ubuntu下无法正常启动Java Applet。幸好得到了wenyue的指点，找到了方法。如果你也是Ubuntu系统，需要连接到Array SSL VPN，可以参考一下。 安装步骤 1.下载Array &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Ubuntu下使用Array SSL VPN客户端连接VPN网络</h2>
+	<div class="entry-content"><p>公司用的<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的SSL VPN系统，vpn网页在Ubuntu下无法正常启动Java Applet。幸好得到了<a href="http://wenyue.me/blog/">wenyue</a>的指点，找到了方法。如果你也是Ubuntu系统，需要连接到Array SSL VPN，可以参考一下。</p>
+
+<h2>安装步骤</h2>
+
+<p>1.下载<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的客户端程序 array_vpnc.bin</p>
+
+<pre><code>#!bash
+sudo apt-get install libc6-i386 #64位系统也是这个包
+wget http://q.pnq.cc/uploads/array_vpnc.bin
+chmod a+x array_vpnc.bin
+</code></pre>
+
+<p>2.下载这个小脚本到同个目录</p>
+
+<pre><code>#!bash
+#下载辅助脚本
+wget http://q.pnq.cc/uploads/vpn-for-common.sh -O vpn.sh
+#里面会包含重要信息，我们不想别人随便访问
+chmod 700 vpn.sh
+</code></pre>
+
+<p>3.修改vpn.sh中的配置，将vpn_host、user、key修改为你的配置</p>
+
+<pre><code>#!bash
+vpn_host=your_vpn_server
+user=your_user_name
+key=your_static_passwd #密码中不变的部分
+</code></pre>
+
+<h2>使用方法：</h2>
+
+<pre><code>#!bash
+./vpn.sh
+</code></pre>
+
+<p>然后根据提示输入，当看到这个提示时，就说明成功了：</p>
+
+<blockquote><p>array_vpnc: VPN TUNNEL SUCCESSFUL!</p></blockquote>
+
+<p>Have fun!</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-01T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

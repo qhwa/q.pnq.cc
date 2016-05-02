@@ -1,0 +1,269 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>使用Apache Benmark(ab) 对一个 Ruby Web 程序做性能测试 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="最近要在一些内部系统中嵌入fdlint的功能，检查HTML的语法是否正确。涉及到了系统性能测试的问题，学习了一下，在这里记录一下。 首先是工具的选择，apache自带的性能测试工具ab简单方便，就用他了！ 首页（静态页面）的测试 很简单的一个命令搞定: 1
+ab -n &lt;总数&gt; -c &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">使用Apache Benmark(ab) 对一个 Ruby Web 程序做性能测试</h2>
+	<div class="entry-content"><p>最近要在一些内部系统中嵌入<a href="https://github.com/qhwa/fdlint-host/">fdlint</a>的功能，检查HTML的语法是否正确。涉及到了系统性能测试的问题，学习了一下，在这里记录一下。</p>
+
+<p>首先是工具的选择，apache自带的性能测试工具ab简单方便，就用他了！</p>
+
+<h2>首页（静态页面）的测试</h2>
+
+<p>很简单的一个命令搞定:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ab -n &lt;总数&gt; -c &lt;并发上限&gt; http://fdlint.mysite.com/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意最后的斜杠(&ldquo;/&rdquo;)没有的话命令会报错。-__&ndash;</p>
+
+<h2>功能页面(动态)的测试</h2>
+
+<p>这个页面需要接受一个form表单(POST形式). 这时可以用ab的参数q指定一个POST数据的内容。</p>
+
+<p>第一步先准备原始数据素材。我这需要提交一段HTML代码，所以找了一个HTML页面，临时下载一个也是很方便的：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget http://china.alibaba.com/ -O fixture.html
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第二步是把这个素材变成ab需要的方式，一是做URL编码，二是写成表单的形式。</p>
+
+<p>我写了一个ruby脚本来做编码的工作:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;uri&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="no">IO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;fixture.html&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">output</span> <span class="o">=</span> <span class="no">URI</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">str</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\\n|\\r/m</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;post.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">file</span> <span class="o">&lt;&lt;</span> <span class="sx">%Q(data=</span><span class="si">#{</span><span class="n">output</span><span class="si">}</span><span class="sx">&amp;type=html)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就在当前目录下生成了一个post.txt文件，格式是</p>
+
+<pre><code>data=&lt;编码过的HTML代码&gt;&amp;type=html
+</code></pre>
+
+<p>这是我的程序需要的数据格式，你可以根据实际需要调整。</p>
+
+<p>然后就用ab命令了，我也写了一个shell脚本，减少反复修改执行的重复劳动：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 测试目标url</span>
+</span><span class='line'><span class="nv">server</span><span class="o">=</span>http://fdlint.mysite.com/
+</span><span class='line'><span class="nv">amount</span><span class="o">=</span>5000
+</span><span class='line'><span class="nv">samual</span><span class="o">=</span>500
+</span><span class='line'>
+</span><span class='line'>ab -q <span class="se">\\</span>
+</span><span class='line'>   -n <span class="nv">$amount</span> -c <span class="nv">$samual</span> <span class="se">\\</span>
+</span><span class='line'>   -p post.txt <span class="se">\\</span>
+</span><span class='line'>   -T application/x-www-form-urlencoded <span class="se">\\</span>
+</span><span class='line'>   <span class="nv">$server</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>运行这个脚本，看到如下输出，表示性能测试完成:</p>
+
+<pre><code>&gt; Benchmarking fdlint.mysite.com (be patient).....done
+</code></pre>
+
+<p>实际执行的时候遇到几个问题。首先是&#8221;-T&#8221;参数一定要有，而且一定是这个值才可以。官方文档里面只是说如果用了-p来POST, 一定设置T参数指定content-type.</p>
+
+<h2>经验总结</h2>
+
+<ol>
+<li>如上面所说，url如果是站点根目录，一定要以斜杠(&ldquo;/&rdquo;)结尾</li>
+<li>使用-p之后一定要设置-T参数</li>
+<li><p>如何确定post过去之后，服务器的返回是正常的?</p>
+
+<ol type="a">
+<li>可以用ab的<code>-v</code>参数输出详细的日志，例如：<code>ab -v 4 -n 500 -c 5 $url</code></li>
+<li>在服务器可以记录日志</li>
+</ol>
+</li>
+</ol>
+
+
+<h2>参考文档</h2>
+
+<p><a href="http://httpd.apache.org/docs/2.4/programs/ab.html">官方文档链接</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-07T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>capistrano-hostmenu: 只操作指定的服务器 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="想必大家都用过 capistrano 了，部署代码到多个服务器上的神器。
+不过使用中有个不太方便的地方是，某些情况下只想部署到其中几台。 例如我们新增了一个功能，但只想找一台服务器先部署上去测试一下，成功后再部署到整个集群。 有好几种方式可以做到： 临时修改发布脚本（config/deploy. &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Capistrano-hostmenu: 只操作指定的服务器</h2>
+	<div class="entry-content"><p>想必大家都用过 <a href="http://capistranorb.com/">capistrano</a> 了，部署代码到多个服务器上的神器。
+不过使用中有个不太方便的地方是，某些情况下只想部署到其中几台。</p>
+
+<p>例如我们新增了一个功能，但只想找一台服务器先部署上去测试一下，成功后再部署到整个集群。</p>
+
+<p>有好几种方式可以做到：</p>
+
+<ol>
+<li>临时修改发布脚本（<code>config/deploy.rb</code> 或 <code>config/deploy/***.rb</code>）</li>
+<li>使用 <code>HOST</code> 命令行环境变量，或者 <code>--host</code> 参数, 比如 <code>HOST=example.com cap production deploy</code></li>
+</ol>
+
+
+<p>第1种不好重用，第2种在 <a href="http://capistranorb.com/">capistrano</a> v3.3 以上版本已经失效了。</p>
+
+<p>我把我们项目中用的 task 抽出来做成了一个 gem: <a href="https://github.com/qhwa/capistrano-hostmenu">capistrano-hostmenu</a>
+功能实在是太简单，没有什么好描述的。。</p>
+
+<p>一图顶千言：</p>
+
+<p><img src="https://ruby-china-files.b0.upaiyun.com/photo/2015/fd0dc13527ea01a9c5461ddc2b37638a.png" alt="" /></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-02-11T22:10:44+08:00" pubdate data-updated="true">Feb 11<span>th</span>, 2015</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://q.pnq.cc/blog/2015/02/11/capistrano-deloy-only-to-selected-servers/';
+        var disqus_url = 'http://q.pnq.cc/blog/2015/02/11/capistrano-deloy-only-to-selected-servers/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

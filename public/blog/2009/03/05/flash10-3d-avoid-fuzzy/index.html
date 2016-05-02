@@ -1,0 +1,357 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>[Flash10+3D] 简单的、清晰的卡片翻转效果 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="这几天在做的一个项目需要做一个卡片翻转效果，实践了一下Flash 10的新的3D功能。果真是方便至极，所有的可视化对象现在都有了3D相关的属性，只需要设置rotationY变化，就可以做出很炫的翻转效果了。但是我发现，经过3D变换后的对象，都会被Flash转成位图缓存的方式显示， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">[Flash10+3D] 简单的、清晰的卡片翻转效果</h2>
+	<div class="entry-content">这几天在做的一个项目需要做一个卡片翻转效果，实践了一下Flash 10的新的3D功能。果真是方便至极，所有的可视化对象现在都有了3D相关的属性，只需要设置rotationY变化，就可以做出很炫的翻转效果了。但是我发现，经过3D变换后的对象，都会被Flash转成位图缓存的方式显示，这样原先清晰的一些文字、图片等内容，就会显得比较模糊，演示：（需要安装 Adobe Flash Player 10 才能看到效果）
+
+<object width="500" height="430" data="/wp-content/uploads/2009/03/testf10twosideflipping-fuzzy.swf" type="application/x-shockwave-flash"><param name="src" value="/wp-content/uploads/2009/03/testf10twosideflipping-fuzzy.swf" /></object>
+
+第一面的文字本来是清晰的，翻转一遍之后就模糊了。Google了好久都没有找到解决方案，抓狂。。后来突然想到，是不是可以这样，将要变回清晰的对象换个清晰的父对象？实验了一下，果然可行，大喜！好像我太out了吧，直觉告诉我，在Flash9+Papervision3D的年代，大家应该都已经知道这个方法的了，但是我确实没有找到……现在将代码重新整理了一遍，记录下来，也许对大家有所帮助。
+
+先看看效果：
+
+<object width="500" height="430" data="/wp-content/uploads/2009/03/testf10twosideflipping.swf" type="application/x-shockwave-flash"><param name="src" value="/wp-content/uploads/2009/03/testf10twosideflipping.swf" /></object>
+
+主要的类：
+?
+<pre lang="actionscript">/**
+ *
+ * @author qhwa, , qhwa@163.com
+ * This class is a sample of Flash-10-3D-flipping,
+ * that can keep faces clear, not as fuzzy as
+ * default.
+ *
+ * 这个类演示了如何使用Flash10自带的3D功能创建一个
+ * 简单的卡片翻转效果，同时保持文字和其他内容的
+ * 清晰
+ *
+ */
+
+package qhwa.twosideflip
+{
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	import flash.text.TextFieldType;
+	import gs.easing.Back;
+	import gs.TweenLite;
+
+	/**
+	 * ...
+	 * @author ...
+	 */
+	public class Card extends Sprite
+	{
+		[Embed(source='../../../lib/goodbyewow02.jpg')]
+		private var FrontFace:Class;
+
+		[Embed(source='../../../lib/goodbyewow04.jpg')]
+		private var BackFace:Class;
+
+		private var fFace:Sprite;
+		private var bFace:Sprite;
+		private var cleanObj:Sprite;
+		private var dirtyObj:Sprite;
+
+		public function Card()
+		{
+			if (stage) init();
+			else addEventListener(Event.ADDED_TO_STAGE, init);
+		}
+
+		private function init(e:Event = null):void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			// entry point
+
+			var frontBg:DisplayObject = new FrontFace();
+			var backBg:DisplayObject = new BackFace();
+			frontBg.x = backBg.x = - frontBg.width / 2;
+			frontBg.y = backBg.y = - frontBg.height / 2;
+			fFace = new Sprite();
+			bFace = new Sprite();
+			fFace.addChild(frontBg);
+			bFace.addChild(backBg);
+			//背面需要额外处理一下，
+			//翻转过来，并且暂时隐藏
+			bFace.scaleX *= -1;
+			bFace.visible = false;
+			bFace.buttonMode = fFace.buttonMode = true;
+
+			//测试的文字
+			var testTF:TextField = new TextField();
+			testTF.width = 400;
+			testTF.height = 200;
+			testTF.textColor = 0xFFFFFF;
+			testTF.htmlText = "验证码是防止被机器人恶意灌水的一个方法，"+
+				"产生一个只有服务器才知道的信息（例如一个单词、数字等），" +
+				"在客户端浏览器中以机器人不能分析的方式（通常是图片）出现，" +
+				"作为判断机器人和真人的一个依据。一般是在服务器端生成图片，" +
+				"由用户在文本框输入看到的文字。";
+			testTF.appendText(testTF.text);
+			testTF.selectable = true;
+			testTF.multiline = true;
+			testTF.wordWrap = true;
+			testTF.x = frontBg.x + 10;
+			testTF.y = frontBg.y + 200;
+			testTF.type = TextFieldType.INPUT;
+			fFace.addChild(testTF);
+
+			cleanObj = new Sprite();
+			dirtyObj = new Sprite();
+
+			dirtyObj.addChild(fFace);
+			dirtyObj.addChild(bFace);
+			addChild(dirtyObj);
+			addChild(cleanObj);
+
+			addEventListener(MouseEvent.CLICK, clickHandler);
+
+		}
+
+		private function clickHandler(e:MouseEvent = null):void
+		{
+			// 修改文字时不动
+			if (e.target is TextField) return;
+
+			if (e.target == fFace || e.target.parent == fFace)
+			{
+				// flip to back
+				dirty();
+				TweenLite.killTweensOf(dirtyObj);
+				TweenLite.to( dirtyObj, 1, {
+					rotationY:180,
+					ease: Back.easeOut,
+					onComplete: cleanBackFace,
+					onUpdate: update
+				} );
+			} else if (e.target == bFace || e.target.parent == bFace) {
+				// flip to front
+				dirty();
+				TweenLite.killTweensOf(dirtyObj);
+				TweenLite.to( dirtyObj, 1, {
+					rotationY:0,
+					ease: Back.easeOut,
+					onComplete: cleanFrontFace,
+					onUpdate: update
+				} );
+			}
+		}
+
+		/**
+		 * 检查应该显示哪个面
+		 */
+		private function update():void
+		{
+			bFace.visible = dirtyObj.rotationY > 90 && dirtyObj.rotationY < 270;
+			fFace.visible = !bFace.visible;
+		}
+
+		/**
+		 * 清晰化封面
+		 */
+		private function cleanFrontFace():void
+		{
+			if (dirtyObj.contains(fFace))
+			{
+				dirtyObj.removeChild(fFace);
+				cleanObj.addChild(fFace);
+			}
+		}
+
+		/**
+		 * 清晰化背面
+		 */
+		private function cleanBackFace():void
+		{
+			if (dirtyObj.contains(bFace))
+			{
+				dirtyObj.removeChild(bFace);
+				cleanObj.addChild(bFace);
+				bFace.scaleX *= -1;
+			}
+		}
+
+		/**
+		 * 封面和背面都放入dirty容器，进行旋转操作
+		 */
+		private function dirty():void
+		{
+			if (cleanObj.contains(fFace) || cleanObj.contains(bFace))
+			{
+				var face:DisplayObject = cleanObj.getChildAt(0);
+				cleanObj.removeChild(face);
+				dirtyObj.addChild(face);
+				if (face == fFace)
+				{
+					dirtyObj.swapChildren(face, bFace);
+				} else {
+					bFace.scaleX *= -1;
+				}
+			}
+		}
+
+	}
+
+}</pre>
+<a href="http://q.pnq.cc/wp-content/uploads/2009/03/test_f10_twosideflipping.zip">下载源文件 (source)</a>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-05T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

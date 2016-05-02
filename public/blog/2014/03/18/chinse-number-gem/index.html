@@ -1,0 +1,213 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>chinese_number: 一个解析汉字数字的 ~rubygem - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="ruby-china 上有人问到怎么优雅地解析汉字数字，比如 二十五 解析成 25 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！ 不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Chinese_number: 一个解析汉字数字的 ~rubygem</h2>
+	<div class="entry-content"><p><a href="http://ruby-china.org">ruby-china</a> 上有人问到<a href="http://ruby-china.org/topics/17913">怎么优雅地解析汉字数字</a>，比如 <code>二十五</code> 解析成 <code>25</code> 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！</p>
+
+<p>不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; <strong><a href="https://github.com/qhwa/chinese_number">chinese_number</a></strong></p>
+
+<p>用法很简单：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;chinese_number&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">trans</span> <span class="s1">&#39;今天二十万&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; &quot;今天200000&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">find</span> <span class="s2">&quot;一年有十二个月三百六十五天&quot;</span>
+</span><span class='line'><span class="c1">#=&gt; [{&quot;一&quot;=&gt;1}, {&quot;十二&quot;=&gt;12}, {&quot;三百六十五&quot;=&gt;365}]</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">extract</span> <span class="s2">&quot;今天二十晚&quot;</span>
+</span><span class='line'><span class="c1">#=&gt; [20]</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;二零一四&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; 2014</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;一万三千&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; 13000</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-18T17:45:38+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://q.pnq.cc/blog/2014/03/18/chinse-number-gem/';
+        var disqus_url = 'http://q.pnq.cc/blog/2014/03/18/chinse-number-gem/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

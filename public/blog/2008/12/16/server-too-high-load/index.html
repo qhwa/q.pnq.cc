@@ -1,0 +1,181 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>一个服务器负载过高的问题 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="今天服务器出了许多问题，首先是几乎所有服务都停止了，http,ftp,mysql&#8230; 都访问不到，但是能ping到。客服帮忙重启了一下服务器后，ping不通。发现rc.local中设置网关的地方，被改成一个错误网关地址了，不知为何。修复后发现，在同时，系统的负载就不断升高， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">一个服务器负载过高的问题</h2>
+	<div class="entry-content">今天服务器出了许多问题，首先是几乎所有服务都停止了，http,ftp,mysql&#8230; 都访问不到，但是能ping到。客服帮忙重启了一下服务器后，ping不通。发现rc.local中设置网关的地方，被改成一个错误网关地址了，不知为何。修复后发现，在同时，系统的负载就不断升高，一直到了110以上，响应越来越慢。用top看了一下，发现有两个diff进程，比较的文件是邮件系统的log，占了极高的资源，4分钟了还没运行完。。。kill掉，顺便删掉过大的log文件（人工rotate，估计被邮件洪水了），暂停邮件系统，终于正常了，负载恢复到0.1+。
+<blockquote>btw. 用 top -bcisSH 发现哪些家伙在啃CPU</blockquote>
+但还没完呢……
+
+<!--more-->一旦重新开启postfix服务，就有上万个链接连到DNS服务器、x个邮件服务器，发送大堆的垃圾邮件，然后服务器又像死了一样。先检查一下哪个帐号被利用了，到/var/mail里面看到一个比较大的文件，属于一个临时创建的帐号的，很可能就是他了，删掉邮件、帐号先。然后看了一下postfix的邮件队列（/var/spool/postfix/active, /var/spool/postfix/defer），发现有将近2G的邮件要发送！。。。用“<strong>postqueue -d ALL</strong>”清空邮件列表，一阵时间之后，终于OK了，启动postfix也没有发生情况。
+
+<span style="color: #ffff00;"><strong>↓ </strong></span>这是<strong>postfix邮件队列的长度</strong>走势图，可以看到，因为邮件数量巨大，系统不堪重负，出现了很多统计断节。后来关闭邮件系统之后，队列长度保持一条横线，没有发生变化。最后清空后，一直处于正常的范围了。
+
+<img class="alignnone size-full wp-image-41" title="postfix邮件队列长度走势" src="http://q.pnq.cc/wp-content/uploads/2008/12/adminuyaacc-postfix_mailqueue-week.png" alt="postfix邮件队列长度走势" width="495" height="348" />
+
+<strong>↓ </strong>这是对应的连接数走势图，高峰时期达到了同时1万个连接，真恐怖
+
+<img class="alignnone size-full wp-image-43" title="连接数量走势" src="http://q.pnq.cc/wp-content/uploads/2008/12/adminuyaacc-netstat-week.png" alt="连接数量走势" width="495" height="324" />
+
+<strong>↓ </strong>系统负载也趋于正常了。
+
+<img class="alignnone size-full wp-image-44" title="系统负载走势图" src="http://q.pnq.cc/wp-content/uploads/2008/12/adminuyaacc-load-week.png" alt="系统负载走势图" width="495" height="276" />
+
+问题终于告一段落了，服务器又恢复了以前的速度，真开心！同时也感受到，要学习的东西太多了。。
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-16T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

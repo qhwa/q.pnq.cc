@@ -1,0 +1,671 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="现在用Ubuntu或者Mac的人越来越多了，但很多情况下还是离不开Windows，所以大多数人都是安装了Virtualbox，在VBox里面运行Windows虚拟机。 你是怎样启动Windows虚拟机的呢？是不是
+1. 运行Virtualbox 2. 点选虚拟机的图标 3.点“启动” &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/03/25/ubuntu-start-vm-fast/">
+		
+			如何一键启动Virtualbox虚拟机</a>
+	</h2>
+	<div class="entry-content">
+		<img class="alignnone size-full wp-image-491" title="Screenshot-2" src="http://q.pnq.cc/wp-content/uploads/2011/03/Screenshot-2.jpg" alt="" width="865" height="136" />
+现在用Ubuntu或者Mac的人越来越多了，但很多情况下还是离不开Windows，所以大多数人都是安装了Virtualbox，在VBox里面运行Windows虚拟机。
+
+你是怎样启动Windows虚拟机的呢？是不是
+1. 运行Virtualbox 2. 点选虚拟机的图标 3.点“启动”
+
+那么可以考虑一下给单个虚拟机创建快捷方式，提高工作效率。别小看这点时间哦，每天节约下来的时间不可小视呢！
+
+在桌面/Dock上创建一个程序快捷方式:
+<code>/usr/bin/VBoxManage startvm 虚拟机名称</code>
+
+例如我的虚拟机叫做XP，那么这个命令就是
+<code>/usr/bin/VBoxManage startvm XP</code>
+
+不同的系统可能VBoxManage所在的地方不一样，用这个命令查找VBoxManage所在路径：
+<code>which VBoxManage</code>
+
+至于怎么创建快捷方式，可以参考网上的教程。这是我的Ubuntu上的效果：
+
+<img class="alignnone size-full wp-image-490" title="Virtualbox shortcut" src="http://q.pnq.cc/wp-content/uploads/2011/03/Screenshot-3.jpg" alt="" width="865" height="725" />
+
+ps. 图标是在<a href="http://www.iconfinder.net" target="_blank">iconfinder</a>找到的
+
+&nbsp;
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-25T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/03/24/crontab/">
+		
+			Crontab无效的原因分析</a>
+	</h2>
+	<div class="entry-content">
+		有时候会发生这样的现象，命令是可以在shell中正常运行的，但添加到crontab中定时运行的时候，就发生一些异常的事情。（如果还不知道 <a href="http://baike.baidu.com/view/1229061.html?fromTaglist">Crontab</a> 是什么的话，可以看一下<a href="http://baike.baidu.com/view/1229061.html?fromTaglist">这里</a>先）
+
+比如我今天在目录/home/ued66/asproj-builder 下写了一个<em> build-all.sh</em>:
+<code>svn up <span style="color: #888888;">#更新代码</span>
+./compile.rb --all &gt;&gt; ./log/run.log <span style="color: #999999;">#编译，并将结果记录</span></code>
+
+在shell中运行这个命令是正常的：
+<code>/home/ued66/asproj-builder/build-all.sh</code>
+
+crontab中这样写：
+<code>*/5 * * * * /home/ued66/asproj-builder/build-all.sh</code>
+(为了测试方便，设成每5分钟运行一次，实际是每天运行一次足矣）
+
+虽然是同个命令，但是compile.rb却没有被正确调用。
+
+经过调试，发现问题有两个：
+
+<strong>1. 路径问题</strong>
+既然用了相对路径，必须要把当前目录设置正确。把crontab写成这样：
+<code>*/5 * * * * cd /home/ued66/asproj-builder &amp;&amp; ./build-all.sh</code>
+
+<strong>2. 环境问题</strong>
+compile.rb 是用ruby写的一个脚本，而我的ruby程序是用源码编译安装的，安装目录是/usr/local/ruby。compile.rb的第一行是
+<span style="color: #ff0000;"><code>#!/usr/bin/env ruby</code></span>
+这是告诉shell使用ruby来执行这个脚本。但问题在于crontab运行的时候是没有加载用户环境变量的，“which ruby“运行结果为空也验证了这点。所以compile.rb不能被正确执行也很好理解了。
+
+最后把build-all.sh写成这样，问题解决：
+<code><span style="color: #999999;">#!/bin/sh</span>
+svn up
+<span style="color: #ff0000;"><strong>/usr/local/ruby/bin/ruby</strong></span> compile.rb --all &gt;&gt; ./log/run.log</code>
+
+看着程序自动运作起来，非常开心啊！
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-24T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/03/18/virtualbox-bridge-network/">
+		
+			Virtualbox 网络桥接不起作用？试试装增强功能</a>
+	</h2>
+	<div class="entry-content">
+		今天晚上在Ubuntu的服务器上用Virtualbox安装了一个Windows 7的虚拟机，一切都好，但在网络配置的时候遇到了问题。网卡选择桥接（Bridge）模式，运行时能（从DHCP服务器）得到ip地址，却无法上网。外部的计算机也访问不了该ip。
+
+Google之，尝试了很多方法，都没有效果。
+
+最后偶然发现，安装完增强功能包之后，居然桥接模式就正常了。进一步证明，这个增强功能包是必备的东东。
+
+安装增强功能包，一开始是从Virtualbox菜单中安装，发现下载速度太慢。在apt里面搜到原来有个包：virtualbox-guest-additions，所以先执行这句：
+<code>sudo apt-get install virtualbox-guest-additions</code>
+
+然后再到VB虚拟机里面点安装增强功能，可以节约一点时间。
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2010/10/30/flash-fake-sandbox-security-problem/">
+		
+			Flash在某些多标签浏览器中的“伪沙箱”问题</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="http://q.pnq.cc/wp-content/uploads/2010/10/sandbox.png"><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="sandbox" border="0" alt="sandbox" src="http://q.pnq.cc/wp-content/uploads/2010/10/sandbox_thumb.png" width="479" height="367"></a></p> <p>在Flash播放器运行时，将不同来源的资源划分到独立的沙箱(sandbox)内，不同沙箱之间不能彼此操作数据（除非目标沙箱做过一些设置，授权其他沙箱可访问），这就是Flash的跨沙箱问题。当Flash文件(.swf) 和页面(.html)不在同一个域名下时，如果不经过Flash内部声明System.allowDomain，html无法访问flash定义的接口；不经过html设置allowScriptAccess为&#8217;always&#8217;，Flash也无法调用页面上的js函数。</p> <p>那么如果html和flash都设置了互相可以访问，是否Flash和html之间就可以互相访问了呢？理论上是的，然而实际上却不是。<img style="border-bottom-style: none; border-right-style: none; border-top-style: none; border-left-style: none" class="wlEmoticon wlEmoticon-brokenheart" alt="破碎的心" src="http://q.pnq.cc/wp-content/uploads/2010/10/wlEmoticon-brokenheart.png"></p> 
+		
+		<a href="/blog/2010/10/30/flash-fake-sandbox-security-problem/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-30T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2010/04/25/fiddler-by-example/">
+		
+			使用Fiddler提高前端工作效率 (实例篇)</a>
+	</h2>
+	<div class="entry-content">
+		<img class="alignnone size-full wp-image-429" title="fiddler-title" src="http://www.aliued.cn/wp-content/uploads/2010/04/1-13.jpg" alt="" />
+
+在<a href="http://q.pnq.cc/archives/368">上一篇（介绍篇）</a>中，我们对<a href="http://www.fiddler2.com/fiddler2/">Fiddler Web Debugger</a>有了简单的接触，也许你已经开始在用Fiddler进行HTTP相关的调试，在这一篇，我们将通过一个实例了解Fiddler的神奇魔法。
+
+在我们前端开发的日常工作中，发现服务器上某个css/javascript文件有问题，需要修改，那真是家常便饭。通常，我们需要将文件进行修改，然后重新发布再验证，这样就很容易影响到生产环境的稳定性。更普遍的做法是，我们在开发环境中修改文件并验证，然后发布到生产环境。虽然安全，却比较繁琐。而利用Fiddler的可以修改HTTP数据的特性，我们就非常敏捷地<strong>基于生产环境</strong>“修改——验证——发布”。
+		
+		<a href="/blog/2010/04/25/fiddler-by-example/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-25T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2010/04/18/inctroducing-fiddler/">
+		
+			使用Fiddler提高前端工作效率 (介绍篇)</a>
+	</h2>
+	<div class="entry-content">
+		<h2><img class="alignnone size-full wp-image-407" title="FiddlerLogo" src="http://q.pnq.cc/wp-content/uploads/2010/04/FiddlerLogo.png" alt="" width="277" height="84" /></h2>
+<h2>1. Fiddler 是什么？</h2>
+Fiddler是用C#编写的一个免费的HTTP/HTTPS网络调试器。英语中Fiddler是小提琴的意思，<a href="http://www.fiddler2.com/fiddler2/">Fiddler Web Debugger</a>就像小提琴一样，可以让前端开发变得更加优雅。
+
+Fiddler是以代理服务器的方式，监听系统的网络数据流动。运行Fiddler后，就会在本地打开8888端口，网络数据流通过Fiddler进行中转时，我们可以监视HTTP/HTTPS数据流的记录，并加以分析，甚至还<span style="color: #ff0000;"><strong>可以修改</strong></span>发送和接收的数据。Fiddler还提供了清除IE缓存、请求构造器、文本转换工具等等一系列工具，对前端开发工作很有价值。
+		
+		<a href="/blog/2010/04/18/inctroducing-fiddler/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/08/11/dev-tools/">
+		
+			帮助我提升Actionscript 开发效率的一些工具</a>
+	</h2>
+	<div class="entry-content">
+		一个好用的工具不仅仅可以解决问题，还可以提高工作的效率。追求最高效敏捷的开发，是一种精神。在平常工作中，我不断在寻找提高效率的软件，以下是Flash开发时候用到的一些工具，与大家分享一下，拋砖引玉，如果你有更好的，不妨来交流一下。
+<h3>1.开发环境类</h3>
+<ul>
+	<li><cite><strong><a href="http://www.flashdevelop.org">Flashdevelop</a>
+</strong></cite><a href="http://www.flashdevelop.org"><img class="alignnone size-full wp-image-330" title="flashdevelop2" src="http://q.pnq.cc/wp-content/uploads/2009/08/flashdevelop2.gif" alt="flashdevelop2" width="500" height="300" /></a></li>
+	<li><a href="http://labs.adobe.com/technologies/flashbuilder4/" target="_blank"><cite><strong>Adobe Flash Builder (FLex)</strong></cite></a></li>
+	<li><a href="http://labs.adobe.com/technologies/flashcatalyst/" target="_blank"><cite><strong>Adobe Flash Catalyst</strong></cite></a> —— 快速处理设计资源，构建程序原型</li>
+	<li><a href="http://www.adobe.com/products/flash/" target="_blank"><cite><strong>Adobe Flash CS4</strong></cite></a> —— 处理设计资源偶尔用到</li>
+	<li><cite><strong><a href="http://fdt.powerflasher.com/" target="_blank">FDT </a>
+</strong></cite></li>
+	<li><a href="http://www.eclipse.org/" target="_blank"><cite><strong>Eclipse</strong></cite></a></li>
+	<li><a href="http://www.aptana.com/" target="_blank"><cite><strong>Aptana</strong></cite></a></li>
+</ul>
+<h3>2.帮助、工具书</h3>
+<ul>
+	<li> <a href="http://flex.org/tour" target="_blank"><cite><strong>Tour de flex</strong></cite></a>
+<a href="http://flex.org/tour" target="_blank"><img class="alignnone size-full wp-image-332" title="tour-de-flex" src="http://q.pnq.cc/wp-content/uploads/2009/08/tour-de-flex.png" alt="tour-de-flex" width="500" height="451" /></a></li>
+	<li> <a href="http://livedocs.adobe.com/flash/9.0_cn/ActionScriptLangRefV3/" target="_blank"><cite>在线文档</cite></a></li>
+	<li><a href="http://www.airdoc.be/" target="_blank"><cite><strong>DOC?</strong></cite></a></li>
+</ul>
+<h3>3.测试类</h3>
+<ul>
+	<li><a href="http://www.fiddler2.com" target="_blank">Fiddler</a>
+<a href="http://www.fiddler2.com"><img class="alignnone size-full wp-image-333" title="fiddler" src="http://q.pnq.cc/wp-content/uploads/2009/08/fiddler.png" alt="fiddler" width="500" height="286" /></a></li>
+	<li> <cite><a href="http://www.adobe.com/support/flashplayer/downloads.html" target="_blank"><strong>Flash player</strong> 调试版本</a></cite><a href="http://tortoisesvn.tigris.org/" target="_blank"><cite></cite></a> —— 很基础确很实用的调试工具 <cite>
+</cite></li>
+	<li> <a href="http://demonsterdebugger.com/" target="_blank"><cite><strong>Monster debugger</strong></cite></a> —— 强大的外部调试工具 <cite></cite><a href="http://demonsterdebugger.com/" target="_blank"><cite>
+</cite></a></li>
+	<li><a href="http://getfirebug.com/" target="_blank"><cite><strong>firebug</strong></cite></a> —— 与JS通信时的调试很有用<a href="http://demonsterdebugger.com/" target="_blank"><cite>
+</cite></a></li>
+</ul>
+<h3>4.代码管理</h3>
+<ul>
+	<li><a href="http://code.google.com/intl/zh-CN/" target="_blank"><cite><strong>Google Code</strong></cite></a> —— Google 提供的代码托管
+<cite></cite></li>
+	<li><cite><strong><a href="http://www.subversion.org.cn/" target="_blank">subversion</a></strong></cite> ——建立自己的SVN服务器</li>
+	<li><a href="http://tortoisesvn.tigris.org/" target="_blank"><cite><strong>tortoisesvn</strong></cite></a> —— SVN客户端软件</li>
+</ul>
+<h3>5.通用工具</h3>
+<ul>
+	<li> <cite><strong><a href="http://www.launchy.net/" target="_blank">launchy</a>
+<a href="http://www.launchy.net/"><img class="alignnone size-medium wp-image-336" title="launchy-1" src="http://q.pnq.cc/wp-content/uploads/2009/08/launchy-1-480x300.png" alt="launchy-1" width="480" height="300" /></a>
+</strong></cite></li>
+	<li><cite><strong><a href="http://www.xmind.net">xmind</a>
+<a href="http://www.xmind.net"><img class="alignnone size-medium wp-image-338" title="xmind1" src="http://q.pnq.cc/wp-content/uploads/2009/08/xmind1-499x440.gif" alt="xmind1" width="499" height="440" /></a>
+</strong></cite></li>
+</ul>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-11T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/01/vector-based-jpeg-encoder/">
+		
+			异步+Vector版本的JPEG编码器</a>
+	</h2>
+	<div class="entry-content">
+		业界大牛 <a href="http://bytearray.org">Thibault Imbert</a> (<a href="http://bytearray.org">bytearray.org</a>) 近日将很常用的JPEGEncoder类用vector类改写了一下，做了一个<a href="http://www.bytearray.org/?p=775">vector版本的JPG编码类</a>，效率大幅提升。正好，前不久我也已经做了一个vector版本的JPEG编码类，在项目中使用，最近正在整理代码准备分享出来。当然啦，我所做的没有Thibault那么深入，仅仅是把Array换成Vector，所以现在就拿他的版本重新修改了一下，加上了异步功能。
+
+所谓的异步编码，是延时处理代替循环处理。比如写入1000行文字到一个文件内，可以用for/while循环1000次，一次性写入，这就是同步处理；也可以写1行，隔0.5秒再写下一行，再隔0.5秒继续写下一行，这就是异步处理。同步处理的好处是快速，但是对计算机的压力也比较大，在浏览器中使用时，会造成假死，可能会引发稳定性问题。
+
+Vector的效率比Array高了大约4～10倍，但还是不够高，<a href="http://labs.adobe.com/technologies/alchemy/">Alchemy</a>或者<a href="http://www.haxe.org">haxe</a>的效率会更高一些，因为它们使用了Flash10未公开的<a href="http://ncannasse.fr/blog/adobe_alchemy">opcodes</a>接口，可以直接操作一段内存数据。<a href="http://segfaultlabs.com">Mateusz Malczak</a>（<a href="http://segfaultlabs.com">http://segfaultlabs.com</a>）就做了一个<a href="http://segfaultlabs.com/blog/post/asynchronous-jpeg-encoding">异步Alchemy版的JPEGEncoder</a>，效果很赞，速度比我vector异步版的要快很多，<span><span style="text-decoration: line-through;">但是缺少了一些自定义参数设置（</span><span style="text-decoration: line-through;">在压缩小图片的时候，看上去效率反而不如Vector，其实不然，实际上，这是因为程序中写死了大小2800×2800</span><span style="text-decoration: line-through;">）</span></span><span style="text-decoration: line-through;">。</span>Alchemy的C源码修改起来也比较麻烦，要用Alchemy重新编译。而且因为编译了整个libjpeg，所以文件体积也比较大，用C重新写一遍所有相关的类可以解决大小问题，但问题也会更加麻烦。看起来，<a href="http://www.haxe.org">haxe</a>生成的swc应当是最佳选择，正在考虑有空的时候改写一个。 :)
+
+我将这个几个放在一起，来看一下例子吧！（需要安装Flash Player10）
+
+<object width="500" height="340" data="http://q.pnq.cc/wp-content/uploads/2009/06/test_jpegencoders.swf" type="application/x-shockwave-flash"><param name="src" value="http://q.pnq.cc/wp-content/uploads/2009/06/test_jpegencoders.swf" /></object>
+
+<a href="http://q.pnq.cc/wp-content/uploads/2009/06/test_jpegencoders.zip">下载 源文件</a>
+<a href="http://q.pnq.cc/wp-content/uploads/2009/06/JPGEncoderIMP.as">下载 带有异步压缩功能的vector版JPEGEncoder</a>
+<h3>关于 Alchemy 和 Haxe：</h3>
+<a href="http://labs.adobe.com/technologies/alchemy/">Alchemy</a>是<a href="http://labs.adobe.com/">Adobe实验室</a>的一个项目，它的前身是Scott Petersen的“FlaCC (Flash C Compiler)”，目标是让C语言写的类能够被Flash重用。在<a href="http://mx.adobe.com">MAX 2007</a> 大会上，Scott凭借Flash中畅玩Doom一鸣惊人。Alchemy可以将C语言代码变成Flash可用的swc文件。这种方式类似于在C语言里面直接执行汇编语言，效率自然提高很多。目前Alchemy还只是测试项目，但是已经开放了SDK下载，可以编译许多常用的C类库。
+
+<a href="http://www.haxe.org">Haxe</a> 是传奇的 <a href="http://ncannasse.fr/blog">Nicolas Cannasse </a>创造的语言。Nicolas 发明了大名鼎鼎的<a href="http://www.mtasc.org/">MTASC</a> (Motion-Tween Actionscript Compiler)，在AS2.0的时代，改变了AS开发的方式，Flash也进入开源时代。进入AS3.0时代后，Nicolas选择了自己创造一种语言，这种语言吸取了Flash的优点，并且在语言和编译器上做了很多优化，使得效率上大幅度提升，这就是<a href="http://haxe.org">Haxe</a>。时至今日，Haxe已经发展为一个<a href="http://lib.haxe.org/">丰富</a>、高效的高级语言，也对Actionscript的发展产生了影响，例如Flash10的Vector，就和Haxe的概念和语法非常相似。
+
+Alchemy公开之后，Nicolas <a href="http://ncannasse.fr/blog/adobe_alchemy">找到了 Flash播放器中留给Alchemy的未公开的接口</a>，通过这些接口，AS可以直接操作一段内存中的数据。Haxe也使用了这些接口，并称之为<a href="http://ncannasse.fr/blog/virtual_memory_api">Flash Memory</a>，借助Alchemy的接口，Haxe的效率也大为提升。
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-01T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/04/18/flash-developer-charset-setting/">
+		
+			关于FlashDevelop中使用中文的一些经验</a>
+	</h2>
+	<div class="entry-content">
+		<h3>1. 中文乱码问题和解决方案</h3>
+新安装的<a href="http://www.flashdevelop.org"> Flashdevelop </a>打开有中文的文件时，会有乱码现象，如图：
+<img class="alignnone size-full wp-image-299" title="snap0024_flashdevelop" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0024_flashdevelop.png" alt="snap0024_flashdevelop" width="474" height="310" />
+
+手动选择编码为UTF-8格式（<em>File -&gt; encoding -&gt; UTF-8</em> )，会发现如果汉字是奇数个一起的时候，最后几个字符会变成乱码。这是由于 Flashdevelop 读取文件，没有找到文件内的编码标记，就默认以8bit方式读取，再转回utf-8格式的时候就会出问题。
+
+<strong>解决方案：</strong>
+选择菜单 Tools - 将设置中的<span style="color: #ff0000;"><strong> Fallback Codepage</strong> </span>设置为utf-8，这样flashdevelop在不知道文件应该用什么编码的时候，就会以utf-8处理。这里顺便也将其他几个编码设为utf-8，这样就更好了。
+<img class="alignnone size-full wp-image-301" title="snap0026_flashdevelop3" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0026_flashdevelop3.png" alt="snap0026_flashdevelop3" width="539" height="202" />
+<h3>2. 修改默认字体大小</h3>
+默认情况下中文字比较小，看着会比较累。选择<em> Tools -&gt; Syntax Color&#8230;</em> 就可以修改了。
+注意哦，默认只是改编辑AS3 的字体。我就犯了错，拿AS3的设置修改，然后看XML文件的显示效果，结果发现怎么改都没效果 -__-!
+
+我用的是<em>Verdanda/10pt</em>, 最终的效果：
+
+<img class="alignnone size-full wp-image-300" title="snap0025_flashdevelop2" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0025_flashdevelop2.png" alt="snap0025_flashdevelop2" width="466" height="311" />
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/04/06/flash-uploader-problem/">
+		
+			使用Filereference时的一些注意事项</a>
+	</h2>
+	<div class="entry-content">
+		<a href="http://help.adobe.com/zh_CN/AS3LCR/Flash_10.0/flash/net/FileReference.html">FileReference</a>用来上传文件，结合FileReferenceList使用，可以弹出一次文件选择框就上传很多个文件，比HTML form形式的友好很多。但是使用的时候，有些地方需要注意的：
+<ol>
+	<li><strong>上传文件时，不能增加自定义request header</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">这点不同于URLLoader：URLLoader是可以增加自定义头部信息（request header）的，但是敏感的字段是不可以更改的，比如refer、cookie、host等等；而FileReferrence则不可以增加任何自定义头信息，所有自己添加的自定义header，都被播放器悄无声息地忽略掉了，没有任何报错和提示。如果一定要增加字段，只能添加到POST变量中。</p>
+</li>
+	<li><strong>只有IE才能附带浏览器Cookie信息</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">在非IE浏览器中，利用FileReference发出的HTTP请求，带的cookie资料都是IE的cookie。即便在Firefox或者chrome中，传送的cookie也是IE的！有的同学说这和默认浏览器设置有关，例如将默认浏览器设为Firefox，那么IE就得不到cookie。但是我测试了一下，发现无论默认浏览器是什么，发送的都是IE的cookie。解决方案暂时是借用JS得到cookie（ ExternalInterface.call(&#8220;javascript:document.cookie&#8221;) ），当作变量post过去。麻烦的是，服务器端也要做相应的调整。这个BUG到目前（2009年4月6日）为止，已经差不多存在了一年了。</p>
+</li>
+	<li><strong>得不到文件的本地路径</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">Flash10的Reference可以得到本地文件的二进制文件，但是得不到文件路径（file://&#8230;）。这个问题还附带导致了一个问题，FilereferrenceList不能判断出重复选择的文件。就是说第一次弹出文件选择对话框的时候，用户选择了一个文件。过了一段时间再继续浏览文件，又选择了这个文件，这时候Flash是没有办法知道重复选择的。</p>
+</li>
+	<li><strong>不能设置上传的content-type</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">可能会让人郁闷的是，这个也没有任何throw/warning报错。</p>
+</li>
+	<li><strong>只支持实际存在的文件的上传下载</strong>
+<p style="font-family: Georgia; line-height: 19px; white-space: normal; ">要是要上传一些动态生成的数据到服务器存储，那就用不得Filereference，也看不到上传进度了。</p>
+</li>
+</ol>
+<blockquote><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">顺便说一下，内存里面的数据，希望上传到服务器保存为文件，可以用URLLoader,URLStream之类的代替。但是FlashPlayer10有个<a href="http://www.adobe.com/devnet/flashplayer/articles/fplayer10_security_changes_02.html#head34">新增的安全性限制</a>，当上传文件的时候，播放器会检查操作是否由用户点击触发。没有点击就上传，会被浏览器阻挡掉请求。播放器判断一个HTTP请求是否是文件上传的依据是form-based-HTML-file-upload规范，有两个标志：
+一<strong>是content-type含有“ multipart”</strong>，例如“</span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;">multipart</span></span><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">/form-data”，“my</span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;">multipart</span></span><span style="font-family: Georgia; line-height: 19px; white-space: normal; ">xxx”；
+<strong>二是字段名含有 </strong></span><span style="line-height: 19px; white-space: normal;"><span style="color: #3366ff;"><strong>filename</strong><span style="color: #000000;">。
+满足了这两点，flash播放器就会把这次请求当作文件上传处理，进而检查是否符合安全限制。要防止被阻挡掉也很简单，不要用<span style="color: #3366ff;">filename</span>这个关键字做数据的字段名即可。</span></span></span></blockquote>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-06T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+<nav id="pagenavi">
+    
+        <a href="/blog/page/2/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/4/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

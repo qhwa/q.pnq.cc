@@ -1,0 +1,735 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="这几天在做的一个项目需要做一个卡片翻转效果，实践了一下Flash 10的新的3D功能。果真是方便至极，所有的可视化对象现在都有了3D相关的属性，只需要设置rotationY变化，就可以做出很炫的翻转效果了。但是我发现，经过3D变换后的对象，都会被Flash转成位图缓存的方式显示， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/03/05/flash10-3d-avoid-fuzzy/">
+		
+			[Flash10+3D] 简单的、清晰的卡片翻转效果</a>
+	</h2>
+	<div class="entry-content">
+		这几天在做的一个项目需要做一个卡片翻转效果，实践了一下Flash 10的新的3D功能。果真是方便至极，所有的可视化对象现在都有了3D相关的属性，只需要设置rotationY变化，就可以做出很炫的翻转效果了。但是我发现，经过3D变换后的对象，都会被Flash转成位图缓存的方式显示，这样原先清晰的一些文字、图片等内容，就会显得比较模糊，演示：（需要安装 Adobe Flash Player 10 才能看到效果）
+
+<object width="500" height="430" data="/wp-content/uploads/2009/03/testf10twosideflipping-fuzzy.swf" type="application/x-shockwave-flash"><param name="src" value="/wp-content/uploads/2009/03/testf10twosideflipping-fuzzy.swf" /></object>
+
+第一面的文字本来是清晰的，翻转一遍之后就模糊了。Google了好久都没有找到解决方案，抓狂。。后来突然想到，是不是可以这样，将要变回清晰的对象换个清晰的父对象？实验了一下，果然可行，大喜！好像我太out了吧，直觉告诉我，在Flash9+Papervision3D的年代，大家应该都已经知道这个方法的了，但是我确实没有找到……现在将代码重新整理了一遍，记录下来，也许对大家有所帮助。
+
+先看看效果：
+
+<object width="500" height="430" data="/wp-content/uploads/2009/03/testf10twosideflipping.swf" type="application/x-shockwave-flash"><param name="src" value="/wp-content/uploads/2009/03/testf10twosideflipping.swf" /></object>
+
+主要的类：
+?
+<pre lang="actionscript">/**
+ *
+ * @author qhwa, , qhwa@163.com
+ * This class is a sample of Flash-10-3D-flipping,
+ * that can keep faces clear, not as fuzzy as
+ * default.
+ *
+ * 这个类演示了如何使用Flash10自带的3D功能创建一个
+ * 简单的卡片翻转效果，同时保持文字和其他内容的
+ * 清晰
+ *
+ */
+
+package qhwa.twosideflip
+{
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	import flash.text.TextFieldType;
+	import gs.easing.Back;
+	import gs.TweenLite;
+
+	/**
+	 * ...
+	 * @author ...
+	 */
+	public class Card extends Sprite
+	{
+		[Embed(source='../../../lib/goodbyewow02.jpg')]
+		private var FrontFace:Class;
+
+		[Embed(source='../../../lib/goodbyewow04.jpg')]
+		private var BackFace:Class;
+
+		private var fFace:Sprite;
+		private var bFace:Sprite;
+		private var cleanObj:Sprite;
+		private var dirtyObj:Sprite;
+
+		public function Card()
+		{
+			if (stage) init();
+			else addEventListener(Event.ADDED_TO_STAGE, init);
+		}
+
+		private function init(e:Event = null):void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			// entry point
+
+			var frontBg:DisplayObject = new FrontFace();
+			var backBg:DisplayObject = new BackFace();
+			frontBg.x = backBg.x = - frontBg.width / 2;
+			frontBg.y = backBg.y = - frontBg.height / 2;
+			fFace = new Sprite();
+			bFace = new Sprite();
+			fFace.addChild(frontBg);
+			bFace.addChild(backBg);
+			//背面需要额外处理一下，
+			//翻转过来，并且暂时隐藏
+			bFace.scaleX *= -1;
+			bFace.visible = false;
+			bFace.buttonMode = fFace.buttonMode = true;
+
+			//测试的文字
+			var testTF:TextField = new TextField();
+			testTF.width = 400;
+			testTF.height = 200;
+			testTF.textColor = 0xFFFFFF;
+			testTF.htmlText = "验证码是防止被机器人恶意灌水的一个方法，"+
+				"产生一个只有服务器才知道的信息（例如一个单词、数字等），" +
+				"在客户端浏览器中以机器人不能分析的方式（通常是图片）出现，" +
+				"作为判断机器人和真人的一个依据。一般是在服务器端生成图片，" +
+				"由用户在文本框输入看到的文字。";
+			testTF.appendText(testTF.text);
+			testTF.selectable = true;
+			testTF.multiline = true;
+			testTF.wordWrap = true;
+			testTF.x = frontBg.x + 10;
+			testTF.y = frontBg.y + 200;
+			testTF.type = TextFieldType.INPUT;
+			fFace.addChild(testTF);
+
+			cleanObj = new Sprite();
+			dirtyObj = new Sprite();
+
+			dirtyObj.addChild(fFace);
+			dirtyObj.addChild(bFace);
+			addChild(dirtyObj);
+			addChild(cleanObj);
+
+			addEventListener(MouseEvent.CLICK, clickHandler);
+
+		}
+
+		private function clickHandler(e:MouseEvent = null):void
+		{
+			// 修改文字时不动
+			if (e.target is TextField) return;
+
+			if (e.target == fFace || e.target.parent == fFace)
+			{
+				// flip to back
+				dirty();
+				TweenLite.killTweensOf(dirtyObj);
+				TweenLite.to( dirtyObj, 1, {
+					rotationY:180,
+					ease: Back.easeOut,
+					onComplete: cleanBackFace,
+					onUpdate: update
+				} );
+			} else if (e.target == bFace || e.target.parent == bFace) {
+				// flip to front
+				dirty();
+				TweenLite.killTweensOf(dirtyObj);
+				TweenLite.to( dirtyObj, 1, {
+					rotationY:0,
+					ease: Back.easeOut,
+					onComplete: cleanFrontFace,
+					onUpdate: update
+				} );
+			}
+		}
+
+		/**
+		 * 检查应该显示哪个面
+		 */
+		private function update():void
+		{
+			bFace.visible = dirtyObj.rotationY > 90 && dirtyObj.rotationY < 270;
+			fFace.visible = !bFace.visible;
+		}
+
+		/**
+		 * 清晰化封面
+		 */
+		private function cleanFrontFace():void
+		{
+			if (dirtyObj.contains(fFace))
+			{
+				dirtyObj.removeChild(fFace);
+				cleanObj.addChild(fFace);
+			}
+		}
+
+		/**
+		 * 清晰化背面
+		 */
+		private function cleanBackFace():void
+		{
+			if (dirtyObj.contains(bFace))
+			{
+				dirtyObj.removeChild(bFace);
+				cleanObj.addChild(bFace);
+				bFace.scaleX *= -1;
+			}
+		}
+
+		/**
+		 * 封面和背面都放入dirty容器，进行旋转操作
+		 */
+		private function dirty():void
+		{
+			if (cleanObj.contains(fFace) || cleanObj.contains(bFace))
+			{
+				var face:DisplayObject = cleanObj.getChildAt(0);
+				cleanObj.removeChild(face);
+				dirtyObj.addChild(face);
+				if (face == fFace)
+				{
+					dirtyObj.swapChildren(face, bFace);
+				} else {
+					bFace.scaleX *= -1;
+				}
+			}
+		}
+
+	}
+
+}</pre>
+<a href="http://q.pnq.cc/wp-content/uploads/2009/03/test_f10_twosideflipping.zip">下载源文件 (source)</a>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-05T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/02/23/picture-trail/">
+		
+			专业的Flash相册</a>
+	</h2>
+	<div class="entry-content">
+		<p>因为近期工作的内容很多涉及到Flash相册，这段时间我对网上的Flash相册比较留意，试着整理了一些很好的Flash相册形式。但是我发现这些整理基本上属于多此一举，因为有个提供Flash相册的网站，里面的效果涵盖了我整理的大部分，而且可以很详细地自定义细节！她的名字叫做：<a href="http://www.picturetrail.com" target="_blank">PictureTrail</a></p>  <p><a href="http://www.picturetrail.com" target="_blank"><img src="http://www.picturetrail.com/static/images/logo.gif" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-23T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/12/flashplayer-10-vector/">
+		
+			FlashPlayer 10 新功能：Vector</a>
+	</h2>
+	<div class="entry-content">
+		FlashPlayer 10附带的内部类，多了一个vector，它的作用是对数组的数据结构进行优化，相当于一串只能存放指定数据类型的链表。所以在执行效率上，比数组有很大的提升。 Adobe的<a href="http://help.adobe.com/zh_CN/AS3LCR/Flash_10.0/Vector.html">文档</a>写得很详细，值得一看。他的 forEach, every 方法，很强大。
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-12T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/09/mindmeister/">
+		
+			Mindmeister：免费的在线思维导图程序</a>
+	</h2>
+	<div class="entry-content">
+		<a href="http://www.mindmeister.com"><img class="alignnone size-full wp-image-244" title="snap0021_online-mind-mapping-mindmeister" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0021_online-mind-mapping-mindmeister.png" alt="snap0021_online-mind-mapping-mindmeister" width="500" height="294" /></a>
+
+<a href="http://baike.baidu.com/view/30054.htm">思维导图</a>，又称概念图、心智图、脑图、Mind map等，是描述一些概念的图。有很多软件可以方便地绘制脑图，例如 <a href="http://www.mindjet.com/">Mindjet</a> 公司的软件 <a href="http://www.mindjet.com/products/mindmanager/">MindManager</a> 是我用过最好的的软件，不过是收费的，而且只能在windows下用，自从我用ubuntu之后就一直没有找到好用<strong>又美观</strong>的概念图程序。
+
+今天看到一个非常不错的在线概念图软件：<a href="http://www.mindmeister.com/">Mindmeister</a>，可以媲美MindManager的，而且是免费、跨平台的（废话，人家是web application嘛！）、设计也很美观。
+
+<a href="http://www.mindmeister.com/"><img class="alignnone size-full wp-image-243" title="snap0022_mind-map-ivote-mindmeister" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0022_mind-map-ivote-mindmeister.png" alt="snap0022_mind-map-ivote-mindmeister" width="500" height="519" /></a>
+
+试用了一下，功能非常强大，除了基本功能之外，还有分享、离线编辑、发送到Email和手机的功能。
+		
+		<a href="/blog/2009/01/09/mindmeister/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-09T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/07/matt-making-you-laugh/">
+		
+			Matt：只为博君一笑</a>
+	</h2>
+	<div class="entry-content">
+		<img class="alignnone size-full wp-image-231" title="snap0019_screenshot-where-the-hell-is-matt-mozilla-firefox" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0019_screenshot-where-the-hell-is-matt-mozilla-firefox.png" alt="snap0019_screenshot-where-the-hell-is-matt-mozilla-firefox" width="429" height="317" />
+
+在<a href="http://mr6.cc">6先生的博客</a>上看到了关于<a href="http://www.wherethehellismatt.com/"> Where the hell is Matt</a> 的<a href="http://mr6.cc/?p=2701">文章</a>，才知道这个已经成名2年多的疯狂网络人，很喜欢他的事迹：用丑丑的舞蹈在全世界跳舞，用幽默感染其他人。看了好几个他的视频。Matt 的幽默让人捧腹大笑，但有几个很感动的镜头，尤其是有很多小孩子的地方——儿童和笑脸，永远都是那么令人开心。连 Matt 自己也非常喜欢，在不同地方演讲的时候，都拿出来做例子。
+
+		
+		<a href="/blog/2009/01/07/matt-making-you-laugh/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-07T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/07/matchin/">
+		
+			猜谜游戏搬上网，发挥奇特作用</a>
+	</h2>
+	<div class="entry-content">
+		<a href="http://www.gwap.com/gwap/"><img class="alignnone size-full wp-image-218" title="gwapcom" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0018_gwapcom-matchin.png" alt="gwapcom" width="500" height="378" /></a>
+
+前几天说到，captcha 可以区分人和电脑，其实，captcha 就是一种猜谜游戏，这种游戏人会玩，电脑却不会玩的。<a href="http://www.cs.cmu.edu/~biglou/">Luis Von Ann 教授</a> 在2006年的<a href="http://video.google.com/videoplay?docid=-8246463980976635143&amp;q=google+tech+talks">演讲</a>中提出了有趣的分辨人脑和电脑的方案，就是利用猜谜游戏——即ESP游戏。后来Google购买了这个点子，做了一个简单的游戏：<a href="http://images.google.com/imagelabeler/">Google Image Labeler</a>，以游戏的形式、利用人脑的力量给图片加标签，又好玩，准确率也高。
+
+Luis 教授自己又做了一些更好玩的ESP游戏，放在<a href="http://www.gwap.com/gwap/"> gwap</a> 网站上面。这些猜谜经过一番重新包装，更加好玩了。详细玩一下就知道哦：）
+<a href="http://www.gwap.com">http://www.gwap.com</a>
+
+不过，这些游戏并不是好玩那么简单哦！
+		
+		<a href="/blog/2009/01/07/matchin/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-07T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/05/cool-site-tusi/">
+		
+			土司网：有意思的图片处理服务网站</a>
+	</h2>
+	<div class="entry-content">
+		<img class="alignnone size-full wp-image-215" title="sliced-bread" src="http://q.pnq.cc/wp-content/uploads/2009/01/sliced-bread.jpg" alt="sliced-bread" width="128" height="128" />
+
+<a href="http://cn.tucia.com/">土司网 </a>是最近看到的一个比较有趣的web2.0网站，他的模式很有意思。平常有很多人都有修改图片的需要，比如照片润色、搞怪效果、PS处理等等，但是未必人人都有可能操起Photoshop自己处理了，这个需求是显而易见的。如果有个网站可以<strong>免费</strong>帮他们把照片处理成想要的效果，那当然求之不得。另一方面，很多有时间的设计师，出于不同的目的——可能是闲、想练手、为了交朋友、为了帮助别人、为了赚钱等等——就可以帮那些不能自己处理相片的人处理。
+
+不过，<a href="http://cn.tucia.com/">土司网</a>其实是个交友网站！（玩笑^^）
+
+
+		
+		<a href="/blog/2009/01/05/cool-site-tusi/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-05T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/04/captcha/">
+		
+			不使用图片的验证码方式</a>
+	</h2>
+	<div class="entry-content">
+		<img class="alignnone size-full wp-image-198" title="snap0016_captcha" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0016_captcha.png" alt="snap0016_captcha" width="179" height="100" />
+
+验证码是防止被机器人恶意灌水的一个方法，产生一个只有服务器才知道的信息（例如一个单词、数字等），在客户端浏览器中以机器人不能分析的方式（通常是图片）出现，作为判断机器人和真人的一个依据。一般是在服务器端生成图片，由用户在文本框输入看到的文字。
+
+使用生成图片方案的缺点在于：
+<ol>
+	<li> 在服务器端生成图片比较耗费资源。虽然有一些优化的办法，例如先一次性生成一批图片，然后缓存，用户看到的图片其实不是实时产生的，但这个方案存在被破解的风险，生成时也需要占用一些资源。（如果是测试服务器先生成，迁移到生产服务器，虽然不占资源，但是系统却复杂了）</li>
+	<li> 理论上来说，机器人很难辨认的文字，用户也很难辨认，这个方法在安全性和易用性之间存在矛盾。</li>
+</ol>
+<a href="http://kevin-le.appspot.com">Kevin LE</a> 提出了<a href="http://kevin-le.appspot.com/post/7440799581767132872">两个不需要生成图片的验证码方法</a>（<a href="http://kevin-le.appspot.com/extra/lab/captcha/">演示</a>）：
+		
+		<a href="/blog/2009/01/04/captcha/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-04T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/03/actionscript-30-tip-of-the-day/">
+		
+			Actionscript 3.0 Tip of the Day</a>
+	</h2>
+	<div class="entry-content">
+		<a href="http://www.kirupa.com/forum/showthread.php?t=223798">http://www.kirupa.com/forum/showthread.php?t=223798</a>
+
+AS3小贴士，准备有空翻译一下
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-03T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/02/12-javascript-games/">
+		
+			推荐12个好玩的javascript游戏</a>
+	</h2>
+	<div class="entry-content">
+		Javascript游戏的出现并不是最近的新鲜事，很早就有了一些好玩的，但数量并不多。最近因为Javascript框架和声音引擎的不断完善成熟，很多效果都可以由框架快速完成，用JS做游戏的两个大瓶颈——视觉表现和音效——也不再令人望而生畏了。早期Javascript游戏主要是棋类游戏为主（类似这个<a href="http://www.iggamecenter.com">iggame center</a>，有联网的功能，是个小联众了）。随着技术的不断发展，现在已经有很多javascript游戏，在视觉表现上一再令我们惊叹（就像以前，google map的推出，让很多人对javascript的有了新的认识）。 不多说了，来玩起吧！
+<h3>Javascript Super Mario Brothers！</h3>
+<a href="http://jsmario.com.ar/"><img class="alignnone size-full wp-image-156" title="javascript-super-mario-bros" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0002_javascript-super-mario-bros-complete-level-1-and-2-map-editor-by-guillermo-bruchmann.png" alt="javascript-super-mario-bros" width="510" height="451" /></a>
+达到以假乱真的高度了
+A - 快速跑
+S - 跳
+<h3>BunnyHunt —— 兔子版的Duck Hunter (-___-!)</h3>
+<a href="http://www.themaninblue.com/experiment/BunnyHunt/"><img class="alignnone size-full wp-image-159" title="snap0005_bunny-hunt1" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0005_bunny-hunt1.png" alt="snap0005_bunny-hunt1" width="500" height="252" /></a>
+<a href="http://www.themaninblue.com/experiment/BunnyHunt/"><img class="alignnone size-full wp-image-160" title="snap0006_bunny-hunt1" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0006_bunny-hunt1.png" alt="snap0006_bunny-hunt1" width="500" height="251" /></a>
+打兔子
+		
+		<a href="/blog/2009/01/02/12-javascript-games/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-02T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+<nav id="pagenavi">
+    
+        <a href="/blog/page/3/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/5/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

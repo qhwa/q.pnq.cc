@@ -1,0 +1,203 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>fdlint: 让前端code review更轻松 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="fdlint是bencode 和 我最近做的一个实用项目。她的参考是jslint——一个js代码扫描工具。和jslint不同的是，fdlint还可以扫描css和html代码。 为什么会做fdlint？ Code review是一项重要却比较花时间的工作，根据阿里巴巴中文站前端Code &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Fdlint: 让前端code Review更轻松</h2>
+	<div class="entry-content"><p><img src="http://img.china.alibaba.com/img/ibank/2012/462/137/490731264_678162280.jpg" alt="fdlint" style="border:none;" /></p>
+
+<p><a href="https://github.com/qhwa/fdlint">fdlint</a>是<a href="http://bencode.org">bencode</a> 和 我最近做的一个实用项目。她的参考是<a href="http://jslint.com">jslint</a>——一个js代码扫描工具。和<a href="http://jslint.com">jslint</a>不同的是，<a href="https://github.com/qhwa/fdlint">fdlint</a>还可以扫描css和html代码。</p>
+
+<h2>为什么会做<a href="https://github.com/qhwa/fdlint">fdlint</a>？</h2>
+
+<p>Code review是一项重要却比较花时间的工作，根据阿里巴巴中文站前端Code Review Check List，约有80项检查项目，要完整对照着检查是比较花时间的。太花时间导致的结果就是code review的频率不高。</p>
+
+<p>因此，我们开发了<a href="https://github.com/qhwa/fdlint">fdlint</a>，对HTML/CSS/JS代码进行分析，找出工具能判断的、不符合规范的代码。<a href="https://github.com/qhwa/fdlint">fdlint</a>可以节约我们的时间，帮助 code review 更频繁、更深入。</p>
+
+<h2>特点：</h2>
+
+<ol>
+<li>能扫描出不符合规则的常见问题，共49项, 详见<a href="https://github.com/qhwa/fdlint/wiki/fdlint-%E6%89%AB%E6%8F%8F%E8%A7%84%E5%88%99">扫描规则</a></li>
+<li>提供多种使用方式，适合不同的应用场景 （命令行、<a href="http://fdlint.herokuapp.com">web</a>、<a href="https://github.com/qhwa/fdlint-vim">VIM插件</a>、<a href="https://github.com/ThinkBest/fdlint-notepad-plusplus">Notepad++插件</a>、Eclipse插件）</li>
+<li>规则定制方便，将用DSL编写的规则放入一个目录，立刻生效。</li>
+<li>可以批量扫描多个文件，支持递归扫描目录</li>
+<li>支持多种输出格式</li>
+</ol>
+
+
+<h2>截图</h2>
+
+<ul>
+<li><p>命令行运行</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-cli-500x619.png" alt="" title="fdlint-cli" width="500" height="619" class="alignnone size-medium wp-image-607" /></p></li>
+<li><p>web版本</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-host-500x512.png" alt="" title="fdlint-host" width="500" height="512" class="alignnone size-medium wp-image-609" /></p></li>
+<li><p>Eclipse插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-eclipse-500x140.png" alt="" title="fdlint-eclipse" width="500" height="140" class="alignnone size-medium wp-image-608" /></p></li>
+<li><p>Notepad++插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-notepad-500x414.png" alt="" title="fdlint-notepad" width="500" height="414" class="alignnone size-medium wp-image-610" /></p></li>
+<li><p>VIM插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-vim-500x543.png" alt="" title="fdlint-vim" width="500" height="543" class="alignnone size-medium wp-image-611" /></p></li>
+</ul>
+
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-13T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

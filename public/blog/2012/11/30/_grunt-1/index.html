@@ -1,0 +1,425 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>利用 Grunt （几乎）无痛地做前端开发 (一) - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="前言 如果你想开发一个js应用，甭管多简单，都要先创建整个宇宙 来看看我们的Javascript小宇宙: 确定如何根据需求、功能划分模块，如何将代码分成多个文件开发，合成一个发布
+保证上一条的同时，使用 Coffeescript、SCSS/LESS 等技术
+保证上2条的同时， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">利用 Grunt （几乎）无痛地做前端开发 (一)</h2>
+	<div class="entry-content"><h2>前言</h2>
+
+<blockquote><p>如果你想开发一个js应用，甭管多简单，都要先创建整个宇宙</p></blockquote>
+
+<p>来看看我们的Javascript小宇宙:</p>
+
+<ol>
+<li>确定如何根据需求、功能划分模块，如何将代码分成多个文件开发，合成一个发布</li>
+<li>保证上一条的同时，使用 Coffeescript、SCSS/LESS 等技术</li>
+<li>保证上2条的同时，想想怎么在浏览器的刷新后一切都最新</li>
+<li>保证上3条的同时，想想怎么在开发、测试、生产、预发布环境中都OK</li>
+<li>保证上4条的同时，进行TDD式的开发</li>
+<li>&hellip;这还是js, 我们还没有涉及到HTML</li>
+</ol>
+
+
+<p>Grunt 可以将创建小宇宙的工作变得轻松很多。</p>
+
+<h2>初识 grunt</h2>
+
+<p>以一个jQuery插件的开发为例。 开始之前，让我们先安装Grunt.</p>
+
+<p>首先需要<a href="http://nodejs.org/">Nodejs</a>环境，这里假设你已经安装好了<a href="http://nodejs.org/">Nodejs</a>和<a href="https://npmjs.org/">NPM</a>.</p>
+
+<p>然后安装 grunt :</p>
+
+<pre><code>npm install grunt
+</code></pre>
+
+<blockquote><p>命令行方式更适合前端开发。这里我都用命令行来进行操作，windows用户推荐用git-shell或者powershell.</p></blockquote>
+
+<h3>第一招：快速搭建脚手架</h3>
+
+<p>Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来。所谓的脚手架，就是指包含了目录结构和初始的一些功能,测试文件的一个环境。我们来搭建一个jquery插件的脚手架：</p>
+
+<pre><code>grunt init:jquery
+</code></pre>
+
+<p>这时grunt会问你一些问题，比如项目名称, git地址,作者等等，比如:</p>
+
+<p><img src="http://img03.taobaocdn.com/tfscom/T1EwSRXyNhXXaCwpjX.png_620x10000.jpg" alt="initing" /></p>
+
+<p>可以看到，grunt已经帮我们创建了一些经常出现的文件(README, LICENSE等), 单元测试也准备好了。</p>
+
+<blockquote><p>有些问题可以<a href="https://github.com/gruntjs/grunt/blob/master/docs/task_init.md#specifying-default-prompt-answers">配置一下默认回答</a>，这样就不需要每次都重新输入了，只要敲回车就行。</p></blockquote>
+
+<h3>第二招：TDD(测试驱动开发） 和 单元测试</h3>
+
+<p>现在我们就可以着手写grunt-demo-1这个插件了。假设我们这个插件的目的是让页面上*.alibaba.com域名下的a链接都带上一个图标。那么可以写一些简单的qunit用例。</p>
+
+<p>首先在<code>test/grunt-demo-1.html</code>准备好HTML用例：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>...
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;qunit-fixture&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#functional-link&quot;</span><span class="nt">&gt;</span>#nogo<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://style.china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://q.pnq.cc&quot;</span><span class="nt">&gt;</span>qhwa<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>....
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>打开上一步grunt已经帮我们生成的<code>test/grunt-demo-1_test.js</code>，写上我们自己的单元测试:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// file: test/grunt-demo_test.js</span>
+</span><span class='line'><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;jQuery#ali-link&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">setup</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">elems</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#qunit-fixture&#39;</span><span class="p">).</span><span class="nx">children</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;is chainable&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">strictEqual</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">.</span><span class="nx">alilink</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">,</span> <span class="s1">&#39;should be chaninable&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;can select&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">equal</span><span class="p">(</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a:alilink&#39;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#qunit-fixture&#39;</span><span class="p">)).</span><span class="nx">length</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;should select links with alibaba domain&#39;</span>
+</span><span class='line'>  <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;add icon to alibaba links&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">.</span><span class="nx">alilink</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span> <span class="sr">/^http:\/\/((.+)\.)?alibaba\.com/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">ok</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">ok</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="p">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后在命令行运行一下<code>grunt qunit</code>
+运行结果是这样的：</p>
+
+<p><img src="http://img03.taobaocdn.com/tfscom/T181NBFn4fXXaCwpjX.png" alt="grunt qunit first run" /></p>
+
+<p>各种报错，对吧？不要紧，因为我们还没有开始写代码。接下来我们的目标就是写功能代码，让这个测试通过。</p>
+
+<p>经过一番敲击键盘，以及运行了几次<code>grunt qunit</code>，终于，激动人心时刻到来了，我们通过了所有的单元测试:</p>
+
+<p><img src="http://img01.taobaocdn.com/tfscom/T1p5RDFn4bXXaCwpjX.png_620x10000.jpg" alt="grunt qunit pass" /></p>
+
+<p>最终的功能js如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// file: src/grunt-demo-1.js</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">ALI_LINK_REG</span> <span class="o">=</span> <span class="sr">/^http:\/\/(.+\.)?alibaba\.com/</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Collection method.</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">alilink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span> <span class="nx">isAliLink</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">){</span>
+</span><span class='line'>        <span class="nx">self</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">self</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Custom selector.</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">expr</span><span class="p">[</span><span class="s1">&#39;:&#39;</span><span class="p">].</span><span class="nx">alilink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">isAliLink</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">function</span> <span class="nx">isAliLink</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="sr">/A/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">ALI_LINK_REG</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}(</span><span class="nx">jQuery</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>想用jasmine? 当然可以了！ 社区有 <a href="https://npmjs.org/package/grunt-jasmine-runner">grunt-jasmine-runner</a></p></blockquote>
+
+<p>功能已经完成了，但是插件就完成了吗？非也！</p>
+
+<p>有了单元测试，我们可以放心重构我们的代码，达到最好的可维护性。先让机器帮我们做个code review——也就是linting。</p>
+
+<p>准备好了，就来看下一招：</p>
+
+<h3>第三招：利用 lint 提高代码质量</h3>
+
+<p>运行命令 <code>grunt lint</code> ，果然有报警：</p>
+
+<p><img src="http://img03.taobaocdn.com/tfscom/T1qp8CFmXbXXaCwpjX.png_620x10000.jpg" alt="grunt lint fail" /></p>
+
+<p>嗯，我们的正则表达式写法不太好，那就来优化一下吧！</p>
+
+<p>又经过一阵修改，我们的代码终于在 <code>grunt lint</code> 时没有报警了，不错！</p>
+
+<p><img src="http://img01.taobaocdn.com/tfscom/T1KuBqFhthXXaCwpjX.png_620x10000.jpg" alt="grunt lint pass" /></p>
+
+<p>运行一下 <code>grunt qunit</code> ，看到单元测试还能通过，功能正常，不错！</p>
+
+<h3>第四招：利用 watch 自动化</h3>
+
+<p>上面我们在重构和优化的时候，每次修改了功能js都要运行一遍<code>grunt qunit</code>和<code>grunt lint</code>，grunt 可以帮我们做到一旦有修改，自动运行这两个命令，方便吧？</p>
+
+<p>很简单，运行<code>grunt watch</code> 就好了。然后试一下修改 src/ 下面的 js，就不需要手动去运行qunit和lint任务了。
+watch 就是这样的一个任务，监测一些文件，都有更新的时候，自动运行需要的任务。</p>
+
+<p><img src="http://img03.taobaocdn.com/tfscom/T1bb4BFodfXXaCwpjX.png_620x10000.jpg" alt="grunt watch" /></p>
+
+<p>grunt 还自带了一些其他的任务，比如</p>
+
+<ul>
+<li>用来压缩js和css的<code>min</code> 任务</li>
+<li>用来开启一个本地http服务器的 <code>server</code> 任务</li>
+<li>用来将几个文件合并成一个的 <code>concat</code> 任务</li>
+</ul>
+
+
+<p>这些都是我们经常使用的任务。</p>
+
+<h2>小结</h2>
+
+<p>本文的示例代码已经放到 <a href="https://github.com/qhwa/grunt-demo">github 上</a>。</p>
+
+<p>这一篇我们认识了 grunt ，下一篇将会看到 grunt 这种以任务为中心的设计，带来的强大扩展性。如果上面的例子已经让你感受到了无痛开发的乐趣，那么那些社区插件保证会让你更过瘾的！敬请期待本系列的第二篇—— 让 grunt 飞起来！</p>
+
+<h2>参考</h2>
+
+<p><a href="https://github.com/gruntjs/grunt/blob/master/docs/task_init.md">grunt init</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-30T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

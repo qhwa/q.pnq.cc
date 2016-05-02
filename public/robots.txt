@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://q.pnq.cc/sitemap.xml 

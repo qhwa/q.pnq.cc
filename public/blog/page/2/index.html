@@ -1,0 +1,1109 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="前言 如果你想开发一个js应用，甭管多简单，都要先创建整个宇宙 来看看我们的Javascript小宇宙: 确定如何根据需求、功能划分模块，如何将代码分成多个文件开发，合成一个发布
+保证上一条的同时，使用 Coffeescript、SCSS/LESS 等技术
+保证上2条的同时， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/30/_grunt-1/">
+		
+			利用 Grunt （几乎）无痛地做前端开发 (一)</a>
+	</h2>
+	<div class="entry-content">
+		<h2>前言</h2>
+
+<blockquote><p>如果你想开发一个js应用，甭管多简单，都要先创建整个宇宙</p></blockquote>
+
+<p>来看看我们的Javascript小宇宙:</p>
+
+<ol>
+<li>确定如何根据需求、功能划分模块，如何将代码分成多个文件开发，合成一个发布</li>
+<li>保证上一条的同时，使用 Coffeescript、SCSS/LESS 等技术</li>
+<li>保证上2条的同时，想想怎么在浏览器的刷新后一切都最新</li>
+<li>保证上3条的同时，想想怎么在开发、测试、生产、预发布环境中都OK</li>
+<li>保证上4条的同时，进行TDD式的开发</li>
+<li>&hellip;这还是js, 我们还没有涉及到HTML</li>
+</ol>
+
+
+<p>Grunt 可以将创建小宇宙的工作变得轻松很多。</p>
+
+<h2>初识 grunt</h2>
+
+<p>以一个jQuery插件的开发为例。 开始之前，让我们先安装Grunt.</p>
+
+<p>首先需要<a href="http://nodejs.org/">Nodejs</a>环境，这里假设你已经安装好了<a href="http://nodejs.org/">Nodejs</a>和<a href="https://npmjs.org/">NPM</a>.</p>
+
+<p>然后安装 grunt :</p>
+
+<pre><code>npm install grunt
+</code></pre>
+
+<blockquote><p>命令行方式更适合前端开发。这里我都用命令行来进行操作，windows用户推荐用git-shell或者powershell.</p></blockquote>
+
+<h3>第一招：快速搭建脚手架</h3>
+
+<p>Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来。所谓的脚手架，就是指包含了目录结构和初始的一些功能,测试文件的一个环境。我们来搭建一个jquery插件的脚手架：</p>
+
+<pre><code>grunt init:jquery
+</code></pre>
+
+<p>这时grunt会问你一些问题，比如项目名称, git地址,作者等等，比如:</p>
+
+<p><img src="http://img03.taobaocdn.com/tfscom/T1EwSRXyNhXXaCwpjX.png_620x10000.jpg" alt="initing" /></p>
+
+<p>可以看到，grunt已经帮我们创建了一些经常出现的文件(README, LICENSE等), 单元测试也准备好了。</p>
+
+<blockquote><p>有些问题可以<a href="https://github.com/gruntjs/grunt/blob/master/docs/task_init.md#specifying-default-prompt-answers">配置一下默认回答</a>，这样就不需要每次都重新输入了，只要敲回车就行。</p></blockquote>
+
+<h3>第二招：TDD(测试驱动开发） 和 单元测试</h3>
+
+<p>现在我们就可以着手写grunt-demo-1这个插件了。假设我们这个插件的目的是让页面上*.alibaba.com域名下的a链接都带上一个图标。那么可以写一些简单的qunit用例。</p>
+
+<p>首先在<code>test/grunt-demo-1.html</code>准备好HTML用例：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>...
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;qunit-fixture&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#functional-link&quot;</span><span class="nt">&gt;</span>#nogo<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://style.china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://q.pnq.cc&quot;</span><span class="nt">&gt;</span>qhwa<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>....
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>打开上一步grunt已经帮我们生成的<code>test/grunt-demo-1_test.js</code>，写上我们自己的单元测试:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// file: test/grunt-demo_test.js</span>
+</span><span class='line'><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;jQuery#ali-link&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">setup</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">elems</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#qunit-fixture&#39;</span><span class="p">).</span><span class="nx">children</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;is chainable&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">strictEqual</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">.</span><span class="nx">alilink</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">,</span> <span class="s1">&#39;should be chaninable&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;can select&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">equal</span><span class="p">(</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a:alilink&#39;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#qunit-fixture&#39;</span><span class="p">)).</span><span class="nx">length</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;should select links with alibaba domain&#39;</span>
+</span><span class='line'>  <span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;add icon to alibaba links&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">.</span><span class="nx">alilink</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span> <span class="sr">/^http:\/\/((.+)\.)?alibaba\.com/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">ok</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">ok</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="p">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后在命令行运行一下<code>grunt qunit</code>
+运行结果是这样的：</p>
+
+<p><img src="http://img03.taobaocdn.com/tfscom/T181NBFn4fXXaCwpjX.png" alt="grunt qunit first run" /></p>
+
+<p>各种报错，对吧？不要紧，因为我们还没有开始写代码。接下来我们的目标就是写功能代码，让这个测试通过。</p>
+
+<p>经过一番敲击键盘，以及运行了几次<code>grunt qunit</code>，终于，激动人心时刻到来了，我们通过了所有的单元测试:</p>
+
+<p><img src="http://img01.taobaocdn.com/tfscom/T1p5RDFn4bXXaCwpjX.png_620x10000.jpg" alt="grunt qunit pass" /></p>
+
+<p>最终的功能js如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// file: src/grunt-demo-1.js</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">ALI_LINK_REG</span> <span class="o">=</span> <span class="sr">/^http:\/\/(.+\.)?alibaba\.com/</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Collection method.</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">alilink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span> <span class="nx">isAliLink</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">){</span>
+</span><span class='line'>        <span class="nx">self</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">self</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Custom selector.</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">expr</span><span class="p">[</span><span class="s1">&#39;:&#39;</span><span class="p">].</span><span class="nx">alilink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">isAliLink</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">function</span> <span class="nx">isAliLink</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="sr">/A/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">ALI_LINK_REG</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}(</span><span class="nx">jQuery</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>想用jasmine? 当然可以了！ 社区有 <a href="https://npmjs.org/package/grunt-jasmine-runner">grunt-jasmine-runner</a></p></blockquote>
+
+<p>功能已经完成了，但是插件就完成了吗？非也！</p>
+
+<p>有了单元测试，我们可以放心重构我们的代码，达到最好的可维护性。先让机器帮我们做个code review——也就是linting。</p>
+
+<p>准备好了，就来看下一招：</p>
+
+<h3>第三招：利用 lint 提高代码质量</h3>
+
+<p>运行命令 <code>grunt lint</code> ，果然有报警：</p>
+
+<p><img src="http://img03.taobaocdn.com/tfscom/T1qp8CFmXbXXaCwpjX.png_620x10000.jpg" alt="grunt lint fail" /></p>
+
+<p>嗯，我们的正则表达式写法不太好，那就来优化一下吧！</p>
+
+<p>又经过一阵修改，我们的代码终于在 <code>grunt lint</code> 时没有报警了，不错！</p>
+
+<p><img src="http://img01.taobaocdn.com/tfscom/T1KuBqFhthXXaCwpjX.png_620x10000.jpg" alt="grunt lint pass" /></p>
+
+<p>运行一下 <code>grunt qunit</code> ，看到单元测试还能通过，功能正常，不错！</p>
+
+<h3>第四招：利用 watch 自动化</h3>
+
+<p>上面我们在重构和优化的时候，每次修改了功能js都要运行一遍<code>grunt qunit</code>和<code>grunt lint</code>，grunt 可以帮我们做到一旦有修改，自动运行这两个命令，方便吧？</p>
+
+<p>很简单，运行<code>grunt watch</code> 就好了。然后试一下修改 src/ 下面的 js，就不需要手动去运行qunit和lint任务了。
+watch 就是这样的一个任务，监测一些文件，都有更新的时候，自动运行需要的任务。</p>
+
+<p><img src="http://img03.taobaocdn.com/tfscom/T1bb4BFodfXXaCwpjX.png_620x10000.jpg" alt="grunt watch" /></p>
+
+<p>grunt 还自带了一些其他的任务，比如</p>
+
+<ul>
+<li>用来压缩js和css的<code>min</code> 任务</li>
+<li>用来开启一个本地http服务器的 <code>server</code> 任务</li>
+<li>用来将几个文件合并成一个的 <code>concat</code> 任务</li>
+</ul>
+
+
+<p>这些都是我们经常使用的任务。</p>
+
+<h2>小结</h2>
+
+<p>本文的示例代码已经放到 <a href="https://github.com/qhwa/grunt-demo">github 上</a>。</p>
+
+<p>这一篇我们认识了 grunt ，下一篇将会看到 grunt 这种以任务为中心的设计，带来的强大扩展性。如果上面的例子已经让你感受到了无痛开发的乐趣，那么那些社区插件保证会让你更过瘾的！敬请期待本系列的第二篇—— 让 grunt 飞起来！</p>
+
+<h2>参考</h2>
+
+<p><a href="https://github.com/gruntjs/grunt/blob/master/docs/task_init.md">grunt init</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-30T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/06/07/ruby-undecoding/">
+		
+			Ruby 如何“反转义”字符串</a>
+	</h2>
+	<div class="entry-content">
+		<p>我们知道Ruby中转义字符串可以用inspect或者dump可以将字符串转义：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">t&quot;</span><span class="o">.</span><span class="n">dump</span>       <span class="c1">#=&gt; &quot;\\&quot;\\\\t\\&quot;&quot;</span>
+</span><span class='line'><span class="s2">&quot;中文&quot;</span><span class="o">.</span><span class="n">dump</span>     <span class="c1">#=&gt; &quot;\\&quot;\\\\u{4e2d}\\\\u{6587}\\&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但有时候我们想把已经被转义的字符串反转义回正常的字符串，怎么办?</p>
+
+<p>其实方法很简单：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">unescape</span><span class="p">(</span> <span class="n">src</span> <span class="p">)</span>
+</span><span class='line'>  <span class="nb">String</span><span class="o">.</span><span class="n">class_eval</span><span class="p">(</span><span class="sx">%Q(&quot;</span><span class="si">#{</span><span class="n">src</span><span class="si">}</span><span class="sx">&quot;)</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">p</span> <span class="n">unescape</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">t</span><span class="se">\\\\</span><span class="s2">n&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">t</span><span class="se">\\</span><span class="s2">n&quot;</span>  <span class="c1">#=&gt; true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-07T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/06/07/ab/">
+		
+			使用Apache Benmark(ab) 对一个 Ruby Web 程序做性能测试</a>
+	</h2>
+	<div class="entry-content">
+		<p>最近要在一些内部系统中嵌入<a href="https://github.com/qhwa/fdlint-host/">fdlint</a>的功能，检查HTML的语法是否正确。涉及到了系统性能测试的问题，学习了一下，在这里记录一下。</p>
+
+<p>首先是工具的选择，apache自带的性能测试工具ab简单方便，就用他了！</p>
+
+<h2>首页（静态页面）的测试</h2>
+
+<p>很简单的一个命令搞定:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ab -n &lt;总数&gt; -c &lt;并发上限&gt; http://fdlint.mysite.com/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意最后的斜杠(&ldquo;/&rdquo;)没有的话命令会报错。-__&ndash;</p>
+
+<h2>功能页面(动态)的测试</h2>
+
+<p>这个页面需要接受一个form表单(POST形式). 这时可以用ab的参数q指定一个POST数据的内容。</p>
+
+<p>第一步先准备原始数据素材。我这需要提交一段HTML代码，所以找了一个HTML页面，临时下载一个也是很方便的：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget http://china.alibaba.com/ -O fixture.html
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第二步是把这个素材变成ab需要的方式，一是做URL编码，二是写成表单的形式。</p>
+
+<p>我写了一个ruby脚本来做编码的工作:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;uri&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">str</span> <span class="o">=</span> <span class="no">IO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;fixture.html&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">output</span> <span class="o">=</span> <span class="no">URI</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">str</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\\n|\\r/m</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;post.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">file</span> <span class="o">&lt;&lt;</span> <span class="sx">%Q(data=</span><span class="si">#{</span><span class="n">output</span><span class="si">}</span><span class="sx">&amp;type=html)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样就在当前目录下生成了一个post.txt文件，格式是</p>
+
+<pre><code>data=&lt;编码过的HTML代码&gt;&amp;type=html
+</code></pre>
+
+<p>这是我的程序需要的数据格式，你可以根据实际需要调整。</p>
+
+<p>然后就用ab命令了，我也写了一个shell脚本，减少反复修改执行的重复劳动：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># 测试目标url</span>
+</span><span class='line'><span class="nv">server</span><span class="o">=</span>http://fdlint.mysite.com/
+</span><span class='line'><span class="nv">amount</span><span class="o">=</span>5000
+</span><span class='line'><span class="nv">samual</span><span class="o">=</span>500
+</span><span class='line'>
+</span><span class='line'>ab -q <span class="se">\\</span>
+</span><span class='line'>   -n <span class="nv">$amount</span> -c <span class="nv">$samual</span> <span class="se">\\</span>
+</span><span class='line'>   -p post.txt <span class="se">\\</span>
+</span><span class='line'>   -T application/x-www-form-urlencoded <span class="se">\\</span>
+</span><span class='line'>   <span class="nv">$server</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>运行这个脚本，看到如下输出，表示性能测试完成:</p>
+
+<pre><code>&gt; Benchmarking fdlint.mysite.com (be patient).....done
+</code></pre>
+
+<p>实际执行的时候遇到几个问题。首先是&#8221;-T&#8221;参数一定要有，而且一定是这个值才可以。官方文档里面只是说如果用了-p来POST, 一定设置T参数指定content-type.</p>
+
+<h2>经验总结</h2>
+
+<ol>
+<li>如上面所说，url如果是站点根目录，一定要以斜杠(&ldquo;/&rdquo;)结尾</li>
+<li>使用-p之后一定要设置-T参数</li>
+<li><p>如何确定post过去之后，服务器的返回是正常的?</p>
+
+<ol type="a">
+<li>可以用ab的<code>-v</code>参数输出详细的日志，例如：<code>ab -v 4 -n 500 -c 5 $url</code></li>
+<li>在服务器可以记录日志</li>
+</ol>
+</li>
+</ol>
+
+
+<h2>参考文档</h2>
+
+<p><a href="http://httpd.apache.org/docs/2.4/programs/ab.html">官方文档链接</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-07T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/02/13/fdlint/">
+		
+			Fdlint: 让前端code Review更轻松</a>
+	</h2>
+	<div class="entry-content">
+		<p><img src="http://img.china.alibaba.com/img/ibank/2012/462/137/490731264_678162280.jpg" alt="fdlint" style="border:none;" /></p>
+
+<p><a href="https://github.com/qhwa/fdlint">fdlint</a>是<a href="http://bencode.org">bencode</a> 和 我最近做的一个实用项目。她的参考是<a href="http://jslint.com">jslint</a>——一个js代码扫描工具。和<a href="http://jslint.com">jslint</a>不同的是，<a href="https://github.com/qhwa/fdlint">fdlint</a>还可以扫描css和html代码。</p>
+
+<h2>为什么会做<a href="https://github.com/qhwa/fdlint">fdlint</a>？</h2>
+
+<p>Code review是一项重要却比较花时间的工作，根据阿里巴巴中文站前端Code Review Check List，约有80项检查项目，要完整对照着检查是比较花时间的。太花时间导致的结果就是code review的频率不高。</p>
+
+<p>因此，我们开发了<a href="https://github.com/qhwa/fdlint">fdlint</a>，对HTML/CSS/JS代码进行分析，找出工具能判断的、不符合规范的代码。<a href="https://github.com/qhwa/fdlint">fdlint</a>可以节约我们的时间，帮助 code review 更频繁、更深入。</p>
+
+<h2>特点：</h2>
+
+<ol>
+<li>能扫描出不符合规则的常见问题，共49项, 详见<a href="https://github.com/qhwa/fdlint/wiki/fdlint-%E6%89%AB%E6%8F%8F%E8%A7%84%E5%88%99">扫描规则</a></li>
+<li>提供多种使用方式，适合不同的应用场景 （命令行、<a href="http://fdlint.herokuapp.com">web</a>、<a href="https://github.com/qhwa/fdlint-vim">VIM插件</a>、<a href="https://github.com/ThinkBest/fdlint-notepad-plusplus">Notepad++插件</a>、Eclipse插件）</li>
+<li>规则定制方便，将用DSL编写的规则放入一个目录，立刻生效。</li>
+<li>可以批量扫描多个文件，支持递归扫描目录</li>
+<li>支持多种输出格式</li>
+</ol>
+
+
+<h2>截图</h2>
+
+<ul>
+<li><p>命令行运行</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-cli-500x619.png" alt="" title="fdlint-cli" width="500" height="619" class="alignnone size-medium wp-image-607" /></p></li>
+<li><p>web版本</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-host-500x512.png" alt="" title="fdlint-host" width="500" height="512" class="alignnone size-medium wp-image-609" /></p></li>
+<li><p>Eclipse插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-eclipse-500x140.png" alt="" title="fdlint-eclipse" width="500" height="140" class="alignnone size-medium wp-image-608" /></p></li>
+<li><p>Notepad++插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-notepad-500x414.png" alt="" title="fdlint-notepad" width="500" height="414" class="alignnone size-medium wp-image-610" /></p></li>
+<li><p>VIM插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-vim-500x543.png" alt="" title="fdlint-vim" width="500" height="543" class="alignnone size-medium wp-image-611" /></p></li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-13T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/02/09/say-hello-to-my-new-mate/">
+		
+			Say Hello to My New Mate</a>
+	</h2>
+	<div class="entry-content">
+		<p>没错，这是我的新伙伴，今天正式开始我的骑行了，2012的一大目标就是锻炼身体！</p>
+
+<p><img src="http://q.pnq.cc/wp-content/uploads/2012/02/DSC_0824-500x752.jpg" alt="bike" />
+<img src="http://q.pnq.cc/wp-content/uploads/2012/02/DSC_0823-500x332.jpg" alt="bike" /></p>
+
+<p>今天在网上看中的，下午联系，晚上就提车了，真是爽快！
+因为信任骑行的人，我对车主“死魂灵”是完完全全的信任，虽然我还是车盲一个，哈哈！
+提车的时候，死魂灵无微不至的交代，各种经验之谈浓缩在短短的十分钟之内，从车的调节，到刹车的时候，还有分别时候的关于安全的交代。。我囫囵吞枣般地都短暂记住了，那个场景让我想起了小说里的场面：一个武功高手在传内力给一个战斗力只有5的小朋友。。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-09T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/11/29/generating-thumbnails/">
+		
+			Ubuntu下在命令行批量生成缩略图</a>
+	</h2>
+	<div class="entry-content">
+		
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># 准备工作：安装 imagemagick</span>
+</span><span class='line'>sudo apt-get install imagemagick
+</span><span class='line'><span class="nb">cd</span> /path/to/big/images <span class="c">#大图所在的目录</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#创建小图对应的目录结构</span>
+</span><span class='line'>find . -type d -print -exec mkdir <span class="s1">&#39;../small/{}&#39;</span> -p <span class="se">\\</span>;
+</span><span class='line'>
+</span><span class='line'><span class="c">#批量转换! 等比例缩小到320x320之内</span>
+</span><span class='line'>find . -type f -name <span class="s1">&#39;*.jpg&#39;</span> -print -exec <span class="se">\\</span>
+</span><span class='line'>convert <span class="s1">&#39;{}&#39;</span> -resize 320x320 <span class="s1">&#39;../small/{}&#39;</span> <span class="se">\\</span>;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样小图都会按原先的目录结构，在上级目录的small目录出现了</p>
+
+<p>其实<a href="http://www.imagemagick.org">imagemagick</a>是一个超级神器，上面只是它很简单的一个应用&hellip;</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-29T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/10/20/make-vim-work-with-ubuntu/">
+		
+			让VIM与Ubuntu和睦相处</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="http://www.vim.org">Vim</a>和<a href="http://www.ubuntu.com">Ubuntu</a>都是我的好朋友，不过他们之间好像有点不和睦。在<a href="http://www.ubuntu.com">Ubuntu</a>11.04下gvim的菜单不能集成进全局菜单条(global menu)，而在<a href="http://www.ubuntu.com">Ubuntu</a>11.10下gvim打开之后会非常卡。需要调解一下 :D</p>
+
+<h2>解决gvim在<a href="http://www.ubuntu.com">Ubuntu</a> 11.04中菜单显示的问题</h2>
+
+<p>执行gvim时，gvim的菜单不能立刻显示出来。并且报错：</p>
+
+<blockquote><p><strong> (gvim:15150): WARNING </strong>: Unable to register window with path &lsquo;/com/canonical/menu/4200024&rsquo;: Timeout was reached</p></blockquote>
+
+<p>解决方法是运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">&#39;alias gvim=&quot;env UBUNTU_MENUPROXY=0 gvim&quot;&#39;</span> &gt;&gt; ~/.bashrc
+</span><span class='line'><span class="nb">source</span> ~/.bashrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>解决gvim在<a href="http://www.ubuntu.com">Ubuntu</a> 11.10中导致电脑很卡的问题</h2>
+
+<p>运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">&#39;alias gvim=&quot;gvim -f&quot;&#39;</span> &gt;&gt; ~/.bashrc
+</span><span class='line'><span class="nb">source</span> ~/.bashrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>解决提示“pixmap”的问题</h2>
+
+<p>如果终端中提示：</p>
+
+<blockquote><p>(gvim:2353): Gtk-WARNING **: 无法在模块路径中找到主题引擎：“pixmap”，</p></blockquote>
+
+<p>解决方法是运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install gtk2-engines-pixbuf
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/08/20/auto-update-files-on-remote-git-repo/">
+		
+			自动更新git目录</a>
+	</h2>
+	<div class="entry-content">
+		<p>假设我们有一批文件用<a href="http://git-scm.com">Git</a>在管理，然后在服务器上做了一个repo。团队成员先从服务器pull下来最新的版本，然后在本地修改并提交，最后push回服务器，这是很典型的应用场景。</p>
+
+<p>假如现在需要服务器端收到客户端的push后，能自动更新repo目录里面的文件，听起来很简单，用钩子就可以了，不过还是遇到一些问题，好在最后在google帮助下搞定。</p>
+
+<p>总结的步骤如下：</p>
+
+<p>1.先在服务器端运行设置，接受提交</p>
+
+<pre><code>git config receive.denyCurrentBranch ignore
+</code></pre>
+
+<p>2.把以下内容保存为服务器端repo中的钩子文件（<strong>.git/hooks/post-receive</strong>）</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'><span class="nb">cd</span> ..
+</span><span class='line'>env -i git reset --hard
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>3.设置权限为可运行</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>chmod a+x post-receive
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好了，这样每当服务器收到客户端的push，就会自动更新文件列表了</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/07/01/arrayvpn-in-ubuntu/">
+		
+			Ubuntu下使用Array SSL VPN客户端连接VPN网络</a>
+	</h2>
+	<div class="entry-content">
+		<p>公司用的<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的SSL VPN系统，vpn网页在Ubuntu下无法正常启动Java Applet。幸好得到了<a href="http://wenyue.me/blog/">wenyue</a>的指点，找到了方法。如果你也是Ubuntu系统，需要连接到Array SSL VPN，可以参考一下。</p>
+
+<h2>安装步骤</h2>
+
+<p>1.下载<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的客户端程序 array_vpnc.bin</p>
+
+<pre><code>#!bash
+sudo apt-get install libc6-i386 #64位系统也是这个包
+wget http://q.pnq.cc/uploads/array_vpnc.bin
+chmod a+x array_vpnc.bin
+</code></pre>
+
+<p>2.下载这个小脚本到同个目录</p>
+
+<pre><code>#!bash
+#下载辅助脚本
+wget http://q.pnq.cc/uploads/vpn-for-common.sh -O vpn.sh
+#里面会包含重要信息，我们不想别人随便访问
+chmod 700 vpn.sh
+</code></pre>
+
+<p>3.修改vpn.sh中的配置，将vpn_host、user、key修改为你的配置</p>
+
+<pre><code>#!bash
+vpn_host=your_vpn_server
+user=your_user_name
+key=your_static_passwd #密码中不变的部分
+</code></pre>
+
+<h2>使用方法：</h2>
+
+<pre><code>#!bash
+./vpn.sh
+</code></pre>
+
+<p>然后根据提示输入，当看到这个提示时，就说明成功了：</p>
+
+<blockquote><p>array_vpnc: VPN TUNNEL SUCCESSFUL!</p></blockquote>
+
+<p>Have fun!</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-01T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/03/31/is-flash-still-a-good-solution-for-web/">
+		
+			Flash真的适合做网站应用吗？</a>
+	</h2>
+	<div class="entry-content">
+		两年前，我们开发了一套基于Flash的文件（主要是图片）上传RIA应用，提供给阿里巴巴的用户使用。如果你使用过Wordpress或flickr上传图片，你应该已经用过类似的产品。这个程序基于<a title="YUI Uploader" href="http://developer.yahoo.com/yui/uploader/">YUI Uploader</a>开发，增加了一个实用的功能——在客户端先将图片缩小，再上传到服务器。用户用数码相机拍摄的照片往往有600万以上的像素，但产品图片放到阿里巴巴网站上显示，并不需要这么大的像素，通常等比例缩小到1024×1024之内就可以了。借助于Flash对图片先缩小再上传的技术，我们在没有增加服务器投入的情况下，将原先上传图片的尺寸限制由250KB/张提升到了5MB/张。同时，Flash上传还比传统HTML表单方式上传有更好的体验，例如可以多选一批文件同时上传、可以实时展示上传进度、选择文件时可以过滤非图片文件。
+
+<img class="alignnone size-full wp-image-512" style="margin: 5px; border: 1px solid black;" title="Screenshot" src="http://q.pnq.cc/wp-content/uploads/2011/03/Screenshot.png" alt="" width="782" height="352" />
+
+这个组件获得了很大的成功。上线后不久，阿里巴巴网站上用户的图片上传数量由日均1万张左右上升至日均15万张左右。但在这个上传应用投入应用的两年中，我们遇到了各种问题。
+<h2>1. bug</h2>
+<img class="alignnone size-medium wp-image-508" title="man062" src="http://q.pnq.cc/wp-content/uploads/2011/03/man062-500x494.jpg" alt="" width="500" height="494" />
+
+在<a title="Flash在某些多标签浏览器中的“伪沙箱”问题" href="http://q.pnq.cc/archives/443">基于IE多标签浏览器中的伪沙箱问题</a>就不说了，最严重的是cookie的问题。使用FileReference.upload的方式上传文件，http请求中附带的cookie信息不一定是当前浏览器进程的cookie，在Firefox、chrome等非IE浏览器中非常严重，可能传输的是IE中的cookie。即便是IE，也可能传输的cookie内容和当前页面的cookie记录不符合。这直接导致服务器端在收到文件之后的安全验证中失败。而对于阿里巴巴这样的大型网站，有比较成熟的java web框架，要去掉对cookie的依赖非常麻烦。于是结果就是，首先我们只有在用户使用IE系浏览器的时候才使用Flash上传，其次我们隔三岔五的还会收到使用IE的某些客户的投诉，在花费了大量的时间排查之后，我发现是由于cookie的问题导致上传失败。<a href="http://cookbooks.adobe.com/post_Why_is_session_info__cookies__not_sent_when_upload-12029.html">这个bug</a>已经存在很多年，但是随着Flash从9升级到10，许多版本过去了，问题依然没有被解决。对于闭源的Flash，我们也帮不上忙。
+<h2>2.性能</h2>
+<img class="alignnone size-medium wp-image-498" title="Mignight_Run_by_Orikon" src="http://q.pnq.cc/wp-content/uploads/2011/03/Mignight_Run_by_Orikon-500x340.jpg" alt="" width="500" height="340" />
+
+相对于现今数码相机的像素量，5MB的大小限制非常保守。但大于5M的时候，在一些低配置的电脑上，读取文件内容的时候就会发生浏览器假死现象。假死很容易导致浏览器崩溃，所以我们采取了保守的限制——5MB。
+
+另外一个性能消耗是将BitmapData编码成JPEG文件的时候。Adobe提供了JPEGEncoder，但由于是Array实现的，所以性能是个问题。编码一个2880×2880的图片在一台中等配置的电脑上大约需要15秒时间。
+
+我用Vector改写了这个类，时间缩短为3.5秒左右。使用Alchemy，时间进一步缩短到1.5秒左右。但还是不够安全，所以最后采用了异步Vector的方式，延长编码的时间，以保证程序的稳定性。（评测在<a title="异步+Vector版本的JPEG编码器" href="http://q.pnq.cc/archives/307">这里</a>）
+<h2>3.图片质量</h2>
+<img class="alignnone size-medium wp-image-505" title="iblrst00076625" src="http://q.pnq.cc/wp-content/uploads/2011/03/iblrst00076625-500x332.jpg" alt="" width="500" height="332" />
+
+Flash内置的最好的图片缩小算法（用BitmapData.draw，并将smoothing参数设为true），在缩小图片的时候容易产生锯齿。因此我改写了<a href="http://jacwright.com/">Jacwright</a>提供的<a href="http://code.google.com/p/jacwright/source/browse/trunk/flash/jac/src/jac/image/ImageUtils.as">缩小算法</a>，图片质量的问题解决，但代价是性能又降低了一些。
+<h2>4.安全限制</h2>
+<img class="alignnone size-medium wp-image-511" title="rad600-02833372s" src="http://q.pnq.cc/wp-content/uploads/2011/03/rad600-02833372s-500x333.jpg" alt="" width="500" height="333" />
+
+Flash10.0之后，增加了一个安全限制——当URLLoader以标准文件上传的方式发送POST请求的时候，需要由用户的UI操作（鼠标点击或按键事件）触发。因为我们对用户的图片做了处理，已经无法再通过FileReference上传，只能通过URLLoader。这个安全性限制规定每次发起一个上传文件的URLLoader请求，都必须让用户点击一下鼠标才可以。如果用户选择了20张图片，就要点击20次鼠标。这显然是无法接受的。因此我们放弃了用标准文件上传，采用普通post形式。代价是失去了对上传进度的跟踪，不知道文件上传的百分比；同时服务器端也需要改造。
+<h2>改变</h2>
+最近，我们做了一个决定：开发一个类似功能的ActiveX控件，替代Flash作为图片上传的主要解决方案。ActiveX的优势是性能，不足之处在于只能在Windows+IE浏览器中使用，但实际上我们的Flash上传目前也只能在IE中使用。Flash真的适合像阿里巴巴这样的网站使用吗？闭源和性能是Flash最大的问题。但在HTML5被广泛支持前，Flash和传统Ajax还是我们最主要的富客户端应用开发技术，相对于ActiveX、Silverlight、JavaFX、Gear等技术来说，Flash还是有安装率优势的。我们看到Adobe最近在新功能开发方面非常给力，值得称赞，但基础的功能的持续完善对开发者也同样重要。目前Flash依然是我们很重要的RIA技术，但是HTML5完全到来的那一天，现在很难说。
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-31T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+<nav id="pagenavi">
+    
+        <a href="/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/3/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

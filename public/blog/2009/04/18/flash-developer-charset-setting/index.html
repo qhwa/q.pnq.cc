@@ -1,0 +1,179 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>关于FlashDevelop中使用中文的一些经验 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="1. 中文乱码问题和解决方案
+新安装的 Flashdevelop 打开有中文的文件时，会有乱码现象，如图： 手动选择编码为UTF-8格式（File -&gt; encoding -&gt; UTF-8 )，会发现如果汉字是奇数个一起的时候，最后几个字符会变成乱码。这是由于 Flashdevelop &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">关于FlashDevelop中使用中文的一些经验</h2>
+	<div class="entry-content"><h3>1. 中文乱码问题和解决方案</h3>
+新安装的<a href="http://www.flashdevelop.org"> Flashdevelop </a>打开有中文的文件时，会有乱码现象，如图：
+<img class="alignnone size-full wp-image-299" title="snap0024_flashdevelop" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0024_flashdevelop.png" alt="snap0024_flashdevelop" width="474" height="310" />
+
+手动选择编码为UTF-8格式（<em>File -&gt; encoding -&gt; UTF-8</em> )，会发现如果汉字是奇数个一起的时候，最后几个字符会变成乱码。这是由于 Flashdevelop 读取文件，没有找到文件内的编码标记，就默认以8bit方式读取，再转回utf-8格式的时候就会出问题。
+
+<strong>解决方案：</strong>
+选择菜单 Tools - 将设置中的<span style="color: #ff0000;"><strong> Fallback Codepage</strong> </span>设置为utf-8，这样flashdevelop在不知道文件应该用什么编码的时候，就会以utf-8处理。这里顺便也将其他几个编码设为utf-8，这样就更好了。
+<img class="alignnone size-full wp-image-301" title="snap0026_flashdevelop3" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0026_flashdevelop3.png" alt="snap0026_flashdevelop3" width="539" height="202" />
+<h3>2. 修改默认字体大小</h3>
+默认情况下中文字比较小，看着会比较累。选择<em> Tools -&gt; Syntax Color&#8230;</em> 就可以修改了。
+注意哦，默认只是改编辑AS3 的字体。我就犯了错，拿AS3的设置修改，然后看XML文件的显示效果，结果发现怎么改都没效果 -__-!
+
+我用的是<em>Verdanda/10pt</em>, 最终的效果：
+
+<img class="alignnone size-full wp-image-300" title="snap0025_flashdevelop2" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0025_flashdevelop2.png" alt="snap0025_flashdevelop2" width="466" height="311" />
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

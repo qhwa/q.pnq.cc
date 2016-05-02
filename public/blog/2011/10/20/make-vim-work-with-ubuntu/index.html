@@ -1,0 +1,208 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>让VIM与Ubuntu和睦相处 - qhwa's blog</title>
+	<meta name="author" content="qhwa">
+
+	
+	<meta name="description" content="Vim和Ubuntu都是我的好朋友，不过他们之间好像有点不和睦。在Ubuntu11.04下gvim的菜单不能集成进全局菜单条(global menu)，而在Ubuntu11.10下gvim打开之后会非常卡。需要调解一下 :D 解决gvim在Ubuntu 11.04中菜单显示的问题 执行gvim时， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="qhwa's blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">qhwa's blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:q.pnq.cc">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/qhwa" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:q.pnq.cc">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">让VIM与Ubuntu和睦相处</h2>
+	<div class="entry-content"><p><a href="http://www.vim.org">Vim</a>和<a href="http://www.ubuntu.com">Ubuntu</a>都是我的好朋友，不过他们之间好像有点不和睦。在<a href="http://www.ubuntu.com">Ubuntu</a>11.04下gvim的菜单不能集成进全局菜单条(global menu)，而在<a href="http://www.ubuntu.com">Ubuntu</a>11.10下gvim打开之后会非常卡。需要调解一下 :D</p>
+
+<h2>解决gvim在<a href="http://www.ubuntu.com">Ubuntu</a> 11.04中菜单显示的问题</h2>
+
+<p>执行gvim时，gvim的菜单不能立刻显示出来。并且报错：</p>
+
+<blockquote><p><strong> (gvim:15150): WARNING </strong>: Unable to register window with path &lsquo;/com/canonical/menu/4200024&rsquo;: Timeout was reached</p></blockquote>
+
+<p>解决方法是运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">&#39;alias gvim=&quot;env UBUNTU_MENUPROXY=0 gvim&quot;&#39;</span> &gt;&gt; ~/.bashrc
+</span><span class='line'><span class="nb">source</span> ~/.bashrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>解决gvim在<a href="http://www.ubuntu.com">Ubuntu</a> 11.10中导致电脑很卡的问题</h2>
+
+<p>运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">&#39;alias gvim=&quot;gvim -f&quot;&#39;</span> &gt;&gt; ~/.bashrc
+</span><span class='line'><span class="nb">source</span> ~/.bashrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>解决提示“pixmap”的问题</h2>
+
+<p>如果终端中提示：</p>
+
+<blockquote><p>(gvim:2353): Gtk-WARNING **: 无法在模块路径中找到主题引擎：“pixmap”，</p></blockquote>
+
+<p>解决方法是运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install gtk2-engines-pixbuf
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    qhwa
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'qhwa';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-49131235-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>
