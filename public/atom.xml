@@ -4,7 +4,7 @@
   <title><![CDATA[qhwa's blog]]></title>
   <link href="http://q.pnq.cc/atom.xml" rel="self"/>
   <link href="http://q.pnq.cc/"/>
-  <updated>2016-05-02T22:58:02+08:00</updated>
+  <updated>2016-05-02T22:59:37+08:00</updated>
   <id>http://q.pnq.cc/</id>
   <author>
     <name><![CDATA[qhwa]]></name>
@@ -28,19 +28,24 @@
 
 <p>Here&rsquo;s how it is done:</p>
 
-<p>~~~sh</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># install Yeoman command and generator</span>
+</span><span class='line'>npm install -g yo
+</span><span class='line'>npm install -g generator-react-webpack
+</span><span class='line'>
+</span><span class='line'><span class="c"># generate project</span>
+</span><span class='line'>mkdir <span class="nb">test</span>-project
+</span><span class='line'><span class="nb">cd test</span>-project
+</span><span class='line'>yo react-webpack
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>install Yeoman command and generator</h1>
-
-<p>npm install -g yo
-npm install -g generator-react-webpack</p>
-
-<h1>generate project</h1>
-
-<p>mkdir test-project
-cd test-project
-yo react-webpack
-~~~</p>
 
 <p>Thanks to <a href="https://github.com/newtriks/generator-react-webpack">generator-react-webpack</a>, answer some questions from <code>yo</code> and you will get your project setup.</p>
 

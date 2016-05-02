@@ -17,7 +17,7 @@ Indeed, it is super easy to setup a brand new [Webpack][Webpack] + [React][React
 
 Here's how it is done:
 
-~~~sh
+{% codeblock lang:sh %}
 # install Yeoman command and generator
 npm install -g yo
 npm install -g generator-react-webpack
@@ -26,7 +26,7 @@ npm install -g generator-react-webpack
 mkdir test-project
 cd test-project
 yo react-webpack
-~~~
+{% endcodeblock %}
 
 Thanks to [generator-react-webpack](https://github.com/newtriks/generator-react-webpack), answer some questions from `yo` and you will get your project setup.
 
