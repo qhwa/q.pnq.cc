@@ -4,7 +4,7 @@
   <title><![CDATA[qhwa's blog]]></title>
   <link href="http://q.pnq.cc/atom.xml" rel="self"/>
   <link href="http://q.pnq.cc/"/>
-  <updated>2016-05-02T23:15:15+08:00</updated>
+  <updated>2016-05-05T10:13:03+08:00</updated>
   <id>http://q.pnq.cc/</id>
   <author>
     <name><![CDATA[qhwa]]></name>
@@ -12,6 +12,123 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[minifying-with-webpack]]></title>
+    <link href="http://q.pnq.cc/blog/2016/05/05/minifying-with-webpack/"/>
+    <updated>2016-05-05T10:09:12+08:00</updated>
+    <id>http://q.pnq.cc/blog/2016/05/05/minifying-with-webpack</id>
+    <content type="html"><![CDATA[<p><img src="https://cdn-images-1.medium.com/max/1600/1*rsOjd1jR3eOmJNJh4Zp42g.png" alt="webpack bundling" /></p>
+
+<p>When coding in a modern modular way with Webpack is done, it enters the deploy phrase. We minify assets to reduce the network transfer cost. While bundling is not necessary nowadays thanks to HTTP/2, minifying is still an important work, because in many cases we can reduce the size to transfer between servers and clients:</p>
+
+<ul>
+<li>unreachable codes can be removed</li>
+<li>comments code can be removed</li>
+<li>images can be optimised losslessly</li>
+<li>variable names can be shortened in Javascript</li>
+<li>HTML and SVGs can be optimised</li>
+</ul>
+
+
+<p>Here in <a href="http://www.helijia.com">Helijia</a>, we use webpack to build mobile apps. Here are some notes from us on minifying with <a href="https://webpack.github.io">Webpack</a>.</p>
+
+<h2>Minifying Javascript / CSS</h2>
+
+<p><a href="https://webpack.github.io">Webpack</a> is shipped with some builtin plugins which can do the job well.
+* <a href="https://webpack.github.io/docs/list-of-plugins.html#dedupeplugin">Dedupe Plugin</a> searches for similar files and deduplicated them in the output.
+* <a href="https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin">UglyfiJS Plugin</a> uses the famous <a href="https://github.com/mishoo/UglifyJS">UglifyJS</a> to minify JS and CSS assets.</p>
+
+<h3>Tip: Use webpack stats to review your modules</h3>
+
+<p>Webpack can generate packing stats in json format while packing. We use <a href="https://chrisbateman.github.io/webpack-visualizer/">Webpack visualizer</a> to visualize it to find which part of our works can be optimized. It helps a lot by providing an detail view inside the bundled file.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*fNQylMzJclEm5VDbVuHwVQ.png" alt="webpack viz" /></p>
+
+<h2>Minifying HTML</h2>
+
+<p><a href="https://github.com/ampedandwired/html-webpack-plugin">HTML webpack plugin</a> can help minifying HTML. Here is an example config:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">template</span> <span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../src/template.html.ejs&#39;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">filename</span> <span class="o">:</span> <span class="s1">&#39;index.html&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">title</span>    <span class="o">:</span> <span class="s1">&#39;河狸家&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">inject</span>   <span class="o">:</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">minify</span>   <span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">html5</span>                          <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">collapseWhitespace</span>             <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">minifyCSS</span>                      <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">minifyJS</span>                       <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">minifyURLs</span>                     <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">removeAttributeQuotes</span>          <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">removeComments</span>                 <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">removeEmptyAttributes</span>          <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">removeOptionalTags</span>             <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">removeRedundantAttributes</span>      <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">removeScriptTypeAttributes</span>     <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">removeStyleLinkTypeAttributese</span> <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">useShortDoctype</span>                <span class="o">:</span> <span class="kc">true</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}),</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Minifying SVG</h2>
+
+<p>we are currently using <a href="https://github.com/rpominov/svgo-loader">svgo-loader</a> to keep SVGs clean.</p>
+
+<p>before:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;</span>
+</span><span class='line'><span class="cp">&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&gt;</span>
+</span><span class='line'><span class="nt">&lt;svg</span> <span class="na">width=</span><span class="s">&quot;100%&quot;</span> <span class="na">height=</span><span class="s">&quot;100%&quot;</span> <span class="na">viewBox=</span><span class="s">&quot;0 0 10 18&quot;</span> <span class="na">version=</span><span class="s">&quot;1.1&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span> <span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span> <span class="na">style=</span><span class="s">&quot;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;path</span> <span class="na">id=</span><span class="s">&quot;Shape-Copy&quot;</span> <span class="na">d=</span><span class="s">&quot;M9.157,0.136L0.157,8.636C-0.052,8.834 -0.052,9.166 0.157,9.364L9.157,17.864C9.357,18.053 9.674,18.044 9.864,17.843C10.053,17.643 10.044,17.326 9.843,17.136L1.222,8.994L9.843,0.864C10.044,0.674 10.053,0.357 9.864,0.157C9.674,-0.044 9.357,-0.053 9.157,0.136Z&quot;</span> <span class="na">style=</span><span class="s">&quot;fill:rgb(189,157,98);&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>after:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;svg</span> <span class="na">class=</span><span class="s">&quot;SVGInline-svg icon-svg&quot;</span> <span class="na">style=</span><span class="s">&quot;width: 1em;height: 1em;&quot;</span> <span class="na">viewBox=</span><span class="s">&quot;0 0 10 18&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span> <span class="na">fill-rule=</span><span class="s">&quot;evenodd&quot;</span> <span class="na">clip-rule=</span><span class="s">&quot;evenodd&quot;</span> <span class="na">stroke-linejoin=</span><span class="s">&quot;round&quot;</span> <span class="na">stroke-miterlimit=</span><span class="s">&quot;1.414&quot;</span><span class="nt">&gt;&lt;path</span> <span class="na">d=</span><span class="s">&quot;M9.157.136l-9 8.5a.5.5 0 0 0 0 .728l9 8.5a.5.5 0 0 0 .686-.728l-8.62-8.142 8.62-8.13a.5.5 0 0 0-.686-.728z&quot;</span> <span class="na">fill=</span><span class="s">&quot;#bd9d62&quot;</span><span class="nt">&gt;&lt;/path&gt;&lt;/svg&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Minifying bitmap Images</h2>
+
+<p><a href="https://github.com/tcoopman/image-webpack-loader">Image-webpack-loader</a> can save a lot bandwidth.</p>
+
+<h2>Conclusion</h2>
+
+<p>Webpack provides a powerful way of web developing, we use some plugins to automating the deployment. and there are more out of our view. So let&rsquo;s keep exploring and make web development more enjoyable.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Setting Up Your React Project Is Easier Than You Think]]></title>
@@ -1332,54 +1449,6 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
 
 
 <p>好了，这样每当服务器收到客户端的push，就会自动更新文件列表了</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ubuntu下使用Array SSL VPN客户端连接VPN网络]]></title>
-    <link href="http://q.pnq.cc/blog/2011/07/01/arrayvpn-in-ubuntu/"/>
-    <updated>2011-07-01T00:00:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2011/07/01/arrayvpn-in-ubuntu</id>
-    <content type="html"><![CDATA[<p>公司用的<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的SSL VPN系统，vpn网页在Ubuntu下无法正常启动Java Applet。幸好得到了<a href="http://wenyue.me/blog/">wenyue</a>的指点，找到了方法。如果你也是Ubuntu系统，需要连接到Array SSL VPN，可以参考一下。</p>
-
-<h2>安装步骤</h2>
-
-<p>1.下载<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的客户端程序 array_vpnc.bin</p>
-
-<pre><code>#!bash
-sudo apt-get install libc6-i386 #64位系统也是这个包
-wget http://q.pnq.cc/uploads/array_vpnc.bin
-chmod a+x array_vpnc.bin
-</code></pre>
-
-<p>2.下载这个小脚本到同个目录</p>
-
-<pre><code>#!bash
-#下载辅助脚本
-wget http://q.pnq.cc/uploads/vpn-for-common.sh -O vpn.sh
-#里面会包含重要信息，我们不想别人随便访问
-chmod 700 vpn.sh
-</code></pre>
-
-<p>3.修改vpn.sh中的配置，将vpn_host、user、key修改为你的配置</p>
-
-<pre><code>#!bash
-vpn_host=your_vpn_server
-user=your_user_name
-key=your_static_passwd #密码中不变的部分
-</code></pre>
-
-<h2>使用方法：</h2>
-
-<pre><code>#!bash
-./vpn.sh
-</code></pre>
-
-<p>然后根据提示输入，当看到这个提示时，就说明成功了：</p>
-
-<blockquote><p>array_vpnc: VPN TUNNEL SUCCESSFUL!</p></blockquote>
-
-<p>Have fun!</p>
 ]]></content>
   </entry>
   

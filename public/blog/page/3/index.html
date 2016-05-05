@@ -7,7 +7,7 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="两年前，我们开发了一套基于Flash的文件（主要是图片）上传RIA应用，提供给阿里巴巴的用户使用。如果你使用过Wordpress或flickr上传图片，你应该已经用过类似的产品。这个程序基于YUI Uploader开发，增加了一个实用的功能——在客户端先将图片缩小，再上传到服务器。 &hellip;">
+	<meta name="description" content="公司用的Array Networks提供的SSL VPN系统，vpn网页在Ubuntu下无法正常启动Java Applet。幸好得到了wenyue的指点，找到了方法。如果你也是Ubuntu系统，需要连接到Array SSL VPN，可以参考一下。 安装步骤 1.下载Array &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +76,82 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/07/01/arrayvpn-in-ubuntu/">
+		
+			Ubuntu下使用Array SSL VPN客户端连接VPN网络</a>
+	</h2>
+	<div class="entry-content">
+		<p>公司用的<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的SSL VPN系统，vpn网页在Ubuntu下无法正常启动Java Applet。幸好得到了<a href="http://wenyue.me/blog/">wenyue</a>的指点，找到了方法。如果你也是Ubuntu系统，需要连接到Array SSL VPN，可以参考一下。</p>
+
+<h2>安装步骤</h2>
+
+<p>1.下载<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的客户端程序 array_vpnc.bin</p>
+
+<pre><code>#!bash
+sudo apt-get install libc6-i386 #64位系统也是这个包
+wget http://q.pnq.cc/uploads/array_vpnc.bin
+chmod a+x array_vpnc.bin
+</code></pre>
+
+<p>2.下载这个小脚本到同个目录</p>
+
+<pre><code>#!bash
+#下载辅助脚本
+wget http://q.pnq.cc/uploads/vpn-for-common.sh -O vpn.sh
+#里面会包含重要信息，我们不想别人随便访问
+chmod 700 vpn.sh
+</code></pre>
+
+<p>3.修改vpn.sh中的配置，将vpn_host、user、key修改为你的配置</p>
+
+<pre><code>#!bash
+vpn_host=your_vpn_server
+user=your_user_name
+key=your_static_passwd #密码中不变的部分
+</code></pre>
+
+<h2>使用方法：</h2>
+
+<pre><code>#!bash
+./vpn.sh
+</code></pre>
+
+<p>然后根据提示输入，当看到这个提示时，就说明成功了：</p>
+
+<blockquote><p>array_vpnc: VPN TUNNEL SUCCESSFUL!</p></blockquote>
+
+<p>Have fun!</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-01T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -560,58 +636,6 @@ Alchemy公开之后，Nicolas <a href="http://ncannasse.fr/blog/adobe_alchemy">�
 
 
 <time datetime="2009-06-01T00:00:00+08:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2009/04/18/flash-developer-charset-setting/">
-		
-			关于FlashDevelop中使用中文的一些经验</a>
-	</h2>
-	<div class="entry-content">
-		<h3>1. 中文乱码问题和解决方案</h3>
-新安装的<a href="http://www.flashdevelop.org"> Flashdevelop </a>打开有中文的文件时，会有乱码现象，如图：
-<img class="alignnone size-full wp-image-299" title="snap0024_flashdevelop" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0024_flashdevelop.png" alt="snap0024_flashdevelop" width="474" height="310" />
-
-手动选择编码为UTF-8格式（<em>File -&gt; encoding -&gt; UTF-8</em> )，会发现如果汉字是奇数个一起的时候，最后几个字符会变成乱码。这是由于 Flashdevelop 读取文件，没有找到文件内的编码标记，就默认以8bit方式读取，再转回utf-8格式的时候就会出问题。
-
-<strong>解决方案：</strong>
-选择菜单 Tools - 将设置中的<span style="color: #ff0000;"><strong> Fallback Codepage</strong> </span>设置为utf-8，这样flashdevelop在不知道文件应该用什么编码的时候，就会以utf-8处理。这里顺便也将其他几个编码设为utf-8，这样就更好了。
-<img class="alignnone size-full wp-image-301" title="snap0026_flashdevelop3" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0026_flashdevelop3.png" alt="snap0026_flashdevelop3" width="539" height="202" />
-<h3>2. 修改默认字体大小</h3>
-默认情况下中文字比较小，看着会比较累。选择<em> Tools -&gt; Syntax Color&#8230;</em> 就可以修改了。
-注意哦，默认只是改编辑AS3 的字体。我就犯了错，拿AS3的设置修改，然后看XML文件的显示效果，结果发现怎么改都没效果 -__-!
-
-我用的是<em>Verdanda/10pt</em>, 最终的效果：
-
-<img class="alignnone size-full wp-image-300" title="snap0025_flashdevelop2" src="http://q.pnq.cc/wp-content/uploads/2009/04/snap0025_flashdevelop2.png" alt="snap0025_flashdevelop2" width="466" height="311" />
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-04-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>

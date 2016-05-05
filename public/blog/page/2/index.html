@@ -7,7 +7,10 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content=" 这个效果原先是给团队内部的一个协作网站开发的 暂时还没有时间详细写过程，有兴趣的可以看看代码，交流一下 ">
+	<meta name="description" content=" in/out 原则：签入的代码一定要比签出时更好
+变量命名选用最贴切、最短的
+只为当前的需求考虑设计
+出现当前设计无法满足的新需求时，重构设计，使用最合理的，而不是满足需求的设计 Jul 18th, 2013 ">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +79,49 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/07/18/programing-on-principles/">
+		
+			编程原则</a>
+	</h2>
+	<div class="entry-content">
+		<ol>
+<li>in/out 原则：签入的代码一定要比签出时更好</li>
+<li>变量命名选用最贴切、最短的</li>
+<li>只为当前的需求考虑设计</li>
+<li>出现当前设计无法满足的新需求时，重构设计，使用最合理的，而不是满足需求的设计</li>
+</ol>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T11:49:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -947,82 +993,6 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
 
 
 <time datetime="2011-08-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2011/07/01/arrayvpn-in-ubuntu/">
-		
-			Ubuntu下使用Array SSL VPN客户端连接VPN网络</a>
-	</h2>
-	<div class="entry-content">
-		<p>公司用的<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的SSL VPN系统，vpn网页在Ubuntu下无法正常启动Java Applet。幸好得到了<a href="http://wenyue.me/blog/">wenyue</a>的指点，找到了方法。如果你也是Ubuntu系统，需要连接到Array SSL VPN，可以参考一下。</p>
-
-<h2>安装步骤</h2>
-
-<p>1.下载<a href="http://www.arraynetworks.com.cn/">Array Networks</a>提供的客户端程序 array_vpnc.bin</p>
-
-<pre><code>#!bash
-sudo apt-get install libc6-i386 #64位系统也是这个包
-wget http://q.pnq.cc/uploads/array_vpnc.bin
-chmod a+x array_vpnc.bin
-</code></pre>
-
-<p>2.下载这个小脚本到同个目录</p>
-
-<pre><code>#!bash
-#下载辅助脚本
-wget http://q.pnq.cc/uploads/vpn-for-common.sh -O vpn.sh
-#里面会包含重要信息，我们不想别人随便访问
-chmod 700 vpn.sh
-</code></pre>
-
-<p>3.修改vpn.sh中的配置，将vpn_host、user、key修改为你的配置</p>
-
-<pre><code>#!bash
-vpn_host=your_vpn_server
-user=your_user_name
-key=your_static_passwd #密码中不变的部分
-</code></pre>
-
-<h2>使用方法：</h2>
-
-<pre><code>#!bash
-./vpn.sh
-</code></pre>
-
-<p>然后根据提示输入，当看到这个提示时，就说明成功了：</p>
-
-<blockquote><p>array_vpnc: VPN TUNNEL SUCCESSFUL!</p></blockquote>
-
-<p>Have fun!</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-01T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
