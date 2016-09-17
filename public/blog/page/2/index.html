@@ -7,10 +7,15 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content=" in/out 原则：签入的代码一定要比签出时更好
-变量命名选用最贴切、最短的
-只为当前的需求考虑设计
-出现当前设计无法满足的新需求时，重构设计，使用最合理的，而不是满足需求的设计 Jul 18th, 2013 ">
+	<meta name="description" content="…… 身为 JavaScript 程序员的好友说，对 javascript 的不满之一，就是它的变量声明和作用域。 —— Mats JavaScript js 可以通过有无var来选择是否创建一个新的作用域： 1
+2
+3
+4
+5
+6
+7
+var a = &quot;out&quot;;
+( &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -79,6 +84,172 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/18/variable-scope-in-js-coffeescript-and-ruby/">
+		
+			《代码的未来》 阅读笔记（1）—— JavaScript/CoffeScript/ruby 局部变量处理的异同</a>
+	</h2>
+	<div class="entry-content">
+		<blockquote><p>…… 身为 JavaScript 程序员的好友说，对 javascript 的不满之一，就是它的变量声明和作用域。 —— Mats</p></blockquote>
+
+<h2>JavaScript</h2>
+
+<p>js 可以通过有无<code>var</code>来选择是否创建一个新的作用域：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;in&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">})();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span> <span class="nx">a</span> <span class="p">);</span>
+</span><span class='line'><span class="c1">// &quot;out&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;in&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">})();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span> <span class="nx">a</span> <span class="p">);</span>
+</span><span class='line'><span class="c1">// &quot;in&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很灵活。不幸的是，不小心漏写最外层 <code>var</code> 之后，变量有可能会变成全局变量，这是容易滋生 bug 的地方。</p>
+
+<h2>CoffeeScript</h2>
+
+<p>CoffeeScript 中统一去掉了<code>var</code>，全部按局部变量处理，和 js 不同的是，不再创建内层作用域了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">a = </span><span class="s">&quot;out&quot;</span>
+</span><span class='line'><span class="p">(()</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nv">a = </span><span class="s">&quot;in&quot;</span>
+</span><span class='line'><span class="p">)()</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span> <span class="nx">a</span> <span class="p">)</span>
+</span><span class='line'><span class="o">//</span> <span class="s">&quot;in&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Ruby</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># version 1</span>
+</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span>
+</span><span class='line'><span class="p">(</span><span class="nb">lambda</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;in&quot;</span>
+</span><span class='line'><span class="k">end</span><span class="p">)</span><span class="o">.</span><span class="n">call</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">a</span>
+</span><span class='line'><span class="c1">#=&gt; &quot;in&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># version 2</span>
+</span><span class='line'><span class="c1"># ruby 1.9+</span>
+</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span>
+</span><span class='line'><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">2</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="p">;</span> <span class="n">a</span><span class="o">|</span> <span class="c1">#&lt;= 注意这里的分号</span>
+</span><span class='line'>  <span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;in&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">a</span>
+</span><span class='line'><span class="c1">#=&gt; &quot;out&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ruby 中默认和 CoffeeScript 一致，使用外层作用域。但多了一种“作用域声明”，允许人工制定创建一个作用域。</p>
+
+<p>结论</p>
+
+<table>
+<thead>
+<tr>
+<th> 语言 </th>
+<th> 同名局部变量处理策略 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> js  </td>
+<td> 内部优先，可以通过去掉 var 向上查找</td>
+</tr>
+<tr>
+<td> coffeescript </td>
+<td> 外部</td>
+</tr>
+<tr>
+<td> ruby </td>
+<td> 外部优先，可以通过声明强制使用内部</td>
+</tr>
+</tbody>
+</table>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-18T16:21:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -927,72 +1098,6 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
 
 
 <time datetime="2011-10-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2011/08/20/auto-update-files-on-remote-git-repo/">
-		
-			自动更新git目录</a>
-	</h2>
-	<div class="entry-content">
-		<p>假设我们有一批文件用<a href="http://git-scm.com">Git</a>在管理，然后在服务器上做了一个repo。团队成员先从服务器pull下来最新的版本，然后在本地修改并提交，最后push回服务器，这是很典型的应用场景。</p>
-
-<p>假如现在需要服务器端收到客户端的push后，能自动更新repo目录里面的文件，听起来很简单，用钩子就可以了，不过还是遇到一些问题，好在最后在google帮助下搞定。</p>
-
-<p>总结的步骤如下：</p>
-
-<p>1.先在服务器端运行设置，接受提交</p>
-
-<pre><code>git config receive.denyCurrentBranch ignore
-</code></pre>
-
-<p>2.把以下内容保存为服务器端repo中的钩子文件（<strong>.git/hooks/post-receive</strong>）</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/sh</span>
-</span><span class='line'><span class="nb">cd</span> ..
-</span><span class='line'>env -i git reset --hard
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>3.设置权限为可运行</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>chmod a+x post-receive
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>好了，这样每当服务器收到客户端的push，就会自动更新文件列表了</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>

@@ -7,7 +7,7 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content=" http://www.kirupa.com/forum/showthread.php?t=223798 AS3小贴士，准备有空翻译一下 ">
+	<meta name="description" content="验证码是防止被机器人恶意灌水的一个方法，产生一个只有服务器才知道的信息（例如一个单词、数字等），在客户端浏览器中以机器人不能分析的方式（通常是图片）出现，作为判断机器人和真人的一个依据。一般是在服务器端生成图片，由用户在文本框输入看到的文字。 使用生成图片方案的缺点在于： &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +76,51 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/01/04/captcha/">
+		
+			不使用图片的验证码方式</a>
+	</h2>
+	<div class="entry-content">
+		<img class="alignnone size-full wp-image-198" title="snap0016_captcha" src="http://q.pnq.cc/wp-content/uploads/2009/01/snap0016_captcha.png" alt="snap0016_captcha" width="179" height="100" />
+
+验证码是防止被机器人恶意灌水的一个方法，产生一个只有服务器才知道的信息（例如一个单词、数字等），在客户端浏览器中以机器人不能分析的方式（通常是图片）出现，作为判断机器人和真人的一个依据。一般是在服务器端生成图片，由用户在文本框输入看到的文字。
+
+使用生成图片方案的缺点在于：
+<ol>
+	<li> 在服务器端生成图片比较耗费资源。虽然有一些优化的办法，例如先一次性生成一批图片，然后缓存，用户看到的图片其实不是实时产生的，但这个方案存在被破解的风险，生成时也需要占用一些资源。（如果是测试服务器先生成，迁移到生产服务器，虽然不占资源，但是系统却复杂了）</li>
+	<li> 理论上来说，机器人很难辨认的文字，用户也很难辨认，这个方法在安全性和易用性之间存在矛盾。</li>
+</ol>
+<a href="http://kevin-le.appspot.com">Kevin LE</a> 提出了<a href="http://kevin-le.appspot.com/post/7440799581767132872">两个不需要生成图片的验证码方法</a>（<a href="http://kevin-le.appspot.com/extra/lab/captcha/">演示</a>）：
+		
+		<a href="/blog/2009/01/04/captcha/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-04T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -536,43 +581,6 @@ Firefox Chromifox 主题下载地址： <a href="https://addons.mozilla.org/zh-C
 
 
 <time datetime="2008-12-24T00:00:00+08:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2008/12/22/phoenix-the-mighty-editor/">
-		
-			Phoenix – 又一款华丽的在线图片编辑器</a>
-	</h2>
-	<div class="entry-content">
-		<p>伴随着Flash的功能越来越强大，重量级的在线应用程序也不断出现，例如被Adobe收购的<a href="https://buzzword.acrobat.com" target="_blank">BuzzWord</a>、支持<strong>中文手写</strong>输入的<a href="http://www.nciku.com" target="_blank">n词酷手写识别</a>。在图片处理领域，<a href="http://www.picnik.com" target="_blank">picnik</a>走的是简单易用路线，而<a href="http://aviary.com/tools/phoenix" target="_blank">phoenix</a>则是相当于photoshop的简易在线版本，带图层、滤镜等效果，适合应用在专业场合。</p>  <p><img title="Aviary - Phoenix" style="border-right: 0px; border-top: 0px; display: inline; border-left: 0px; border-bottom: 0px" height="304" alt="Aviary - Phoenix" src="http://q.pnq.cc/wp-content/uploads/2008/12/aviaryphoenix1.png" width="410" border="0" /> </p>  <p>虽然功能和性能上逊色photoshop不少，但有一就有二，flash在线图像技术的前途已经得到证明。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-22T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
