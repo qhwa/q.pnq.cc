@@ -7,8 +7,15 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="中秋前夕，阿里的月饼事件引爆了圈内网络（事件回顾）。事情从当事人双方的角度来说都有道理： 程序员：只是利用技术替代人工抢，和正常点击按钮抢并没有差别。没想到服务器端有程序 bug，可以不停抢。发现问题后没有付款，赶快联系了行政要退还。
-HR: 5个人抢了120多盒月饼，过分了。 &hellip;">
+	<meta name="description" content="这里记录了每天阅读代码记录的新知识。 List.keymember?/3 用来检查 Keyword List 中有没有对应的 key / value： 1
+2
+3
+4
+5
+6
+iex&gt; List.keymember?([a: 1, b: 2], :a, 0)
+true
+iex&gt; &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -77,6 +84,188 @@ HR: 5个人抢了120多盒月饼，过分了。 &hellip;">
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2017/01/17/daily-reading-1/">
+		
+			Daily Reading Note #1</a>
+	</h2>
+	<div class="entry-content">
+		<p>这里记录了每天阅读代码记录的新知识。</p>
+
+<h3>List.keymember?/3</h3>
+
+<p>用来检查 Keyword List 中有没有对应的 key / value：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">keymember?</span><span class="p">([</span><span class="ss">a:</span> <span class="m">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="m">2</span><span class="p">],</span> <span class="ss">:a</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>
+</span><span class='line'><span class="no">true</span>
+</span><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">keymember?</span><span class="p">([</span><span class="ss">a:</span> <span class="m">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="m">2</span><span class="p">],</span> <span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+</span><span class='line'><span class="no">true</span>
+</span><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">List</span><span class="o">.</span><span class="n">keymember?</span><span class="p">([</span><span class="ss">a:</span> <span class="m">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="m">2</span><span class="p">],</span> <span class="ss">:c</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>
+</span><span class='line'><span class="no">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>:code.where_is_file/1</h3>
+
+<p>可以从 load_paths 中找到 beam 文件</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="ss">:code</span><span class="o">.</span><span class="n">where_is_file</span><span class="p">(</span><span class="s1">&#39;Elixir.Kernel.beam&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="s1">&#39;/usr/local/bin/../lib/elixir/ebin/Elixir.Kernel.beam&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Code.prepend_path/1</h3>
+
+<p>将一个路径加入 Elixir 的 load_paths</p>
+
+<h3>Code.eval_string/3</h3>
+
+<p>执行一段代码，并返回结果，以及结果 binding</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Code</span><span class="o">.</span><span class="n">eval_string</span> <span class="s2">&quot;b = a + 1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="ss">a:</span> <span class="m">1</span><span class="p">],</span> <span class="ss">file:</span> <span class="n">__ENV__</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="ss">line:</span> <span class="n">__ENV__</span><span class="o">.</span><span class="n">line</span>
+</span><span class='line'><span class="p">{</span><span class="m">2</span><span class="p">,</span> <span class="p">[</span><span class="ss">a:</span> <span class="m">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="m">2</span><span class="p">]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Keyword.get_values/2</h3>
+
+<p>获取关键字列表中某个 key 对应的所有值，很适合用来获取参数</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Keyword</span><span class="o">.</span><span class="n">get_values</span> <span class="p">[</span><span class="ss">path:</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="ss">path:</span> <span class="s2">&quot;b/c&quot;</span><span class="p">],</span> <span class="ss">:path</span>
+</span><span class='line'><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b/c&quot;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>:binary.last/1<code>或</code>String.last/1</h3>
+
+<p>获取字符串的最后一个字符</p>
+
+<h3>Kernel.struct/2</h3>
+
+<p>适合留下 struct 合法的 key，丢弃不合法的 key</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="k">defmodule</span> <span class="no">User</span> <span class="k">do</span>
+</span><span class='line'><span class="o">...&gt;</span>  <span class="n">defstruct</span> <span class="ss">name:</span> <span class="no">nil</span>
+</span><span class='line'><span class="o">...&gt;</span> <span class="k">end</span>
+</span><span class='line'><span class="o">...&gt;</span> <span class="n">struct</span> <span class="err">%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">&quot;qhwa&quot;</span><span class="p">},</span> <span class="err">%</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">&quot;Billy&quot;</span><span class="p">,</span> <span class="ss">age:</span> <span class="m">10</span><span class="p">}</span>
+</span><span class='line'><span class="err">%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">&quot;Billy&quot;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Code.ensure_loaded?/1</h3>
+
+<p>可以判断一个 Module 是否已经加载进来了</p>
+
+<h3>Path.wildcard/1</h3>
+
+<p>等于 Ruby 的 <code>Dir.glob</code></p>
+
+<h3>Path.basename/2</h3>
+
+<p>和 Ruby 一样，可以用来去掉扩展名</p>
+
+<h3>Kernel.function_exported?/3</h3>
+
+<p>判断一个模块是否暴露了方法名</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="n">function_exported?</span> <span class="no">Kernel</span><span class="p">,</span> <span class="ss">:struct</span><span class="p">,</span> <span class="m">2</span>
+</span><span class='line'><span class="no">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Code.get_docs/2</code>
+如果编译时有 <code>--docs</code> 选项（默认是有的），可以从模块中得到文档。返回 <code>{line, text}</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Code</span><span class="o">.</span><span class="n">get_docs</span> <span class="no">Code</span><span class="p">,</span> <span class="ss">:moduledoc</span>
+</span><span class='line'><span class="p">{</span><span class="m">2</span><span class="p">,</span>
+</span><span class='line'> <span class="s2">&quot;Utilities for managing code compilation, code evaluation and code loading.\n\nThis module complements Erlang&#39;s [`:code` module](http://www.erlang.org/doc/man/code.html)\nto add behaviour which is specific to Elixir. Almost all of the functions in this module\nhave global side effects on the behaviour of Elixir.\n&quot;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Enum.at/1</h3>
+
+<h3>module.<strong>info</strong>(:compile)</h3>
+
+<p>能获取一些编译信息</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Code</span><span class="o">.</span><span class="n">__info__</span><span class="p">(</span><span class="ss">:compile</span><span class="p">)</span>
+</span><span class='line'><span class="p">[</span><span class="ss">options:</span> <span class="p">[</span><span class="ss">:debug_info</span><span class="p">],</span> <span class="ss">version:</span> <span class="s1">&#39;6.0.1&#39;</span><span class="p">,</span> <span class="ss">time:</span> <span class="p">{</span><span class="m">2017</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">52</span><span class="p">},</span>
+</span><span class='line'> <span class="ss">source:</span> <span class="s1">&#39;/Users/jose/OSS/elixir/lib/elixir/lib/code.ex&#39;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Kernel.Typespec.beam_specs/1</h3>
+
+<p>可以获取一个模块的类型信息</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Kernel</span><span class="o">.</span><span class="no">Typespec</span><span class="o">.</span><span class="n">beam_specs</span><span class="p">(</span><span class="no">Code</span><span class="p">)</span>
+</span><span class='line'> <span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>如何在管道中用 <code>||</code></h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">a</span> <span class="o">|&gt;</span> <span class="n">func</span><span class="p">()</span> <span class="o">|&gt;</span> <span class="no">Kernel</span><span class="o">.||</span><span class="p">([])</span> <span class="o">|&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">inspect</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-01-17T23:16:40+08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2017</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -995,84 +1184,6 @@ HR: 5个人抢了120多盒月饼，过分了。 &hellip;">
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/03/18/chinse-number-gem/">
-		
-			Chinese_number: 一个解析汉字数字的 ~rubygem</a>
-	</h2>
-	<div class="entry-content">
-		<p><a href="http://ruby-china.org">ruby-china</a> 上有人问到<a href="http://ruby-china.org/topics/17913">怎么优雅地解析汉字数字</a>，比如 <code>二十五</code> 解析成 <code>25</code> 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！</p>
-
-<p>不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; <strong><a href="https://github.com/qhwa/chinese_number">chinese_number</a></strong></p>
-
-<p>用法很简单：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;chinese_number&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">trans</span> <span class="s1">&#39;今天二十万&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; &quot;今天200000&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">find</span> <span class="s2">&quot;一年有十二个月三百六十五天&quot;</span>
-</span><span class='line'><span class="c1">#=&gt; [{&quot;一&quot;=&gt;1}, {&quot;十二&quot;=&gt;12}, {&quot;三百六十五&quot;=&gt;365}]</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">extract</span> <span class="s2">&quot;今天二十晚&quot;</span>
-</span><span class='line'><span class="c1">#=&gt; [20]</span>
-</span><span class='line'>
-</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;二零一四&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; 2014</span>
-</span><span class='line'>
-</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;一万三千&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; 13000</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-18T17:45:38+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
 <nav id="pagenavi">
     
     
@@ -1080,7 +1191,7 @@ HR: 5个人抢了120多盒月饼，过分了。 &hellip;">
     
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav></div>
-	<footer id="footer" class="inner">Copyright &copy; 2016
+	<footer id="footer" class="inner">Copyright &copy; 2017
 
     qhwa
 

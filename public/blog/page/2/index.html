@@ -7,15 +7,7 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="…… 身为 JavaScript 程序员的好友说，对 javascript 的不满之一，就是它的变量声明和作用域。 —— Mats JavaScript js 可以通过有无var来选择是否创建一个新的作用域： 1
-2
-3
-4
-5
-6
-7
-var a = &quot;out&quot;;
-( &hellip;">
+	<meta name="description" content="ruby-china 上有人问到怎么优雅地解析汉字数字，比如 二十五 解析成 25 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！ 不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -84,6 +76,84 @@ var a = &quot;out&quot;;
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/18/chinse-number-gem/">
+		
+			Chinese_number: 一个解析汉字数字的 ~rubygem</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="http://ruby-china.org">ruby-china</a> 上有人问到<a href="http://ruby-china.org/topics/17913">怎么优雅地解析汉字数字</a>，比如 <code>二十五</code> 解析成 <code>25</code> 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！</p>
+
+<p>不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; <strong><a href="https://github.com/qhwa/chinese_number">chinese_number</a></strong></p>
+
+<p>用法很简单：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;chinese_number&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">trans</span> <span class="s1">&#39;今天二十万&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; &quot;今天200000&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">find</span> <span class="s2">&quot;一年有十二个月三百六十五天&quot;</span>
+</span><span class='line'><span class="c1">#=&gt; [{&quot;一&quot;=&gt;1}, {&quot;十二&quot;=&gt;12}, {&quot;三百六十五&quot;=&gt;365}]</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">extract</span> <span class="s2">&quot;今天二十晚&quot;</span>
+</span><span class='line'><span class="c1">#=&gt; [20]</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;二零一四&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; 2014</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;一万三千&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; 13000</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-18T17:45:38+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -1023,88 +1093,6 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2011/10/20/make-vim-work-with-ubuntu/">
-		
-			让VIM与Ubuntu和睦相处</a>
-	</h2>
-	<div class="entry-content">
-		<p><a href="http://www.vim.org">Vim</a>和<a href="http://www.ubuntu.com">Ubuntu</a>都是我的好朋友，不过他们之间好像有点不和睦。在<a href="http://www.ubuntu.com">Ubuntu</a>11.04下gvim的菜单不能集成进全局菜单条(global menu)，而在<a href="http://www.ubuntu.com">Ubuntu</a>11.10下gvim打开之后会非常卡。需要调解一下 :D</p>
-
-<h2>解决gvim在<a href="http://www.ubuntu.com">Ubuntu</a> 11.04中菜单显示的问题</h2>
-
-<p>执行gvim时，gvim的菜单不能立刻显示出来。并且报错：</p>
-
-<blockquote><p><strong> (gvim:15150): WARNING </strong>: Unable to register window with path &lsquo;/com/canonical/menu/4200024&rsquo;: Timeout was reached</p></blockquote>
-
-<p>解决方法是运行：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">&#39;alias gvim=&quot;env UBUNTU_MENUPROXY=0 gvim&quot;&#39;</span> &gt;&gt; ~/.bashrc
-</span><span class='line'><span class="nb">source</span> ~/.bashrc
-</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h2>解决gvim在<a href="http://www.ubuntu.com">Ubuntu</a> 11.10中导致电脑很卡的问题</h2>
-
-<p>运行：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">&#39;alias gvim=&quot;gvim -f&quot;&#39;</span> &gt;&gt; ~/.bashrc
-</span><span class='line'><span class="nb">source</span> ~/.bashrc
-</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<h2>解决提示“pixmap”的问题</h2>
-
-<p>如果终端中提示：</p>
-
-<blockquote><p>(gvim:2353): Gtk-WARNING **: 无法在模块路径中找到主题引擎：“pixmap”，</p></blockquote>
-
-<p>解决方法是运行：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install gtk2-engines-pixbuf
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
 <nav id="pagenavi">
     
         <a href="/" class="prev">Prev</a>
@@ -1114,7 +1102,7 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
     
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav></div>
-	<footer id="footer" class="inner">Copyright &copy; 2016
+	<footer id="footer" class="inner">Copyright &copy; 2017
 
     qhwa
 

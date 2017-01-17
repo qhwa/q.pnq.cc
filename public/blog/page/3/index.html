@@ -7,7 +7,7 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="假设我们有一批文件用Git在管理，然后在服务器上做了一个repo。团队成员先从服务器pull下来最新的版本，然后在本地修改并提交，最后push回服务器，这是很典型的应用场景。 假如现在需要服务器端收到客户端的push后，能自动更新repo目录里面的文件，听起来很简单，用钩子就可以了， &hellip;">
+	<meta name="description" content="Vim和Ubuntu都是我的好朋友，不过他们之间好像有点不和睦。在Ubuntu11.04下gvim的菜单不能集成进全局菜单条(global menu)，而在Ubuntu11.10下gvim打开之后会非常卡。需要调解一下 :D 解决gvim在Ubuntu 11.04中菜单显示的问题 执行gvim时 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +76,88 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/10/20/make-vim-work-with-ubuntu/">
+		
+			让VIM与Ubuntu和睦相处</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="http://www.vim.org">Vim</a>和<a href="http://www.ubuntu.com">Ubuntu</a>都是我的好朋友，不过他们之间好像有点不和睦。在<a href="http://www.ubuntu.com">Ubuntu</a>11.04下gvim的菜单不能集成进全局菜单条(global menu)，而在<a href="http://www.ubuntu.com">Ubuntu</a>11.10下gvim打开之后会非常卡。需要调解一下 :D</p>
+
+<h2>解决gvim在<a href="http://www.ubuntu.com">Ubuntu</a> 11.04中菜单显示的问题</h2>
+
+<p>执行gvim时，gvim的菜单不能立刻显示出来。并且报错：</p>
+
+<blockquote><p><strong> (gvim:15150): WARNING </strong>: Unable to register window with path &lsquo;/com/canonical/menu/4200024&rsquo;: Timeout was reached</p></blockquote>
+
+<p>解决方法是运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">&#39;alias gvim=&quot;env UBUNTU_MENUPROXY=0 gvim&quot;&#39;</span> &gt;&gt; ~/.bashrc
+</span><span class='line'><span class="nb">source</span> ~/.bashrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>解决gvim在<a href="http://www.ubuntu.com">Ubuntu</a> 11.10中导致电脑很卡的问题</h2>
+
+<p>运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">&#39;alias gvim=&quot;gvim -f&quot;&#39;</span> &gt;&gt; ~/.bashrc
+</span><span class='line'><span class="nb">source</span> ~/.bashrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>解决提示“pixmap”的问题</h2>
+
+<p>如果终端中提示：</p>
+
+<blockquote><p>(gvim:2353): Gtk-WARNING **: 无法在模块路径中找到主题引擎：“pixmap”，</p></blockquote>
+
+<p>解决方法是运行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install gtk2-engines-pixbuf
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -572,89 +654,6 @@ Fiddler是以代理服务器的方式，监听系统的网络数据流动。运�
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2009/08/11/dev-tools/">
-		
-			帮助我提升Actionscript 开发效率的一些工具</a>
-	</h2>
-	<div class="entry-content">
-		一个好用的工具不仅仅可以解决问题，还可以提高工作的效率。追求最高效敏捷的开发，是一种精神。在平常工作中，我不断在寻找提高效率的软件，以下是Flash开发时候用到的一些工具，与大家分享一下，拋砖引玉，如果你有更好的，不妨来交流一下。
-<h3>1.开发环境类</h3>
-<ul>
-	<li><cite><strong><a href="http://www.flashdevelop.org">Flashdevelop</a>
-</strong></cite><a href="http://www.flashdevelop.org"><img class="alignnone size-full wp-image-330" title="flashdevelop2" src="http://q.pnq.cc/wp-content/uploads/2009/08/flashdevelop2.gif" alt="flashdevelop2" width="500" height="300" /></a></li>
-	<li><a href="http://labs.adobe.com/technologies/flashbuilder4/" target="_blank"><cite><strong>Adobe Flash Builder (FLex)</strong></cite></a></li>
-	<li><a href="http://labs.adobe.com/technologies/flashcatalyst/" target="_blank"><cite><strong>Adobe Flash Catalyst</strong></cite></a> —— 快速处理设计资源，构建程序原型</li>
-	<li><a href="http://www.adobe.com/products/flash/" target="_blank"><cite><strong>Adobe Flash CS4</strong></cite></a> —— 处理设计资源偶尔用到</li>
-	<li><cite><strong><a href="http://fdt.powerflasher.com/" target="_blank">FDT </a>
-</strong></cite></li>
-	<li><a href="http://www.eclipse.org/" target="_blank"><cite><strong>Eclipse</strong></cite></a></li>
-	<li><a href="http://www.aptana.com/" target="_blank"><cite><strong>Aptana</strong></cite></a></li>
-</ul>
-<h3>2.帮助、工具书</h3>
-<ul>
-	<li> <a href="http://flex.org/tour" target="_blank"><cite><strong>Tour de flex</strong></cite></a>
-<a href="http://flex.org/tour" target="_blank"><img class="alignnone size-full wp-image-332" title="tour-de-flex" src="http://q.pnq.cc/wp-content/uploads/2009/08/tour-de-flex.png" alt="tour-de-flex" width="500" height="451" /></a></li>
-	<li> <a href="http://livedocs.adobe.com/flash/9.0_cn/ActionScriptLangRefV3/" target="_blank"><cite>在线文档</cite></a></li>
-	<li><a href="http://www.airdoc.be/" target="_blank"><cite><strong>DOC?</strong></cite></a></li>
-</ul>
-<h3>3.测试类</h3>
-<ul>
-	<li><a href="http://www.fiddler2.com" target="_blank">Fiddler</a>
-<a href="http://www.fiddler2.com"><img class="alignnone size-full wp-image-333" title="fiddler" src="http://q.pnq.cc/wp-content/uploads/2009/08/fiddler.png" alt="fiddler" width="500" height="286" /></a></li>
-	<li> <cite><a href="http://www.adobe.com/support/flashplayer/downloads.html" target="_blank"><strong>Flash player</strong> 调试版本</a></cite><a href="http://tortoisesvn.tigris.org/" target="_blank"><cite></cite></a> —— 很基础确很实用的调试工具 <cite>
-</cite></li>
-	<li> <a href="http://demonsterdebugger.com/" target="_blank"><cite><strong>Monster debugger</strong></cite></a> —— 强大的外部调试工具 <cite></cite><a href="http://demonsterdebugger.com/" target="_blank"><cite>
-</cite></a></li>
-	<li><a href="http://getfirebug.com/" target="_blank"><cite><strong>firebug</strong></cite></a> —— 与JS通信时的调试很有用<a href="http://demonsterdebugger.com/" target="_blank"><cite>
-</cite></a></li>
-</ul>
-<h3>4.代码管理</h3>
-<ul>
-	<li><a href="http://code.google.com/intl/zh-CN/" target="_blank"><cite><strong>Google Code</strong></cite></a> —— Google 提供的代码托管
-<cite></cite></li>
-	<li><cite><strong><a href="http://www.subversion.org.cn/" target="_blank">subversion</a></strong></cite> ——建立自己的SVN服务器</li>
-	<li><a href="http://tortoisesvn.tigris.org/" target="_blank"><cite><strong>tortoisesvn</strong></cite></a> —— SVN客户端软件</li>
-</ul>
-<h3>5.通用工具</h3>
-<ul>
-	<li> <cite><strong><a href="http://www.launchy.net/" target="_blank">launchy</a>
-<a href="http://www.launchy.net/"><img class="alignnone size-medium wp-image-336" title="launchy-1" src="http://q.pnq.cc/wp-content/uploads/2009/08/launchy-1-480x300.png" alt="launchy-1" width="480" height="300" /></a>
-</strong></cite></li>
-	<li><cite><strong><a href="http://www.xmind.net">xmind</a>
-<a href="http://www.xmind.net"><img class="alignnone size-medium wp-image-338" title="xmind1" src="http://q.pnq.cc/wp-content/uploads/2009/08/xmind1-499x440.gif" alt="xmind1" width="499" height="440" /></a>
-</strong></cite></li>
-</ul>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-08-11T00:00:00+08:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
 <nav id="pagenavi">
     
         <a href="/blog/page/2/" class="prev">Prev</a>
@@ -664,7 +663,7 @@ Fiddler是以代理服务器的方式，监听系统的网络数据流动。运�
     
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav></div>
-	<footer id="footer" class="inner">Copyright &copy; 2016
+	<footer id="footer" class="inner">Copyright &copy; 2017
 
     qhwa
 
