@@ -63,7 +63,7 @@ iex> defmodule User do
 iex> function_exported? Kernel, :struct, 2
 true
 ```
-`Code.get_docs/2`
+### `Code.get_docs/2`
 如果编译时有 `--docs` 选项（默认是有的），可以从模块中得到文档。返回 `{line, text}`
 ```elixir
 iex> Code.get_docs Code, :moduledoc
