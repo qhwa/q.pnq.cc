@@ -4,7 +4,7 @@
   <title><![CDATA[qhwa's blog]]></title>
   <link href="http://q.pnq.cc/atom.xml" rel="self"/>
   <link href="http://q.pnq.cc/"/>
-  <updated>2017-01-28T15:03:12+08:00</updated>
+  <updated>2017-01-28T15:07:03+08:00</updated>
   <id>http://q.pnq.cc/</id>
   <author>
     <name><![CDATA[qhwa]]></name>
@@ -93,7 +93,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>可以看到，Elixir 已经在模块的信息中保存了相关的文档信息。ExDoc 接下来做的是提取出来，并就行格式转换。其中用到非常多的反射的接口，大部分都在 <code>Code</code> 模块中提供了。</p>
+<p>可以看到，Elixir 已经在模块的信息中保存了相关的文档信息。ExDoc 接下来做的是提取出来，并进行格式转换。其中用到非常多的反射的接口，大部分都在 <code>Code</code> 模块中提供了。</p>
 ]]></content>
   </entry>
   
