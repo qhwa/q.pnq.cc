@@ -1,0 +1,55 @@
+---
+layout: post
+title: "Elixir 源码阅读笔记: ex_doc"
+date: 2017-01-28 10:03:00 +0800
+comments: true
+categories: 
+---
+
+源码地址：https://github.com/elixir-lang/ex_doc
+ex_doc 是 elixir 代码生成文档的工具。
+
+生成文档的方式有很多种：
+
+1. 利用语法解析分析源码；
+2. 利用语言提供的反射能力分析；
+
+Elixir 提供的反射功能非常全面，利用 Code 模块提供的一些方法，可以获得目标模块的很多信息。
+
+文档也是其中一种。例如我们有这样的一个模块：
+
+```elixir
+defmodule Example do
+
+  @moduledoc """
+  Example module for `ex_doc`.
+
+  ## Examples
+
+  ``\`
+  iex> Example.hello
+  :world
+  ``\`
+  """
+
+  @doc """
+  hello world!
+  """
+  def hello do
+    :world
+  end
+
+end
+```
+
+我们可以通过 `Code.get_docs/2` 获得模块的文档。
+
+```elixir
+iex> Code.get_docs Example, :all
+[docs: [{ {:hello, 0}, 14, :def, [], "hello world!\n"}],
+ moduledoc: {3,
+  "Example module for `ex_doc`.\n\n## Examples\n\n```\niex> Example.hello\n:world\n```\n"},
+ callback_docs: [], type_docs: []]
+```
+
+可以看到，Elixir 已经在模块的信息中保存了相关的文档信息。ExDoc 接下来做的是提取出来，并就行格式转换。其中用到非常多的反射的接口，大部分都在 `Code` 模块中提供了。

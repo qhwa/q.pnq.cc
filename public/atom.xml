@@ -4,7 +4,7 @@
   <title><![CDATA[qhwa's blog]]></title>
   <link href="http://q.pnq.cc/atom.xml" rel="self"/>
   <link href="http://q.pnq.cc/"/>
-  <updated>2017-01-28T09:34:01+08:00</updated>
+  <updated>2017-01-28T15:03:12+08:00</updated>
   <id>http://q.pnq.cc/</id>
   <author>
     <name><![CDATA[qhwa]]></name>
@@ -12,6 +12,90 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Elixir 源码阅读笔记: ex_doc]]></title>
+    <link href="http://q.pnq.cc/blog/2017/01/28/ex-doc/"/>
+    <updated>2017-01-28T10:03:00+08:00</updated>
+    <id>http://q.pnq.cc/blog/2017/01/28/ex-doc</id>
+    <content type="html"><![CDATA[<p>源码地址：<a href="https://github.com/elixir-lang/ex_doc">https://github.com/elixir-lang/ex_doc</a>
+ex_doc 是 elixir 代码生成文档的工具。</p>
+
+<p>生成文档的方式有很多种：</p>
+
+<ol>
+<li>利用语法解析分析源码；</li>
+<li>利用语言提供的反射能力分析；</li>
+</ol>
+
+
+<p>Elixir 提供的反射功能非常全面，利用 Code 模块提供的一些方法，可以获得目标模块的很多信息。</p>
+
+<p>文档也是其中一种。例如我们有这样的一个模块：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="k">defmodule</span> <span class="no">Example</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">  </span><span class="nv">@moduledoc</span> <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">  Example module for `ex_doc`.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">  ## Examples</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">  ``\`</span>
+</span><span class='line'><span class="sd">  iex&gt; Example.hello</span>
+</span><span class='line'><span class="sd">  :world</span>
+</span><span class='line'><span class="sd">  ``\`</span>
+</span><span class='line'><span class="sd">  &quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">@doc</span> <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">  hello world!</span>
+</span><span class='line'><span class="sd">  &quot;&quot;&quot;</span>
+</span><span class='line'>  <span class="k">def</span> <span class="n">hello</span> <span class="k">do</span>
+</span><span class='line'><span class="k">    </span><span class="ss">:world</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们可以通过 <code>Code.get_docs/2</code> 获得模块的文档。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="n">iex</span><span class="o">&gt;</span> <span class="no">Code</span><span class="o">.</span><span class="n">get_docs</span> <span class="no">Example</span><span class="p">,</span> <span class="ss">:all</span>
+</span><span class='line'><span class="p">[</span><span class="ss">docs:</span> <span class="p">[{</span> <span class="p">{</span><span class="ss">:hello</span><span class="p">,</span> <span class="m">0</span><span class="p">},</span> <span class="m">14</span><span class="p">,</span> <span class="ss">:def</span><span class="p">,</span> <span class="p">[],</span> <span class="s2">&quot;hello world!\n&quot;</span><span class="p">}],</span>
+</span><span class='line'> <span class="ss">moduledoc:</span> <span class="p">{</span><span class="m">3</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;Example module for `ex_doc`.\n\n</span><span class="err">##</span><span class="s2"> Examples\n\n```\niex&gt; Example.hello\n:world\n```\n&quot;</span><span class="p">},</span>
+</span><span class='line'> <span class="ss">callback_docs:</span> <span class="p">[],</span> <span class="ss">type_docs:</span> <span class="p">[]]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到，Elixir 已经在模块的信息中保存了相关的文档信息。ExDoc 接下来做的是提取出来，并就行格式转换。其中用到非常多的反射的接口，大部分都在 <code>Code</code> 模块中提供了。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Daily Reading Note #1]]></title>
@@ -1530,42 +1614,6 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
 <p>今天在网上看中的，下午联系，晚上就提车了，真是爽快！
 因为信任骑行的人，我对车主“死魂灵”是完完全全的信任，虽然我还是车盲一个，哈哈！
 提车的时候，死魂灵无微不至的交代，各种经验之谈浓缩在短短的十分钟之内，从车的调节，到刹车的时候，还有分别时候的关于安全的交代。。我囫囵吞枣般地都短暂记住了，那个场景让我想起了小说里的场面：一个武功高手在传内力给一个战斗力只有5的小朋友。。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ubuntu下在命令行批量生成缩略图]]></title>
-    <link href="http://q.pnq.cc/blog/2011/11/29/generating-thumbnails/"/>
-    <updated>2011-11-29T00:00:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2011/11/29/generating-thumbnails</id>
-    <content type="html"><![CDATA[
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># 准备工作：安装 imagemagick</span>
-</span><span class='line'>sudo apt-get install imagemagick
-</span><span class='line'><span class="nb">cd</span> /path/to/big/images <span class="c">#大图所在的目录</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">#创建小图对应的目录结构</span>
-</span><span class='line'>find . -type d -print -exec mkdir <span class="s1">&#39;../small/{}&#39;</span> -p <span class="se">\\</span>;
-</span><span class='line'>
-</span><span class='line'><span class="c">#批量转换! 等比例缩小到320x320之内</span>
-</span><span class='line'>find . -type f -name <span class="s1">&#39;*.jpg&#39;</span> -print -exec <span class="se">\\</span>
-</span><span class='line'>convert <span class="s1">&#39;{}&#39;</span> -resize 320x320 <span class="s1">&#39;../small/{}&#39;</span> <span class="se">\\</span>;
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样小图都会按原先的目录结构，在上级目录的small目录出现了</p>
-
-<p>其实<a href="http://www.imagemagick.org">imagemagick</a>是一个超级神器，上面只是它很简单的一个应用&hellip;</p>
 ]]></content>
   </entry>
   

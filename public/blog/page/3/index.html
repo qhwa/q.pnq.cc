@@ -7,7 +7,20 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="Vim和Ubuntu都是我的好朋友，不过他们之间好像有点不和睦。在Ubuntu11.04下gvim的菜单不能集成进全局菜单条(global menu)，而在Ubuntu11.10下gvim打开之后会非常卡。需要调解一下 :D 解决gvim在Ubuntu 11.04中菜单显示的问题 执行gvim时 &hellip;">
+	<meta name="description" content="1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+# 准备工作：安装 imagemagick
+sudo apt-get install imagemagick
+cd /path/to/big/images #大图所在的目录 #创建小图对应的目录结构
+find . -type d -print -exec &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +89,70 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/11/29/generating-thumbnails/">
+		
+			Ubuntu下在命令行批量生成缩略图</a>
+	</h2>
+	<div class="entry-content">
+		
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># 准备工作：安装 imagemagick</span>
+</span><span class='line'>sudo apt-get install imagemagick
+</span><span class='line'><span class="nb">cd</span> /path/to/big/images <span class="c">#大图所在的目录</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#创建小图对应的目录结构</span>
+</span><span class='line'>find . -type d -print -exec mkdir <span class="s1">&#39;../small/{}&#39;</span> -p <span class="se">\\</span>;
+</span><span class='line'>
+</span><span class='line'><span class="c">#批量转换! 等比例缩小到320x320之内</span>
+</span><span class='line'>find . -type f -name <span class="s1">&#39;*.jpg&#39;</span> -print -exec <span class="se">\\</span>
+</span><span class='line'>convert <span class="s1">&#39;{}&#39;</span> -resize 320x320 <span class="s1">&#39;../small/{}&#39;</span> <span class="se">\\</span>;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样小图都会按原先的目录结构，在上级目录的small目录出现了</p>
+
+<p>其实<a href="http://www.imagemagick.org">imagemagick</a>是一个超级神器，上面只是它很简单的一个应用&hellip;</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-29T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -607,46 +684,6 @@ Google之，尝试了很多方法，都没有效果。
 
 
 <time datetime="2010-04-25T00:00:00+08:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2010/04/18/inctroducing-fiddler/">
-		
-			使用Fiddler提高前端工作效率 (介绍篇)</a>
-	</h2>
-	<div class="entry-content">
-		<h2><img class="alignnone size-full wp-image-407" title="FiddlerLogo" src="http://q.pnq.cc/wp-content/uploads/2010/04/FiddlerLogo.png" alt="" width="277" height="84" /></h2>
-<h2>1. Fiddler 是什么？</h2>
-Fiddler是用C#编写的一个免费的HTTP/HTTPS网络调试器。英语中Fiddler是小提琴的意思，<a href="http://www.fiddler2.com/fiddler2/">Fiddler Web Debugger</a>就像小提琴一样，可以让前端开发变得更加优雅。
-
-Fiddler是以代理服务器的方式，监听系统的网络数据流动。运行Fiddler后，就会在本地打开8888端口，网络数据流通过Fiddler进行中转时，我们可以监视HTTP/HTTPS数据流的记录，并加以分析，甚至还<span style="color: #ff0000;"><strong>可以修改</strong></span>发送和接收的数据。Fiddler还提供了清除IE缓存、请求构造器、文本转换工具等等一系列工具，对前端开发工作很有价值。
-		
-		<a href="/blog/2010/04/18/inctroducing-fiddler/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
