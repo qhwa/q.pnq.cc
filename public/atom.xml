@@ -4,7 +4,7 @@
   <title><![CDATA[qhwa's blog]]></title>
   <link href="http://q.pnq.cc/atom.xml" rel="self"/>
   <link href="http://q.pnq.cc/"/>
-  <updated>2017-01-28T15:07:03+08:00</updated>
+  <updated>2018-08-11T11:43:34-07:00</updated>
   <id>http://q.pnq.cc/</id>
   <author>
     <name><![CDATA[qhwa]]></name>
@@ -14,10 +14,129 @@
 
   
   <entry>
+    <title type="html"><![CDATA[从新手到专家——技能成长模型]]></title>
+    <link href="http://q.pnq.cc/blog/2018/08/09/cong-xin-shou-dao-zhuan-jia-ji-neng-cheng-chang-mo-xing/"/>
+    <updated>2018-08-09T19:26:44-07:00</updated>
+    <id>http://q.pnq.cc/blog/2018/08/09/cong-xin-shou-dao-zhuan-jia-ji-neng-cheng-chang-mo-xing</id>
+    <content type="html"><![CDATA[<h2>专家的特征</h2>
+
+<p>2009年1月15日，Sullenberger (也叫萨利) 在全美航空1549号班担任机长，飞机从纽约拉瓜迪亚机场起飞。五分钟后，在爬升过程中遭到飞鸟撞击，两架发动机全部熄火。此时只能就近寻求迫降，但高度不够，在没有动力的情况下，很难抵达附近的机场，如果处置不当，也很容易引起地面的巨大伤亡。危急时刻，萨利决定在哈德逊河上迫降，155人 <strong>全数生还</strong>。</p>
+
+<p><img src="https://pic3.zhimg.com/80/v2-eb487300ceb2fa1bd92effbee5f1962e_hd.jpg" alt="aircraft crash" /></p>
+
+<p>从起飞到迫降，短短六分钟。萨利凭借自己的经验、技术和准确的判断，拯救了机上所有人的生命。电影《萨利机长》还原了整个过程。在感慨紧张的英雄事迹之余，我们有幸看到一位真正的飞行专家是怎样行事的。</p>
+
+<h3>1</h3>
+
+<p>失去动力之后，仪表显示发动机损坏一个，另一个处于正常状态。然而萨利根据声音、气味等细节，确定是鸟袭，并且断定两个引擎均已损坏。这个判断非常关键，直接关系到是否能及时返航。如果还有动力，就可以回到拉瓜迪亚机场了。 <strong>专家重视细节，不盲从二手信息。</strong></p>
+
+<h3>2</h3>
+
+<p>确定动力失灵后，萨利立即下意识地打开了辅助动力系统 (APU) ，然后让副机长杰夫拿出飞行手册，按手册指引操作。依据飞行手册，出现飞鸟撞击事故时，其中第15步是打开 APU，然而萨利却直接跳过了前面的步骤，直接打开 APU。如果没有 启动 APU，飞机将不能顺利滑翔。没有这一举动，迫降就不可能成功。此外，手册有三页长，到迫降时也只进行了一页半。如果完全遵循手册逐条进行，恐怕结局已经是机毁人亡了。<strong>专家重视情境，不盲从流程。流程甚至会阻碍专家行事。</strong></p>
+
+<h3>3</h3>
+
+<p>与塔台沟通后，飞机掉头返航。塔台清除了机场的跑道提供迫降，但萨利回复道「unable」，因为此时飞机动力不足，是无法抵达出发机场的。随后塔台安排了附近另一个机场()。返航过程中，萨利意识到仍然无法抵达动，只能迫降在水面上了，于是当机立断，迫降到哈德逊河上。不了解航空史的人可能不知道，水面迫降是几乎不可能成功的。在此之前，还没有大型客机水面迫降成功的案例。萨利机长在事后接受采访时，提到自己有非常大的把握能控制飞机，确信自己能做到水面降落。这样的自信，需要丰富的知识、经验。这离不开萨利机长的成长经历。</p>
+
+<p>萨利 5 岁就知道自己想做一个飞行员，11 岁就读了所有能找到的跟飞行有关的书。16岁，萨利就跟着一个开农用飞机的驾驶员库克学习。之后萨利在美国空军学院学习了驾驶滑翔机，并在空军服役。退役后，他加入了太平洋西南航空（后并入美国航空）担任民航飞行员。在2009年的时候，他已经差不多有30年的民航驾驶经验了。滑翔机的学习经验非常重要，飞机在高空失去动力，也就相当于一架十几吨重的滑翔机。无独有偶，史上最成功的几次迫降事件，驾驶员都有滑翔机驾驶经验。 <strong>专家有丰富的知识积累。</strong></p>
+
+<h3>4</h3>
+
+<p>萨利本身也是 NTSB （美国航空安全委员会）的调查员，在 2009 年之前就协助 NTSB 调查航空事故，访问空难家属。同时，他还会收集各种飞行事故的调查报告。这些研究对这次的迫降非常重要。飞机要在水上迫降成功，需要几个要点：</p>
+
+<ul>
+<li>水上迫降时应收起起落架</li>
+<li>飞机近水时的速度越小越好</li>
+<li>机翼的襟翼应在水下位置接水更有利</li>
+</ul>
+
+
+<p>这些知识，正是从之前的空难调查报告中总结出来的。在这次事件中，帮助萨利做了正确的选择。<strong>专家会不断反思，从(自己或他人的)不足中总结。</strong></p>
+
+<h3>5</h3>
+
+<p>除了大量的知识储备，危急关头的冷静和直觉，让萨利得以快速反应，在短时间内做出正确选择。</p>
+
+<blockquote><p>我必须压抑本能的激动反应，来挽救机上的每一条人命。我很快思考各种可能性，然后选择唯一的可行方案。—— 萨利</p></blockquote>
+
+<p><strong>专家依赖直觉。</strong></p>
+
+<p>飞行当然是一种技能。但技能在我们的生活、工作中无处不在。 我们的生活中需要各种各样的技能，例如做饭，与人沟通，写程序，养育小孩等等。这些事情都需要我们具备一定的知识，并有运用这些知识的技巧。以编程为例，作为一个程序员，首先要学会产品经理的语言，能读懂需求文档，知道常见的一些需求实现方案，并将已知的方案组合，实现产品的需求；其次要学会计算机的语言，将方案转化成计算机程序，并且要留意工程性，写出代码还需要关注可维护性和性能。</p>
+
+<p>三百六十行，行行出状元。总有一些大师、专家涌现在我们的视野中。即便没有那么遥远，我们的身边也不乏一些更会做菜的朋友、更会和宝宝交流的爸爸妈妈。他们是如何成长的？他们的成长经历了哪些阶段，不同的阶段又是如何跨越的呢？</p>
+
+<h2>技能提升的五个阶段</h2>
+
+<p>1980年，德雷弗斯兄弟（Dreyfus Stuart E, Dreyfus, Hubert L) 发表了一篇论文<a href="http://www.dtic.mil/docs/citations/ADA084551">《A Five-Stage Model of the Mental Activities Involved in Directed Skill Acquisition》</a>
+(直译：直接技能的获取相关的五阶段精神活动模型），提出了技能成长的五个重要阶段。我在<a href="https://book.douban.com/subject/5372651/">《程序员的思维修炼》</a>这本书中第一次接触到这个模型，感觉茅塞顿开。这个模型套用到其他领域，也非常适用，很好地指导了我在各方面的成长，也让我在新接触新领域的时候，能知道如何更快提升自己。所以我决定把这个模型分享给更多的人。</p>
+
+<p>好了，我们先来看看这个模型。</p>
+
+<h3>I. 新手</h3>
+
+<p>新手需要指令才能工作。这个指令需要明确地指导他，遇到情况 A 如何应对，遇到情况 B 又如何应对。比如煎荷包蛋时，加多少油，什么时候放鸡蛋。</p>
+
+<p>新手和专家之间沟通比较困难。新手描述事情的方式往往简单，缺乏必要的信息，专家不敢轻易下结论；而专家给的建议往往是考虑全面，涉及了不同的情境，并且会给出更底层的原则，而这种原则容易让新手忽略情境盲目遵从，或者无法在需要的时候想起来。</p>
+
+<h3>II. 高级新手</h3>
+
+<p>不愿全盘思考。统计资料显示，多数人落在这个层级;当管理阶层分配工作给高级新手，他们认为每项工作一样重要，不明了优先层度，意味着他们无法认知每件工作的相关性。因此管理者认清，工作需给高级新手时，必须排列优先级。</p>
+
+<p>高级新手已经脱离手册的帮助，能够独立完成项目了。但还缺乏全局观，表现为：不知道为什么要这样做，背后的原因是什么（知识广度和深度都不支持自己得出答案）；也不知道这件事在全局中的意义，如这个项目在公司的战略意义，对用户又能提供什么价值。</p>
+
+<p>另外，高级新手还只能解决已经解决过的问题，对于自己没有遇到过的问题，他们还是一筹莫展，通常他们会询问专家。</p>
+
+<h3>III. 胜任者</h3>
+
+<p>能解决问题，不管是已经解决过的，还是首次遇到的。他们知道在哪里能得到需要的信息。</p>
+
+<h3>IV. 精通者</h3>
+
+<ul>
+<li>技能上：<strong>反思</strong> &mdash; 能认知自己的技能与他人差异，能透过观察别人去认知自己的错误,形成比新手更快的学习速度。</li>
+<li>职位上：<strong>全局观</strong> &mdash; 能明确知道自己的职位在整体系统上的位。</li>
+</ul>
+
+
+<p>反思的特征让人的技能提升开始加速。所以精通者更接近初级专家，而不是高级胜任者。</p>
+
+<h3>V. 专家</h3>
+
+<p><strong>专家凭直觉工作</strong>。专家是各个领域知识和信息的主要来源。他们总是不断地寻找更好的方法和方式去做事。他们有丰富的经验，可以在恰当的情境中选取和应用这些经验。他们著书、写文章、做巡回演讲。他们是当代的巫师。</p>
+
+<h2>总结</h2>
+
+<p>德雷弗斯技能模型指出了技能水平的不同阶段，不仅仅是知识的差异，更是思维模式的差异。对我来说，我知道了：</p>
+
+<ul>
+<li>当我新学习一个技能的时候，应该寻求情景无关的指令，快速入门；</li>
+<li>当我已经入门后，需要不断深挖，知道原理；</li>
+<li>当我需要进一步提升时，需要通过观察他人，反思自己；</li>
+<li>当我想成为专家时，我需要刻意练习，让自己形成直觉。</li>
+</ul>
+
+
+<p>这里引出了 <strong>「刻意练习」</strong> 这个非常重要的概念，他是成为专家的唯一路径。下次我再写一偏，和大家交流刻意练习。</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=5SL1A2d2e7M">纪录片 《Miracle of the Hudson River》</a></li>
+<li><a href="https://www.youtube.com/watch?v=egf93x4-rvQ">CBS 60 Minutes 采访</a></li>
+<li><a href="https://www.zhihu.com/question/50536961/answer/135867633">如何评价电影《萨利机长》 (Sully)？ &ndash; 花痴女王的回答</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%BE%B7%E9%9B%B7%E7%A6%8F%E6%96%AF%E6%A8%A1%E5%9E%8B">维基百科——德雷弗斯模型</a></li>
+<li><a href="https://book.douban.com/subject/5372651/">《程序员的思维修炼》</a></li>
+<li><a href="https://book.douban.com/subject/26895993/">《刻意练习》</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Elixir 源码阅读笔记: ex_doc]]></title>
-    <link href="http://q.pnq.cc/blog/2017/01/28/ex-doc/"/>
-    <updated>2017-01-28T10:03:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2017/01/28/ex-doc</id>
+    <link href="http://q.pnq.cc/blog/2017/01/27/ex-doc/"/>
+    <updated>2017-01-27T18:03:00-08:00</updated>
+    <id>http://q.pnq.cc/blog/2017/01/27/ex-doc</id>
     <content type="html"><![CDATA[<p>源码地址：<a href="https://github.com/elixir-lang/ex_doc">https://github.com/elixir-lang/ex_doc</a>
 ex_doc 是 elixir 代码生成文档的工具。</p>
 
@@ -100,7 +219,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[Daily Reading Note #1]]></title>
     <link href="http://q.pnq.cc/blog/2017/01/17/daily-reading-1/"/>
-    <updated>2017-01-17T23:16:40+08:00</updated>
+    <updated>2017-01-17T07:16:40-08:00</updated>
     <id>http://q.pnq.cc/blog/2017/01/17/daily-reading-1</id>
     <content type="html"><![CDATA[<p>这里记录了每天阅读代码记录的新知识。</p>
 
@@ -254,9 +373,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[也谈谈月饼事件]]></title>
-    <link href="http://q.pnq.cc/blog/2016/09/17/mooncake/"/>
-    <updated>2016-09-17T12:50:44+08:00</updated>
-    <id>http://q.pnq.cc/blog/2016/09/17/mooncake</id>
+    <link href="http://q.pnq.cc/blog/2016/09/16/mooncake/"/>
+    <updated>2016-09-16T21:50:44-07:00</updated>
+    <id>http://q.pnq.cc/blog/2016/09/16/mooncake</id>
     <content type="html"><![CDATA[<p><img src="http://www.zaobao.com.sg/sites/default/files/styles/article_large_full/public/images/201609/20160914/809.jpg?itok=vyZLXFnr&amp;timestamp=1473817356" alt="mooncake" /></p>
 
 <p>中秋前夕，阿里的月饼事件引爆了圈内网络（<a href="https://www.zhihu.com/question/50600301">事件回顾</a>）。事情从当事人双方的角度来说都有道理：</p>
@@ -308,9 +427,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[minifying-with-webpack]]></title>
-    <link href="http://q.pnq.cc/blog/2016/05/05/minifying-with-webpack/"/>
-    <updated>2016-05-05T10:09:12+08:00</updated>
-    <id>http://q.pnq.cc/blog/2016/05/05/minifying-with-webpack</id>
+    <link href="http://q.pnq.cc/blog/2016/05/04/minifying-with-webpack/"/>
+    <updated>2016-05-04T19:09:12-07:00</updated>
+    <id>http://q.pnq.cc/blog/2016/05/04/minifying-with-webpack</id>
     <content type="html"><![CDATA[<p><img src="https://cdn-images-1.medium.com/max/1600/1*rsOjd1jR3eOmJNJh4Zp42g.png" alt="webpack bundling" /></p>
 
 <p>When coding in a modern modular way with Webpack is done, it enters the deploy phrase. We minify assets to reduce the network transfer cost. While bundling is not necessary nowadays thanks to HTTP/2, minifying is still an important work, because in many cases we can reduce the size to transfer between servers and clients:</p>
@@ -426,7 +545,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[Setting Up Your React Project Is Easier Than You Think]]></title>
     <link href="http://q.pnq.cc/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing/"/>
-    <updated>2016-05-02T22:16:08+08:00</updated>
+    <updated>2016-05-02T07:16:08-07:00</updated>
     <id>http://q.pnq.cc/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing</id>
     <content type="html"><![CDATA[<p>I have heard some ones complaining that setting up a <a href="https://webpack.github.io/">Webpack</a> + <a href="https://facebook">React</a> project is not an easy job. It&rsquo;s only partly true. <a href="https://webpack.github.io/">Webpack</a> is not well documented at this moment, and has many powerful features and plugins. This makes configuration on <a href="https://webpack.github.io/">Webpack</a> seem difficult to new developers. To make things even worse, there are tons of &lsquo;starter kit&rsquo; projects over there, most of which are lack of maintainance.</p>
 
@@ -476,7 +595,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[为什么写不出博客了]]></title>
     <link href="http://q.pnq.cc/blog/2016/05/02/why-not-write-any-more/"/>
-    <updated>2016-05-02T21:41:39+08:00</updated>
+    <updated>2016-05-02T06:41:39-07:00</updated>
     <id>http://q.pnq.cc/blog/2016/05/02/why-not-write-any-more</id>
     <content type="html"><![CDATA[<p>近几年以来，我写博客的数量每况愈下，从几个月一篇，到几个季度一篇，现在已经将近一年一篇了。。 (✖╭╮✖)</p>
 
@@ -510,7 +629,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[为什么 limits 不生效]]></title>
     <link href="http://q.pnq.cc/blog/2015/08/09/why-the-limits-config-not-hornored/"/>
-    <updated>2015-08-09T21:14:35+08:00</updated>
+    <updated>2015-08-09T06:14:35-07:00</updated>
     <id>http://q.pnq.cc/blog/2015/08/09/why-the-limits-config-not-hornored</id>
     <content type="html"><![CDATA[<p>最近遇到一个奇怪的问题，无法将服务器的最大文件打开数量提高。</p>
 
@@ -620,7 +739,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[capistrano-hostmenu: 只操作指定的服务器]]></title>
     <link href="http://q.pnq.cc/blog/2015/02/11/capistrano-deloy-only-to-selected-servers/"/>
-    <updated>2015-02-11T22:10:44+08:00</updated>
+    <updated>2015-02-11T06:10:44-08:00</updated>
     <id>http://q.pnq.cc/blog/2015/02/11/capistrano-deloy-only-to-selected-servers</id>
     <content type="html"><![CDATA[<p>想必大家都用过 <a href="http://capistranorb.com/">capistrano</a> 了，部署代码到多个服务器上的神器。
 不过使用中有个不太方便的地方是，某些情况下只想部署到其中几台。</p>
@@ -648,9 +767,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[如何开发 ruby 命令行工具]]></title>
-    <link href="http://q.pnq.cc/blog/2014/11/16/a-little-project-for-download-huaban-pins/"/>
-    <updated>2014-11-16T15:54:01+08:00</updated>
-    <id>http://q.pnq.cc/blog/2014/11/16/a-little-project-for-download-huaban-pins</id>
+    <link href="http://q.pnq.cc/blog/2014/11/15/a-little-project-for-download-huaban-pins/"/>
+    <updated>2014-11-15T23:54:01-08:00</updated>
+    <id>http://q.pnq.cc/blog/2014/11/15/a-little-project-for-download-huaban-pins</id>
     <content type="html"><![CDATA[<p>最近 @季子乌 的 <a href="http://huaban.com/pigeonzhu">花瓣账号</a> 突然被封，苦心采集的很多图片一下子全部看不到了！</p>
 
 <p>后来虽然联系客服重新开通了账号，但还是心有余悸，觉得还是 <a href="http://www.pinterest.com/">pinterest</a> 靠谱一些，准备把图片全部迁移到 pinterest 上。由于图片数量比较多，我就用 ruby 写了一个工具，将花瓣上的图片下载下来。（不过 pinterest 不能批量上传，这些图片也只是备份到本地，这是后话了）</p>
@@ -730,7 +849,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[SSL Notes With Ruby on Rails]]></title>
     <link href="http://q.pnq.cc/blog/2014/10/13/ssl-notes-with-rails/"/>
-    <updated>2014-10-13T15:54:01+08:00</updated>
+    <updated>2014-10-13T00:54:01-07:00</updated>
     <id>http://q.pnq.cc/blog/2014/10/13/ssl-notes-with-rails</id>
     <content type="html"><![CDATA[<p>上周我给<a href="https://xiaotuhe.com">小兔盒</a>加上了https，比想象中容易许多。记录一下</p>
 
@@ -801,7 +920,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[石潭村游记]]></title>
     <link href="http://q.pnq.cc/blog/2014/04/08/shi-tan-cun-you-ji/"/>
-    <updated>2014-04-08T20:58:38+08:00</updated>
+    <updated>2014-04-08T05:58:38-07:00</updated>
     <id>http://q.pnq.cc/blog/2014/04/08/shi-tan-cun-you-ji</id>
     <content type="html"><![CDATA[<p><img src="http://pnqcc.qiniudn.com/shitancun2674856703781518773.jpg" alt="石潭村" /></p>
 
@@ -918,59 +1037,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[chinese_number: 一个解析汉字数字的 ~rubygem]]></title>
-    <link href="http://q.pnq.cc/blog/2014/03/18/chinse-number-gem/"/>
-    <updated>2014-03-18T17:45:38+08:00</updated>
-    <id>http://q.pnq.cc/blog/2014/03/18/chinse-number-gem</id>
-    <content type="html"><![CDATA[<p><a href="http://ruby-china.org">ruby-china</a> 上有人问到<a href="http://ruby-china.org/topics/17913">怎么优雅地解析汉字数字</a>，比如 <code>二十五</code> 解析成 <code>25</code> 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！</p>
-
-<p>不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; <strong><a href="https://github.com/qhwa/chinese_number">chinese_number</a></strong></p>
-
-<p>用法很简单：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;chinese_number&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">trans</span> <span class="s1">&#39;今天二十万&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; &quot;今天200000&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">find</span> <span class="s2">&quot;一年有十二个月三百六十五天&quot;</span>
-</span><span class='line'><span class="c1">#=&gt; [{&quot;一&quot;=&gt;1}, {&quot;十二&quot;=&gt;12}, {&quot;三百六十五&quot;=&gt;365}]</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">extract</span> <span class="s2">&quot;今天二十晚&quot;</span>
-</span><span class='line'><span class="c1">#=&gt; [20]</span>
-</span><span class='line'>
-</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;二零一四&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; 2014</span>
-</span><span class='line'>
-</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;一万三千&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; 13000</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[《代码的未来》 阅读笔记（1）—— JavaScript/CoffeScript/ruby 局部变量处理的异同]]></title>
     <link href="http://q.pnq.cc/blog/2014/03/18/variable-scope-in-js-coffeescript-and-ruby/"/>
-    <updated>2014-03-18T16:21:00+08:00</updated>
+    <updated>2014-03-18T16:21:00-07:00</updated>
     <id>http://q.pnq.cc/blog/2014/03/18/variable-scope-in-js-coffeescript-and-ruby</id>
     <content type="html"><![CDATA[<blockquote><p>…… 身为 JavaScript 程序员的好友说，对 javascript 的不满之一，就是它的变量声明和作用域。 —— Mats</p></blockquote>
 
@@ -1106,9 +1175,59 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[chinese_number: 一个解析汉字数字的 ~rubygem]]></title>
+    <link href="http://q.pnq.cc/blog/2014/03/18/chinse-number-gem/"/>
+    <updated>2014-03-18T02:45:38-07:00</updated>
+    <id>http://q.pnq.cc/blog/2014/03/18/chinse-number-gem</id>
+    <content type="html"><![CDATA[<p><a href="http://ruby-china.org">ruby-china</a> 上有人问到<a href="http://ruby-china.org/topics/17913">怎么优雅地解析汉字数字</a>，比如 <code>二十五</code> 解析成 <code>25</code> 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！</p>
+
+<p>不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; <strong><a href="https://github.com/qhwa/chinese_number">chinese_number</a></strong></p>
+
+<p>用法很简单：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;chinese_number&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">trans</span> <span class="s1">&#39;今天二十万&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; &quot;今天200000&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">find</span> <span class="s2">&quot;一年有十二个月三百六十五天&quot;</span>
+</span><span class='line'><span class="c1">#=&gt; [{&quot;一&quot;=&gt;1}, {&quot;十二&quot;=&gt;12}, {&quot;三百六十五&quot;=&gt;365}]</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">extract</span> <span class="s2">&quot;今天二十晚&quot;</span>
+</span><span class='line'><span class="c1">#=&gt; [20]</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;二零一四&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; 2014</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;一万三千&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; 13000</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[编程原则]]></title>
     <link href="http://q.pnq.cc/blog/2013/07/18/programing-on-principles/"/>
-    <updated>2013-07-18T11:49:00+08:00</updated>
+    <updated>2013-07-18T11:49:00-07:00</updated>
     <id>http://q.pnq.cc/blog/2013/07/18/programing-on-principles</id>
     <content type="html"><![CDATA[<ol>
 <li>in/out 原则：签入的代码一定要比签出时更好</li>
@@ -1123,7 +1242,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[折纸折叠菜单效果]]></title>
     <link href="http://q.pnq.cc/blog/2012/11/30/fancy-paper-list/"/>
-    <updated>2012-11-30T00:00:00+08:00</updated>
+    <updated>2012-11-30T00:00:00-08:00</updated>
     <id>http://q.pnq.cc/blog/2012/11/30/fancy-paper-list</id>
     <content type="html"><![CDATA[<p>这个效果原先是给团队内部的一个协作网站开发的</p>
 
@@ -1137,7 +1256,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   <entry>
     <title type="html"><![CDATA[利用 Grunt （几乎）无痛地做前端开发 (一)]]></title>
     <link href="http://q.pnq.cc/blog/2012/11/30/_grunt-1/"/>
-    <updated>2012-11-30T00:00:00+08:00</updated>
+    <updated>2012-11-30T00:00:00-08:00</updated>
     <id>http://q.pnq.cc/blog/2012/11/30/_grunt-1</id>
     <content type="html"><![CDATA[<h2>前言</h2>
 
@@ -1406,7 +1525,7 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
   <entry>
     <title type="html"><![CDATA[Ruby 如何“反转义”字符串]]></title>
     <link href="http://q.pnq.cc/blog/2012/06/07/ruby-undecoding/"/>
-    <updated>2012-06-07T00:00:00+08:00</updated>
+    <updated>2012-06-07T00:00:00-07:00</updated>
     <id>http://q.pnq.cc/blog/2012/06/07/ruby-undecoding</id>
     <content type="html"><![CDATA[<p>我们知道Ruby中转义字符串可以用inspect或者dump可以将字符串转义：</p>
 
@@ -1441,7 +1560,7 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
   <entry>
     <title type="html"><![CDATA[使用Apache Benmark(ab) 对一个 Ruby Web 程序做性能测试]]></title>
     <link href="http://q.pnq.cc/blog/2012/06/07/ab/"/>
-    <updated>2012-06-07T00:00:00+08:00</updated>
+    <updated>2012-06-07T00:00:00-07:00</updated>
     <id>http://q.pnq.cc/blog/2012/06/07/ab</id>
     <content type="html"><![CDATA[<p>最近要在一些内部系统中嵌入<a href="https://github.com/qhwa/fdlint-host/">fdlint</a>的功能，检查HTML的语法是否正确。涉及到了系统性能测试的问题，学习了一下，在这里记录一下。</p>
 
@@ -1555,7 +1674,7 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
   <entry>
     <title type="html"><![CDATA[fdlint: 让前端code review更轻松]]></title>
     <link href="http://q.pnq.cc/blog/2012/02/13/fdlint/"/>
-    <updated>2012-02-13T00:00:00+08:00</updated>
+    <updated>2012-02-13T00:00:00-08:00</updated>
     <id>http://q.pnq.cc/blog/2012/02/13/fdlint</id>
     <content type="html"><![CDATA[<p><img src="http://img.china.alibaba.com/img/ibank/2012/462/137/490731264_678162280.jpg" alt="fdlint" style="border:none;" /></p>
 
@@ -1598,22 +1717,6 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
 <p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-vim-500x543.png" alt="" title="fdlint-vim" width="500" height="543" class="alignnone size-medium wp-image-611" /></p></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Say Hello To My New Mate]]></title>
-    <link href="http://q.pnq.cc/blog/2012/02/09/say-hello-to-my-new-mate/"/>
-    <updated>2012-02-09T00:00:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2012/02/09/say-hello-to-my-new-mate</id>
-    <content type="html"><![CDATA[<p>没错，这是我的新伙伴，今天正式开始我的骑行了，2012的一大目标就是锻炼身体！</p>
-
-<p><img src="http://q.pnq.cc/wp-content/uploads/2012/02/DSC_0824-500x752.jpg" alt="bike" />
-<img src="http://q.pnq.cc/wp-content/uploads/2012/02/DSC_0823-500x332.jpg" alt="bike" /></p>
-
-<p>今天在网上看中的，下午联系，晚上就提车了，真是爽快！
-因为信任骑行的人，我对车主“死魂灵”是完完全全的信任，虽然我还是车盲一个，哈哈！
-提车的时候，死魂灵无微不至的交代，各种经验之谈浓缩在短短的十分钟之内，从车的调节，到刹车的时候，还有分别时候的关于安全的交代。。我囫囵吞枣般地都短暂记住了，那个场景让我想起了小说里的场面：一个武功高手在传内力给一个战斗力只有5的小朋友。。</p>
 ]]></content>
   </entry>
   
