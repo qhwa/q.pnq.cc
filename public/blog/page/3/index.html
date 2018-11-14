@@ -7,9 +7,7 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="没错，这是我的新伙伴，今天正式开始我的骑行了，2012的一大目标就是锻炼身体！ 今天在网上看中的，下午联系，晚上就提车了，真是爽快！
-因为信任骑行的人，我对车主“死魂灵”是完完全全的信任，虽然我还是车盲一个，哈哈！
-提车的时候，死魂灵无微不至的交代，各种经验之谈浓缩在短短的十分钟之内，从车的调节 &hellip;">
+	<meta name="description" content="fdlint是bencode 和 我最近做的一个实用项目。她的参考是jslint——一个js代码扫描工具。和jslint不同的是，fdlint还可以扫描css和html代码。 为什么会做fdlint？ Code review是一项重要却比较花时间的工作，根据阿里巴巴中文站前端Code &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -83,6 +81,83 @@
     <article class="post">
 	<h2 class="title">
 		
+		<a href="/blog/2012/02/13/fdlint/">
+		
+			Fdlint: 让前端code Review更轻松</a>
+	</h2>
+	<div class="entry-content">
+		<p><img src="http://img.china.alibaba.com/img/ibank/2012/462/137/490731264_678162280.jpg" alt="fdlint" style="border:none;" /></p>
+
+<p><a href="https://github.com/qhwa/fdlint">fdlint</a>是<a href="http://bencode.org">bencode</a> 和 我最近做的一个实用项目。她的参考是<a href="http://jslint.com">jslint</a>——一个js代码扫描工具。和<a href="http://jslint.com">jslint</a>不同的是，<a href="https://github.com/qhwa/fdlint">fdlint</a>还可以扫描css和html代码。</p>
+
+<h2>为什么会做<a href="https://github.com/qhwa/fdlint">fdlint</a>？</h2>
+
+<p>Code review是一项重要却比较花时间的工作，根据阿里巴巴中文站前端Code Review Check List，约有80项检查项目，要完整对照着检查是比较花时间的。太花时间导致的结果就是code review的频率不高。</p>
+
+<p>因此，我们开发了<a href="https://github.com/qhwa/fdlint">fdlint</a>，对HTML/CSS/JS代码进行分析，找出工具能判断的、不符合规范的代码。<a href="https://github.com/qhwa/fdlint">fdlint</a>可以节约我们的时间，帮助 code review 更频繁、更深入。</p>
+
+<h2>特点：</h2>
+
+<ol>
+<li>能扫描出不符合规则的常见问题，共49项, 详见<a href="https://github.com/qhwa/fdlint/wiki/fdlint-%E6%89%AB%E6%8F%8F%E8%A7%84%E5%88%99">扫描规则</a></li>
+<li>提供多种使用方式，适合不同的应用场景 （命令行、<a href="http://fdlint.herokuapp.com">web</a>、<a href="https://github.com/qhwa/fdlint-vim">VIM插件</a>、<a href="https://github.com/ThinkBest/fdlint-notepad-plusplus">Notepad++插件</a>、Eclipse插件）</li>
+<li>规则定制方便，将用DSL编写的规则放入一个目录，立刻生效。</li>
+<li>可以批量扫描多个文件，支持递归扫描目录</li>
+<li>支持多种输出格式</li>
+</ol>
+
+
+<h2>截图</h2>
+
+<ul>
+<li><p>命令行运行</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-cli-500x619.png" alt="" title="fdlint-cli" width="500" height="619" class="alignnone size-medium wp-image-607" /></p></li>
+<li><p>web版本</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-host-500x512.png" alt="" title="fdlint-host" width="500" height="512" class="alignnone size-medium wp-image-609" /></p></li>
+<li><p>Eclipse插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-eclipse-500x140.png" alt="" title="fdlint-eclipse" width="500" height="140" class="alignnone size-medium wp-image-608" /></p></li>
+<li><p>Notepad++插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-notepad-500x414.png" alt="" title="fdlint-notepad" width="500" height="414" class="alignnone size-medium wp-image-610" /></p></li>
+<li><p>VIM插件</p>
+
+<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-vim-500x543.png" alt="" title="fdlint-vim" width="500" height="543" class="alignnone size-medium wp-image-611" /></p></li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-13T00:00:00+08:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/blog/2012/02/09/say-hello-to-my-new-mate/">
 		
 			Say Hello to My New Mate</a>
@@ -115,7 +190,7 @@
   
 
 
-<time datetime="2012-02-09T00:00:00-08:00" pubdate data-updated="true"></time></div>
+<time datetime="2012-02-09T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -179,7 +254,7 @@
   
 
 
-<time datetime="2011-11-29T00:00:00-08:00" pubdate data-updated="true"></time></div>
+<time datetime="2011-11-29T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -261,7 +336,7 @@
   
 
 
-<time datetime="2011-10-20T00:00:00-07:00" pubdate data-updated="true"></time></div>
+<time datetime="2011-10-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -327,7 +402,7 @@
   
 
 
-<time datetime="2011-08-20T00:00:00-07:00" pubdate data-updated="true"></time></div>
+<time datetime="2011-08-20T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -403,7 +478,7 @@ key=your_static_passwd #密码中不变的部分
   
 
 
-<time datetime="2011-07-01T00:00:00-07:00" pubdate data-updated="true"></time></div>
+<time datetime="2011-07-01T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -466,7 +541,7 @@ Flash10.0之后，增加了一个安全限制——当URLLoader以标准文件�
   
 
 
-<time datetime="2011-03-31T00:00:00-07:00" pubdate data-updated="true"></time></div>
+<time datetime="2011-03-31T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -526,7 +601,7 @@ ps. 图标是在<a href="http://www.iconfinder.net" target="_blank">iconfinder</
   
 
 
-<time datetime="2011-03-25T00:00:00-07:00" pubdate data-updated="true"></time></div>
+<time datetime="2011-03-25T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -594,7 +669,7 @@ svn up
   
 
 
-<time datetime="2011-03-24T00:00:00-07:00" pubdate data-updated="true"></time></div>
+<time datetime="2011-03-24T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -640,43 +715,7 @@ Google之，尝试了很多方法，都没有效果。
   
 
 
-<time datetime="2011-03-18T00:00:00-07:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2010/10/30/flash-fake-sandbox-security-problem/">
-		
-			Flash在某些多标签浏览器中的“伪沙箱”问题</a>
-	</h2>
-	<div class="entry-content">
-		<p><a href="http://q.pnq.cc/wp-content/uploads/2010/10/sandbox.png"><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="sandbox" border="0" alt="sandbox" src="http://q.pnq.cc/wp-content/uploads/2010/10/sandbox_thumb.png" width="479" height="367"></a></p> <p>在Flash播放器运行时，将不同来源的资源划分到独立的沙箱(sandbox)内，不同沙箱之间不能彼此操作数据（除非目标沙箱做过一些设置，授权其他沙箱可访问），这就是Flash的跨沙箱问题。当Flash文件(.swf) 和页面(.html)不在同一个域名下时，如果不经过Flash内部声明System.allowDomain，html无法访问flash定义的接口；不经过html设置allowScriptAccess为&#8217;always&#8217;，Flash也无法调用页面上的js函数。</p> <p>那么如果html和flash都设置了互相可以访问，是否Flash和html之间就可以互相访问了呢？理论上是的，然而实际上却不是。<img style="border-bottom-style: none; border-right-style: none; border-top-style: none; border-left-style: none" class="wlEmoticon wlEmoticon-brokenheart" alt="破碎的心" src="http://q.pnq.cc/wp-content/uploads/2010/10/wlEmoticon-brokenheart.png"></p> 
-		
-		<a href="/blog/2010/10/30/flash-fake-sandbox-security-problem/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-10-30T00:00:00-07:00" pubdate data-updated="true"></time></div>
+<time datetime="2011-03-18T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>

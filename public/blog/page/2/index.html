@@ -7,8 +7,7 @@
 	<meta name="author" content="qhwa">
 
 	
-	<meta name="description" content="上周我给小兔盒加上了https，比想象中容易许多。记录一下 免费的CA: 之前一直以为 CA 是需要每年付一笔不菲的费用的，但其实也有免费的，例如： https://buy.wosign.com/free/ (推荐)
-https://www.startssl.com/ 按照网站指示， &hellip;">
+	<meta name="description" content="最近 @季子乌 的 花瓣账号 突然被封，苦心采集的很多图片一下子全部看不到了！ 后来虽然联系客服重新开通了账号，但还是心有余悸，觉得还是 pinterest 靠谱一些，准备把图片全部迁移到 pinterest 上。由于图片数量比较多，我就用 ruby 写了一个工具，将花瓣上的图片下载下来。（不过 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -77,6 +76,115 @@ https://www.startssl.com/ 按照网站指示， &hellip;">
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/11/16/a-little-project-for-download-huaban-pins/">
+		
+			如何开发 Ruby 命令行工具</a>
+	</h2>
+	<div class="entry-content">
+		<p>最近 @季子乌 的 <a href="http://huaban.com/pigeonzhu">花瓣账号</a> 突然被封，苦心采集的很多图片一下子全部看不到了！</p>
+
+<p>后来虽然联系客服重新开通了账号，但还是心有余悸，觉得还是 <a href="http://www.pinterest.com/">pinterest</a> 靠谱一些，准备把图片全部迁移到 pinterest 上。由于图片数量比较多，我就用 ruby 写了一个工具，将花瓣上的图片下载下来。（不过 pinterest 不能批量上传，这些图片也只是备份到本地，这是后话了）</p>
+
+<p>这个项目已开源，地址是：
+<a href="https://github.com/qhwa/huaban_exporter">https://github.com/qhwa/huaban_exporter</a></p>
+
+<p>这个工具下载后，可以用执行 <code>huaban</code> 命令</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>huaban <span class="nb">export </span>boards --of qhwa
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>执行效果：</p>
+
+<p><img src="https://xiaotuhe.com/uploads/share/file/58904c1c21892b12963cca37291e6547.gif" alt="preview" /></p>
+
+<p>我喜欢用命令行工作，之前做的几个 gem（<a href="https://github.com/qhwa/lfd">lfd</a>, <a href="https://github.com/qhwa/fdlint">fdlint</a>）也都提供了命令行。这次就趁这个项目总结了一下怎样用 ruby 开发友好的命令行工具。</p>
+
+<h3>I. 初期怎样提高开发效率？</h3>
+
+<p>在写了基础的一些逻辑 model 后，我写个简单的 <a href="https://github.com/qhwa/huaban_exporter/blob/69b16009357a87f2e6e645801694a16b65803a41/Rakefile">rake 文件</a>，初期用 rake 来作为入口，边开发边测试。</p>
+
+<p>一开始我只建了这样的一个 rake 任务，来调试获取画板列表功能：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rake boards         <span class="c"># 列出一个用户的所有画板 (user=用户名 rake boards)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>后来随着功能不断完成，逐渐增加了几个新的任务，最后是完整的任务：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rake boards         <span class="c"># 列出一个用户的所有画板 (user=用户名 rake boards)</span>
+</span><span class='line'>rake export_board   <span class="c"># 导出一个画板的所有图片到本地 (board_id=画板id  rake export_board)</span>
+</span><span class='line'>rake export_boards  <span class="c"># 导出用户所有的画板图片到本地 (user=用户名 rake export_boards)</span>
+</span><span class='line'>rake pins           <span class="c"># 列出一个画板所有的采集 (board_id=画板id rake pins)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>II. 项目后期功能稳定后，怎么做命令行入口</h3>
+
+<p>rakefile 很适合自己用，但是要分发别人用，用 rakefile 就不方便了。做成带命令行脚本的 gem 更加方便。</p>
+
+<ul>
+<li>把你的脚本放到 <code>bin</code> 目录下</li>
+<li>加上执行权限(<code>chmod a+x</code>)</li>
+<li>加上 <a href="http://zh.wikipedia.org/zh-cn/Shebang">shebang</a>, 比如 <code>#!/usr/bin/env ruby</code></li>
+</ul>
+
+
+<blockquote><p>这一步我以前是用下面提到的 gli 来自动进行，但后来改成手动做了。因为 gli 生成了一些额外的文件，和 bundle 有点冲突。</p></blockquote>
+
+<h3>III. 怎样让命令变得友好?</h3>
+
+<p>有个超棒的 gem 叫做 <a href="https://github.com/davetron5000/gli">gli</a>，帮你很容易实现出类似 git 这样风格的脚本</p>
+
+<h3>IV. 项目完成后，怎么用做成一个 gem，分享给别人?</h3>
+
+<p><a href="http://bundler.io/">bundler</a> 提供了生成 gem 的功能</p>
+
+<ol>
+<li><code>bundle gem &lt;name&gt;</code> 生成目录结构</li>
+<li>修改 gemspec</li>
+<li><code>rake install</code> 先在本地安装这个 gem 进行测试</li>
+<li><code>rake build</code>   以最新的文件重新打包成 gem</li>
+<li><code>gem push pkg/&lt;版本&gt;.gem</code> 将gem上传到 <a href="https://rubygems.org">https://rubygems.org</a></li>
+</ol>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-16T15:54:01+08:00" pubdate data-updated="true">Nov 16<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -169,7 +277,7 @@ https://www.startssl.com/ 按照网站指示， &hellip;">
   
 
 
-<time datetime="2014-10-13T00:54:01-07:00" pubdate data-updated="true">Oct 13<span>th</span>, 2014</time></div>
+<time datetime="2014-10-13T15:54:01+08:00" pubdate data-updated="true">Oct 13<span>th</span>, 2014</time></div>
 	<div class="tags">
 
 </div>
@@ -316,7 +424,85 @@ https://www.startssl.com/ 按照网站指示， &hellip;">
   
 
 
-<time datetime="2014-04-08T05:58:38-07:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time></div>
+<time datetime="2014-04-08T20:58:38+08:00" pubdate data-updated="true">Apr 8<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/18/chinse-number-gem/">
+		
+			Chinese_number: 一个解析汉字数字的 ~rubygem</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="http://ruby-china.org">ruby-china</a> 上有人问到<a href="http://ruby-china.org/topics/17913">怎么优雅地解析汉字数字</a>，比如 <code>二十五</code> 解析成 <code>25</code> 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！</p>
+
+<p>不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; <strong><a href="https://github.com/qhwa/chinese_number">chinese_number</a></strong></p>
+
+<p>用法很简单：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;chinese_number&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">trans</span> <span class="s1">&#39;今天二十万&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; &quot;今天200000&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">find</span> <span class="s2">&quot;一年有十二个月三百六十五天&quot;</span>
+</span><span class='line'><span class="c1">#=&gt; [{&quot;一&quot;=&gt;1}, {&quot;十二&quot;=&gt;12}, {&quot;三百六十五&quot;=&gt;365}]</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">extract</span> <span class="s2">&quot;今天二十晚&quot;</span>
+</span><span class='line'><span class="c1">#=&gt; [20]</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;二零一四&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; 2014</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;一万三千&#39;</span>
+</span><span class='line'><span class="c1">#=&gt; 13000</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-18T17:45:38+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time></div>
 	<div class="tags">
 
 </div>
@@ -482,85 +668,7 @@ https://www.startssl.com/ 按照网站指示， &hellip;">
   
 
 
-<time datetime="2014-03-18T16:21:00-07:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/03/18/chinse-number-gem/">
-		
-			Chinese_number: 一个解析汉字数字的 ~rubygem</a>
-	</h2>
-	<div class="entry-content">
-		<p><a href="http://ruby-china.org">ruby-china</a> 上有人问到<a href="http://ruby-china.org/topics/17913">怎么优雅地解析汉字数字</a>，比如 <code>二十五</code> 解析成 <code>25</code> 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！</p>
-
-<p>不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; <strong><a href="https://github.com/qhwa/chinese_number">chinese_number</a></strong></p>
-
-<p>用法很简单：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;chinese_number&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">trans</span> <span class="s1">&#39;今天二十万&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; &quot;今天200000&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">find</span> <span class="s2">&quot;一年有十二个月三百六十五天&quot;</span>
-</span><span class='line'><span class="c1">#=&gt; [{&quot;一&quot;=&gt;1}, {&quot;十二&quot;=&gt;12}, {&quot;三百六十五&quot;=&gt;365}]</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">ChineseNumber</span><span class="o">.</span><span class="n">extract</span> <span class="s2">&quot;今天二十晚&quot;</span>
-</span><span class='line'><span class="c1">#=&gt; [20]</span>
-</span><span class='line'>
-</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;二零一四&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; 2014</span>
-</span><span class='line'>
-</span><span class='line'><span class="ss">ChineseNumber</span><span class="p">:</span><span class="ss">:Parser</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;一万三千&#39;</span>
-</span><span class='line'><span class="c1">#=&gt; 13000</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-18T02:45:38-07:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time></div>
+<time datetime="2014-03-18T16:21:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time></div>
 	<div class="tags">
 
 </div>
@@ -603,7 +711,7 @@ https://www.startssl.com/ 按照网站指示， &hellip;">
   
 
 
-<time datetime="2013-07-18T11:49:00-07:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time></div>
+<time datetime="2013-07-18T11:49:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time></div>
 	<div class="tags">
 
 </div>
@@ -645,7 +753,7 @@ https://www.startssl.com/ 按照网站指示， &hellip;">
   
 
 
-<time datetime="2012-11-30T00:00:00-08:00" pubdate data-updated="true"></time></div>
+<time datetime="2012-11-30T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -942,7 +1050,7 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
   
 
 
-<time datetime="2012-11-30T00:00:00-08:00" pubdate data-updated="true"></time></div>
+<time datetime="2012-11-30T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -1005,7 +1113,7 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
   
 
 
-<time datetime="2012-06-07T00:00:00-07:00" pubdate data-updated="true"></time></div>
+<time datetime="2012-06-07T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
@@ -1147,84 +1255,7 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
   
 
 
-<time datetime="2012-06-07T00:00:00-07:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/02/13/fdlint/">
-		
-			Fdlint: 让前端code Review更轻松</a>
-	</h2>
-	<div class="entry-content">
-		<p><img src="http://img.china.alibaba.com/img/ibank/2012/462/137/490731264_678162280.jpg" alt="fdlint" style="border:none;" /></p>
-
-<p><a href="https://github.com/qhwa/fdlint">fdlint</a>是<a href="http://bencode.org">bencode</a> 和 我最近做的一个实用项目。她的参考是<a href="http://jslint.com">jslint</a>——一个js代码扫描工具。和<a href="http://jslint.com">jslint</a>不同的是，<a href="https://github.com/qhwa/fdlint">fdlint</a>还可以扫描css和html代码。</p>
-
-<h2>为什么会做<a href="https://github.com/qhwa/fdlint">fdlint</a>？</h2>
-
-<p>Code review是一项重要却比较花时间的工作，根据阿里巴巴中文站前端Code Review Check List，约有80项检查项目，要完整对照着检查是比较花时间的。太花时间导致的结果就是code review的频率不高。</p>
-
-<p>因此，我们开发了<a href="https://github.com/qhwa/fdlint">fdlint</a>，对HTML/CSS/JS代码进行分析，找出工具能判断的、不符合规范的代码。<a href="https://github.com/qhwa/fdlint">fdlint</a>可以节约我们的时间，帮助 code review 更频繁、更深入。</p>
-
-<h2>特点：</h2>
-
-<ol>
-<li>能扫描出不符合规则的常见问题，共49项, 详见<a href="https://github.com/qhwa/fdlint/wiki/fdlint-%E6%89%AB%E6%8F%8F%E8%A7%84%E5%88%99">扫描规则</a></li>
-<li>提供多种使用方式，适合不同的应用场景 （命令行、<a href="http://fdlint.herokuapp.com">web</a>、<a href="https://github.com/qhwa/fdlint-vim">VIM插件</a>、<a href="https://github.com/ThinkBest/fdlint-notepad-plusplus">Notepad++插件</a>、Eclipse插件）</li>
-<li>规则定制方便，将用DSL编写的规则放入一个目录，立刻生效。</li>
-<li>可以批量扫描多个文件，支持递归扫描目录</li>
-<li>支持多种输出格式</li>
-</ol>
-
-
-<h2>截图</h2>
-
-<ul>
-<li><p>命令行运行</p>
-
-<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-cli-500x619.png" alt="" title="fdlint-cli" width="500" height="619" class="alignnone size-medium wp-image-607" /></p></li>
-<li><p>web版本</p>
-
-<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-host-500x512.png" alt="" title="fdlint-host" width="500" height="512" class="alignnone size-medium wp-image-609" /></p></li>
-<li><p>Eclipse插件</p>
-
-<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-eclipse-500x140.png" alt="" title="fdlint-eclipse" width="500" height="140" class="alignnone size-medium wp-image-608" /></p></li>
-<li><p>Notepad++插件</p>
-
-<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-notepad-500x414.png" alt="" title="fdlint-notepad" width="500" height="414" class="alignnone size-medium wp-image-610" /></p></li>
-<li><p>VIM插件</p>
-
-<p>  <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-vim-500x543.png" alt="" title="fdlint-vim" width="500" height="543" class="alignnone size-medium wp-image-611" /></p></li>
-</ul>
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-13T00:00:00-08:00" pubdate data-updated="true"></time></div>
+<time datetime="2012-06-07T00:00:00+08:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 </div>
