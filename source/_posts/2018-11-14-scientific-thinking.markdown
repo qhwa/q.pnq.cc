@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "次卧暖气片的故事和科学思维"
+title: "暖气片的故事和科学思维"
 date: 2018-11-14 11:08:28 +0800
 comments: true
 categories: 
