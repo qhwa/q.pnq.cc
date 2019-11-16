@@ -4,7 +4,7 @@
   <title><![CDATA[qhwa's blog]]></title>
   <link href="http://q.pnq.cc/atom.xml" rel="self"/>
   <link href="http://q.pnq.cc/"/>
-  <updated>2019-03-06T19:38:42+08:00</updated>
+  <updated>2019-11-16T09:19:24+08:00</updated>
   <id>http://q.pnq.cc/</id>
   <author>
     <name><![CDATA[qhwa]]></name>
@@ -1410,7 +1410,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://style.china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://q.pnq.cc&quot;</span><span class="nt">&gt;</span>qhwa<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://q.pnq.cc&quot;</span><span class="nt">&gt;</span>qhwa<span class="nt">&lt;/a&gt;</span>
 </span><span class='line'><span class="nt">&lt;/div&gt;</span>
 </span><span class='line'>....
 </span></code></pre></td></tr></table></div></figure>
