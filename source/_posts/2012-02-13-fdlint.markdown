@@ -10,7 +10,7 @@ meta:
   _edit_last: '2'
   dsq_thread_id: '574363115'
 ---
-<img src="http://img.china.alibaba.com/img/ibank/2012/462/137/490731264_678162280.jpg" alt="fdlint" style="border:none;" />
+<img src="https://cbu01.alicdn.com/img/ibank/2012/462/137/490731264_678162280.jpg" alt="fdlint" style="border:none;" />
 
 [fdlint][]是[bencode](http://bencode.org) 和 我最近做的一个实用项目。她的参考是[jslint][]——一个js代码扫描工具。和[jslint][]不同的是，[fdlint][]还可以扫描css和html代码。
 
