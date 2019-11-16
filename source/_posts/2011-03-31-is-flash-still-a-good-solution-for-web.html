@@ -18,27 +18,27 @@ meta:
 ---
 两年前，我们开发了一套基于Flash的文件（主要是图片）上传RIA应用，提供给阿里巴巴的用户使用。如果你使用过Wordpress或flickr上传图片，你应该已经用过类似的产品。这个程序基于<a title="YUI Uploader" href="http://developer.yahoo.com/yui/uploader/">YUI Uploader</a>开发，增加了一个实用的功能——在客户端先将图片缩小，再上传到服务器。用户用数码相机拍摄的照片往往有600万以上的像素，但产品图片放到阿里巴巴网站上显示，并不需要这么大的像素，通常等比例缩小到1024×1024之内就可以了。借助于Flash对图片先缩小再上传的技术，我们在没有增加服务器投入的情况下，将原先上传图片的尺寸限制由250KB/张提升到了5MB/张。同时，Flash上传还比传统HTML表单方式上传有更好的体验，例如可以多选一批文件同时上传、可以实时展示上传进度、选择文件时可以过滤非图片文件。
 
-<img class="alignnone size-full wp-image-512" style="margin: 5px; border: 1px solid black;" title="Screenshot" src="http://q.pnq.cc/wp-content/uploads/2011/03/Screenshot.png" alt="" width="782" height="352" />
+<img class="alignnone size-full wp-image-512" style="margin: 5px; border: 1px solid black;" title="Screenshot" src="https://q.pnq.cc/wp-content/uploads/2011/03/Screenshot.png" alt="" width="782" height="352" />
 
 这个组件获得了很大的成功。上线后不久，阿里巴巴网站上用户的图片上传数量由日均1万张左右上升至日均15万张左右。但在这个上传应用投入应用的两年中，我们遇到了各种问题。
 <h2>1. bug</h2>
-<img class="alignnone size-medium wp-image-508" title="man062" src="http://q.pnq.cc/wp-content/uploads/2011/03/man062-500x494.jpg" alt="" width="500" height="494" />
+<img class="alignnone size-medium wp-image-508" title="man062" src="https://q.pnq.cc/wp-content/uploads/2011/03/man062-500x494.jpg" alt="" width="500" height="494" />
 
-在<a title="Flash在某些多标签浏览器中的“伪沙箱”问题" href="http://q.pnq.cc/archives/443">基于IE多标签浏览器中的伪沙箱问题</a>就不说了，最严重的是cookie的问题。使用FileReference.upload的方式上传文件，http请求中附带的cookie信息不一定是当前浏览器进程的cookie，在Firefox、chrome等非IE浏览器中非常严重，可能传输的是IE中的cookie。即便是IE，也可能传输的cookie内容和当前页面的cookie记录不符合。这直接导致服务器端在收到文件之后的安全验证中失败。而对于阿里巴巴这样的大型网站，有比较成熟的java web框架，要去掉对cookie的依赖非常麻烦。于是结果就是，首先我们只有在用户使用IE系浏览器的时候才使用Flash上传，其次我们隔三岔五的还会收到使用IE的某些客户的投诉，在花费了大量的时间排查之后，我发现是由于cookie的问题导致上传失败。<a href="http://cookbooks.adobe.com/post_Why_is_session_info__cookies__not_sent_when_upload-12029.html">这个bug</a>已经存在很多年，但是随着Flash从9升级到10，许多版本过去了，问题依然没有被解决。对于闭源的Flash，我们也帮不上忙。
+在<a title="Flash在某些多标签浏览器中的“伪沙箱”问题" href="https://q.pnq.cc/archives/443">基于IE多标签浏览器中的伪沙箱问题</a>就不说了，最严重的是cookie的问题。使用FileReference.upload的方式上传文件，http请求中附带的cookie信息不一定是当前浏览器进程的cookie，在Firefox、chrome等非IE浏览器中非常严重，可能传输的是IE中的cookie。即便是IE，也可能传输的cookie内容和当前页面的cookie记录不符合。这直接导致服务器端在收到文件之后的安全验证中失败。而对于阿里巴巴这样的大型网站，有比较成熟的java web框架，要去掉对cookie的依赖非常麻烦。于是结果就是，首先我们只有在用户使用IE系浏览器的时候才使用Flash上传，其次我们隔三岔五的还会收到使用IE的某些客户的投诉，在花费了大量的时间排查之后，我发现是由于cookie的问题导致上传失败。<a href="http://cookbooks.adobe.com/post_Why_is_session_info__cookies__not_sent_when_upload-12029.html">这个bug</a>已经存在很多年，但是随着Flash从9升级到10，许多版本过去了，问题依然没有被解决。对于闭源的Flash，我们也帮不上忙。
 <h2>2.性能</h2>
-<img class="alignnone size-medium wp-image-498" title="Mignight_Run_by_Orikon" src="http://q.pnq.cc/wp-content/uploads/2011/03/Mignight_Run_by_Orikon-500x340.jpg" alt="" width="500" height="340" />
+<img class="alignnone size-medium wp-image-498" title="Mignight_Run_by_Orikon" src="https://q.pnq.cc/wp-content/uploads/2011/03/Mignight_Run_by_Orikon-500x340.jpg" alt="" width="500" height="340" />
 
 相对于现今数码相机的像素量，5MB的大小限制非常保守。但大于5M的时候，在一些低配置的电脑上，读取文件内容的时候就会发生浏览器假死现象。假死很容易导致浏览器崩溃，所以我们采取了保守的限制——5MB。
 
 另外一个性能消耗是将BitmapData编码成JPEG文件的时候。Adobe提供了JPEGEncoder，但由于是Array实现的，所以性能是个问题。编码一个2880×2880的图片在一台中等配置的电脑上大约需要15秒时间。
 
-我用Vector改写了这个类，时间缩短为3.5秒左右。使用Alchemy，时间进一步缩短到1.5秒左右。但还是不够安全，所以最后采用了异步Vector的方式，延长编码的时间，以保证程序的稳定性。（评测在<a title="异步+Vector版本的JPEG编码器" href="http://q.pnq.cc/archives/307">这里</a>）
+我用Vector改写了这个类，时间缩短为3.5秒左右。使用Alchemy，时间进一步缩短到1.5秒左右。但还是不够安全，所以最后采用了异步Vector的方式，延长编码的时间，以保证程序的稳定性。（评测在<a title="异步+Vector版本的JPEG编码器" href="https://q.pnq.cc/archives/307">这里</a>）
 <h2>3.图片质量</h2>
-<img class="alignnone size-medium wp-image-505" title="iblrst00076625" src="http://q.pnq.cc/wp-content/uploads/2011/03/iblrst00076625-500x332.jpg" alt="" width="500" height="332" />
+<img class="alignnone size-medium wp-image-505" title="iblrst00076625" src="https://q.pnq.cc/wp-content/uploads/2011/03/iblrst00076625-500x332.jpg" alt="" width="500" height="332" />
 
 Flash内置的最好的图片缩小算法（用BitmapData.draw，并将smoothing参数设为true），在缩小图片的时候容易产生锯齿。因此我改写了<a href="http://jacwright.com/">Jacwright</a>提供的<a href="http://code.google.com/p/jacwright/source/browse/trunk/flash/jac/src/jac/image/ImageUtils.as">缩小算法</a>，图片质量的问题解决，但代价是性能又降低了一些。
 <h2>4.安全限制</h2>
-<img class="alignnone size-medium wp-image-511" title="rad600-02833372s" src="http://q.pnq.cc/wp-content/uploads/2011/03/rad600-02833372s-500x333.jpg" alt="" width="500" height="333" />
+<img class="alignnone size-medium wp-image-511" title="rad600-02833372s" src="https://q.pnq.cc/wp-content/uploads/2011/03/rad600-02833372s-500x333.jpg" alt="" width="500" height="333" />
 
 Flash10.0之后，增加了一个安全限制——当URLLoader以标准文件上传的方式发送POST请求的时候，需要由用户的UI操作（鼠标点击或按键事件）触发。因为我们对用户的图片做了处理，已经无法再通过FileReference上传，只能通过URLLoader。这个安全性限制规定每次发起一个上传文件的URLLoader请求，都必须让用户点击一下鼠标才可以。如果用户选择了20张图片，就要点击20次鼠标。这显然是无法接受的。因此我们放弃了用标准文件上传，采用普通post形式。代价是失去了对上传进度的跟踪，不知道文件上传的百分比；同时服务器端也需要改造。
 <h2>改变</h2>

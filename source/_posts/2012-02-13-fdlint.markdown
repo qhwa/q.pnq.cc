@@ -32,23 +32,23 @@ Code review是一项重要却比较花时间的工作，根据阿里巴巴中文
 
 * 命令行运行
 
-    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-cli-500x619.png" alt="" title="fdlint-cli" width="500" height="619" class="alignnone size-medium wp-image-607" />
+    <img src="https://q.pnq.cc/wp-content/uploads/2012/02/fdlint-cli-500x619.png" alt="" title="fdlint-cli" width="500" height="619" class="alignnone size-medium wp-image-607" />
 
 * web版本
 
-    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-host-500x512.png" alt="" title="fdlint-host" width="500" height="512" class="alignnone size-medium wp-image-609" />
+    <img src="https://q.pnq.cc/wp-content/uploads/2012/02/fdlint-host-500x512.png" alt="" title="fdlint-host" width="500" height="512" class="alignnone size-medium wp-image-609" />
 
 * Eclipse插件
 
-    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-eclipse-500x140.png" alt="" title="fdlint-eclipse" width="500" height="140" class="alignnone size-medium wp-image-608" />
+    <img src="https://q.pnq.cc/wp-content/uploads/2012/02/fdlint-eclipse-500x140.png" alt="" title="fdlint-eclipse" width="500" height="140" class="alignnone size-medium wp-image-608" />
 
 * Notepad++插件
 
-    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-notepad-500x414.png" alt="" title="fdlint-notepad" width="500" height="414" class="alignnone size-medium wp-image-610" />
+    <img src="https://q.pnq.cc/wp-content/uploads/2012/02/fdlint-notepad-500x414.png" alt="" title="fdlint-notepad" width="500" height="414" class="alignnone size-medium wp-image-610" />
 
 * VIM插件
 
-    <img src="http://q.pnq.cc/wp-content/uploads/2012/02/fdlint-vim-500x543.png" alt="" title="fdlint-vim" width="500" height="543" class="alignnone size-medium wp-image-611" />
+    <img src="https://q.pnq.cc/wp-content/uploads/2012/02/fdlint-vim-500x543.png" alt="" title="fdlint-vim" width="500" height="543" class="alignnone size-medium wp-image-611" />
 
 [fdlint]: https://github.com/qhwa/fdlint
 [jslint]: http://jslint.com
