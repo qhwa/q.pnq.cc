@@ -22,7 +22,7 @@ meta:
 
     #!bash
     sudo apt-get install libc6-i386 #64位系统也是这个包
-    wget http://q.pnq.cc/uploads/array_vpnc.bin
+    wget https://q.pnq.cc/uploads/array_vpnc.bin
     chmod a+x array_vpnc.bin
 
 
@@ -30,7 +30,7 @@ meta:
 
     #!bash
     #下载辅助脚本
-    wget http://q.pnq.cc/uploads/vpn-for-common.sh -O vpn.sh
+    wget https://q.pnq.cc/uploads/vpn-for-common.sh -O vpn.sh
     #里面会包含重要信息，我们不想别人随便访问
     chmod 700 vpn.sh
 

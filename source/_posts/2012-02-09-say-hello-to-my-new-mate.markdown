@@ -12,8 +12,8 @@ meta:
 ---
 没错，这是我的新伙伴，今天正式开始我的骑行了，2012的一大目标就是锻炼身体！
 
-![bike](http://q.pnq.cc/wp-content/uploads/2012/02/DSC_0824-500x752.jpg)
-![bike](http://q.pnq.cc/wp-content/uploads/2012/02/DSC_0823-500x332.jpg)
+![bike](https://q.pnq.cc/wp-content/uploads/2012/02/DSC_0824-500x752.jpg)
+![bike](https://q.pnq.cc/wp-content/uploads/2012/02/DSC_0823-500x332.jpg)
 
 今天在网上看中的，下午联系，晚上就提车了，真是爽快！
 因为信任骑行的人，我对车主“死魂灵”是完完全全的信任，虽然我还是车盲一个，哈哈！

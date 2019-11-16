@@ -17,13 +17,13 @@ meta:
 ---
 <img class="alignnone size-full wp-image-429" title="fiddler-title" src="http://www.aliued.cn/wp-content/uploads/2010/04/1-13.jpg" alt="" />
 
-在<a href="http://q.pnq.cc/archives/368">上一篇（介绍篇）</a>中，我们对<a href="http://www.fiddler2.com/fiddler2/">Fiddler Web Debugger</a>有了简单的接触，也许你已经开始在用Fiddler进行HTTP相关的调试，在这一篇，我们将通过一个实例了解Fiddler的神奇魔法。
+在<a href="https://q.pnq.cc/archives/368">上一篇（介绍篇）</a>中，我们对<a href="http://www.fiddler2.com/fiddler2/">Fiddler Web Debugger</a>有了简单的接触，也许你已经开始在用Fiddler进行HTTP相关的调试，在这一篇，我们将通过一个实例了解Fiddler的神奇魔法。
 
 在我们前端开发的日常工作中，发现服务器上某个css/javascript文件有问题，需要修改，那真是家常便饭。通常，我们需要将文件进行修改，然后重新发布再验证，这样就很容易影响到生产环境的稳定性。更普遍的做法是，我们在开发环境中修改文件并验证，然后发布到生产环境。虽然安全，却比较繁琐。而利用Fiddler的可以修改HTTP数据的特性，我们就非常敏捷地<strong>基于生产环境</strong>“修改——验证——发布”。<!--more-->
 
 假设我们发现<a href="http://www.aliued.cn/?p=2335" target="_blank">这个页面</a>有问题，需要修改所引用的js文件（<a href="http://www.aliued.cn/wp-includes/js/comment-reply.js?ver=20090102">http://www.aliued.cn/wp-includes/js/comment-reply.js?ver=20090102</a>）。
 <h2>第一步：用Fiddler查看页面的数据流列表，找到这个js文件的session</h2>
-<a href="http://q.pnq.cc/wp-content/uploads/2010/04/image.png"><img style="display: inline; border: 0px initial initial;" title="image" src="http://www.aliued.cn/wp-content/uploads/2010/04/image_thumb2.png" border="0" alt="image" /></a>
+<a href="https://q.pnq.cc/wp-content/uploads/2010/04/image.png"><img style="display: inline; border: 0px initial initial;" title="image" src="http://www.aliued.cn/wp-content/uploads/2010/04/image_thumb2.png" border="0" alt="image" /></a>
 <blockquote>tip: 最好是没有缓存的返回内容（Result Code是200），这样可以进行下一步的保存。不是200也没关系，你只要本地硬盘上有这个文件就好了。</blockquote>
 <h2>第二步：将js文件保存到本地（如果本地已经有这个文件，可以跳过这步）</h2>
 <img style="display: inline; border: 0px initial initial;" title="image" src="http://www.aliued.cn/wp-content/uploads/2010/04/image11.png" border="0" alt="image" />
@@ -45,7 +45,7 @@ Fiddler帮我们生成的规则是：
 </ul>
 我们需要修改这个规则，
 
-<a href="http://q.pnq.cc/wp-content/uploads/2010/04/image4.png"><img style="display: inline; border: 0px initial initial;" title="image" src="http://www.aliued.cn/wp-content/uploads/2010/04/image_thumb11.png" border="0" alt="image" width="467" height="337" /></a>
+<a href="https://q.pnq.cc/wp-content/uploads/2010/04/image4.png"><img style="display: inline; border: 0px initial initial;" title="image" src="http://www.aliued.cn/wp-content/uploads/2010/04/image_thumb11.png" border="0" alt="image" width="467" height="337" /></a>
 
 选择“Find a file…”，就可以选择本地的文件作为返回的body内容。
 

@@ -68,7 +68,7 @@ Grunt 已经安装好了，第一步就是利用grunt快速搭建脚手架出来
     <a href="http://alibaba.com">grunt</a>
     <a href="http://china.alibaba.com">grunt</a>
     <a href="http://style.china.alibaba.com">grunt</a>
-    <a href="http://q.pnq.cc">qhwa</a>
+    <a href="https://q.pnq.cc">qhwa</a>
 </div>
 ....
 {% endcodeblock %}
