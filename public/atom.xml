@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[qhwa's blog]]></title>
-  <link href="http://q.pnq.cc/atom.xml" rel="self"/>
-  <link href="http://q.pnq.cc/"/>
-  <updated>2019-11-16T09:27:29+08:00</updated>
-  <id>http://q.pnq.cc/</id>
+  <link href="https://q.pnq.cc/atom.xml" rel="self"/>
+  <link href="https://q.pnq.cc/"/>
+  <updated>2019-11-16T09:33:18+08:00</updated>
+  <id>https://q.pnq.cc/</id>
   <author>
     <name><![CDATA[qhwa]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[暖气片的故事和科学思维]]></title>
-    <link href="http://q.pnq.cc/blog/2018/11/14/scientific-thinking/"/>
+    <link href="https://q.pnq.cc/blog/2018/11/14/scientific-thinking/"/>
     <updated>2018-11-14T11:08:28+08:00</updated>
-    <id>http://q.pnq.cc/blog/2018/11/14/scientific-thinking</id>
+    <id>https://q.pnq.cc/blog/2018/11/14/scientific-thinking</id>
     <content type="html"><![CDATA[<p>谢天谢地，这几天北京终于开始供暖气啦！从寒冷的室外，打开一扇门，就可以回到温暖的家，这是南方人的我最喜欢北京的地方了。在温暖的房间里，把厚被子换成薄被子，感觉再也不用瑟瑟发抖了。</p>
 
 <p>然而走进次卧的瞬间，我感觉到了一丝凉意。难道暖气片坏了？摸了一摸，发现没有热气。这可不行，次卧是 Jojo 和阿姨睡觉的地方，难怪 Jojo 这几天手脚冰冷的，也没睡好。</p>
@@ -56,7 +56,7 @@
 
 <p>我的工作 —— 程序员 —— 主要的工作内容就是解决问题。大家每天都在解决问题，但是不同的人成长速度还是不一样。成长快的人，解决问题的时候会想方设法了解问题产生的原因，从一个点切入，了解整个系统的知识。</p>
 
-<p><img src="http://q.pnq.cc/images/why.png" alt="why it works" /></p>
+<p><img src="https://q.pnq.cc/images/why.png" alt="why it works" /></p>
 
 <p>说到这里，我就想起了另外一个故事。</p>
 
@@ -100,9 +100,9 @@
   
   <entry>
     <title type="html"><![CDATA[从新手到专家——技能成长模型]]></title>
-    <link href="http://q.pnq.cc/blog/2018/08/10/cong-xin-shou-dao-zhuan-jia-ji-neng-cheng-chang-mo-xing/"/>
+    <link href="https://q.pnq.cc/blog/2018/08/10/cong-xin-shou-dao-zhuan-jia-ji-neng-cheng-chang-mo-xing/"/>
     <updated>2018-08-10T10:26:44+08:00</updated>
-    <id>http://q.pnq.cc/blog/2018/08/10/cong-xin-shou-dao-zhuan-jia-ji-neng-cheng-chang-mo-xing</id>
+    <id>https://q.pnq.cc/blog/2018/08/10/cong-xin-shou-dao-zhuan-jia-ji-neng-cheng-chang-mo-xing</id>
     <content type="html"><![CDATA[<h2>专家的特征</h2>
 
 <p>2009年1月15日，Sullenberger (也叫萨利) 在全美航空1549号班担任机长，飞机从纽约拉瓜迪亚机场起飞。五分钟后，在爬升过程中遭到飞鸟撞击，两架发动机全部熄火。此时只能就近寻求迫降，但高度不够，在没有动力的情况下，很难抵达附近的机场，如果处置不当，也很容易引起地面的巨大伤亡。危急时刻，萨利决定在哈德逊河上迫降，155人 <strong>全数生还</strong>。</p>
@@ -219,9 +219,9 @@
   
   <entry>
     <title type="html"><![CDATA[Elixir 源码阅读笔记: ex_doc]]></title>
-    <link href="http://q.pnq.cc/blog/2017/01/28/ex-doc/"/>
+    <link href="https://q.pnq.cc/blog/2017/01/28/ex-doc/"/>
     <updated>2017-01-28T10:03:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2017/01/28/ex-doc</id>
+    <id>https://q.pnq.cc/blog/2017/01/28/ex-doc</id>
     <content type="html"><![CDATA[<p>源码地址：<a href="https://github.com/elixir-lang/ex_doc">https://github.com/elixir-lang/ex_doc</a>
 ex_doc 是 elixir 代码生成文档的工具。</p>
 
@@ -303,9 +303,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[Daily Reading Note #1]]></title>
-    <link href="http://q.pnq.cc/blog/2017/01/17/daily-reading-1/"/>
+    <link href="https://q.pnq.cc/blog/2017/01/17/daily-reading-1/"/>
     <updated>2017-01-17T23:16:40+08:00</updated>
-    <id>http://q.pnq.cc/blog/2017/01/17/daily-reading-1</id>
+    <id>https://q.pnq.cc/blog/2017/01/17/daily-reading-1</id>
     <content type="html"><![CDATA[<p>这里记录了每天阅读代码记录的新知识。</p>
 
 <h3>List.keymember?/3</h3>
@@ -458,9 +458,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[也谈谈月饼事件]]></title>
-    <link href="http://q.pnq.cc/blog/2016/09/17/mooncake/"/>
+    <link href="https://q.pnq.cc/blog/2016/09/17/mooncake/"/>
     <updated>2016-09-17T12:50:44+08:00</updated>
-    <id>http://q.pnq.cc/blog/2016/09/17/mooncake</id>
+    <id>https://q.pnq.cc/blog/2016/09/17/mooncake</id>
     <content type="html"><![CDATA[<p><img src="https://www.zaobao.com.sg/sites/default/files/styles/article_large_full/public/images/201609/20160914/809.jpg?itok=vyZLXFnr&amp;timestamp=1473817356" alt="mooncake" /></p>
 
 <p>中秋前夕，阿里的月饼事件引爆了圈内网络（<a href="https://www.zhihu.com/question/50600301">事件回顾</a>）。事情从当事人双方的角度来说都有道理：</p>
@@ -475,7 +475,7 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
 
 <p>但阿里在程序员的心目中一落千丈已经是不争的事实，外界技术人员对阿里的看法更清醒了，阿里不是一家技术驱动的公司，这里没有工程师文化的土壤。甚至连内部的程序员也对事件非常失望。在我印象里，上市之后，阿里对技术「开源」的态度急转而下。阿里已经成为一个竭尽全力避免风险的公司。这无可厚非，几乎没有一家公司像阿里这样拥有巨大的成功而又充满争议。</p>
 
-<p><img src="http://q.pnq.cc/images/toy.jpg" alt="toy" /></p>
+<p><img src="https://q.pnq.cc/images/toy.jpg" alt="toy" /></p>
 
 <p>然而懂点程序的人都能看得出问题所在。</p>
 
@@ -512,9 +512,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[minifying-with-webpack]]></title>
-    <link href="http://q.pnq.cc/blog/2016/05/05/minifying-with-webpack/"/>
+    <link href="https://q.pnq.cc/blog/2016/05/05/minifying-with-webpack/"/>
     <updated>2016-05-05T10:09:12+08:00</updated>
-    <id>http://q.pnq.cc/blog/2016/05/05/minifying-with-webpack</id>
+    <id>https://q.pnq.cc/blog/2016/05/05/minifying-with-webpack</id>
     <content type="html"><![CDATA[<p><img src="https://cdn-images-1.medium.com/max/1600/1*rsOjd1jR3eOmJNJh4Zp42g.png" alt="webpack bundling" /></p>
 
 <p>When coding in a modern modular way with Webpack is done, it enters the deploy phrase. We minify assets to reduce the network transfer cost. While bundling is not necessary nowadays thanks to HTTP/2, minifying is still an important work, because in many cases we can reduce the size to transfer between servers and clients:</p>
@@ -629,9 +629,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[Setting Up Your React Project Is Easier Than You Think]]></title>
-    <link href="http://q.pnq.cc/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing/"/>
+    <link href="https://q.pnq.cc/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing/"/>
     <updated>2016-05-02T22:16:08+08:00</updated>
-    <id>http://q.pnq.cc/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing</id>
+    <id>https://q.pnq.cc/blog/2016/05/02/shi-yong-yeomankuai-su-da-jian-reactkai-fa-huan-jing</id>
     <content type="html"><![CDATA[<p>I have heard some ones complaining that setting up a <a href="https://webpack.github.io/">Webpack</a> + <a href="https://facebook">React</a> project is not an easy job. It&rsquo;s only partly true. <a href="https://webpack.github.io/">Webpack</a> is not well documented at this moment, and has many powerful features and plugins. This makes configuration on <a href="https://webpack.github.io/">Webpack</a> seem difficult to new developers. To make things even worse, there are tons of &lsquo;starter kit&rsquo; projects over there, most of which are lack of maintainance.</p>
 
 <p><img src="https://yeoman.io/static/yeoman-02.83c46c7213.png" alt="Yeoman" /></p>
@@ -679,9 +679,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[为什么写不出博客了]]></title>
-    <link href="http://q.pnq.cc/blog/2016/05/02/why-not-write-any-more/"/>
+    <link href="https://q.pnq.cc/blog/2016/05/02/why-not-write-any-more/"/>
     <updated>2016-05-02T21:41:39+08:00</updated>
-    <id>http://q.pnq.cc/blog/2016/05/02/why-not-write-any-more</id>
+    <id>https://q.pnq.cc/blog/2016/05/02/why-not-write-any-more</id>
     <content type="html"><![CDATA[<p>近几年以来，我写博客的数量每况愈下，从几个月一篇，到几个季度一篇，现在已经将近一年一篇了。。 (✖╭╮✖)</p>
 
 <p>今天也是无意间提起，让我思考这个问题</p>
@@ -713,9 +713,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[为什么 limits 不生效]]></title>
-    <link href="http://q.pnq.cc/blog/2015/08/09/why-the-limits-config-not-hornored/"/>
+    <link href="https://q.pnq.cc/blog/2015/08/09/why-the-limits-config-not-hornored/"/>
     <updated>2015-08-09T21:14:35+08:00</updated>
-    <id>http://q.pnq.cc/blog/2015/08/09/why-the-limits-config-not-hornored</id>
+    <id>https://q.pnq.cc/blog/2015/08/09/why-the-limits-config-not-hornored</id>
     <content type="html"><![CDATA[<p>最近遇到一个奇怪的问题，无法将服务器的最大文件打开数量提高。</p>
 
 <p>服务器是 Ubuntu Server 14.04</p>
@@ -823,9 +823,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[capistrano-hostmenu: 只操作指定的服务器]]></title>
-    <link href="http://q.pnq.cc/blog/2015/02/11/capistrano-deloy-only-to-selected-servers/"/>
+    <link href="https://q.pnq.cc/blog/2015/02/11/capistrano-deloy-only-to-selected-servers/"/>
     <updated>2015-02-11T22:10:44+08:00</updated>
-    <id>http://q.pnq.cc/blog/2015/02/11/capistrano-deloy-only-to-selected-servers</id>
+    <id>https://q.pnq.cc/blog/2015/02/11/capistrano-deloy-only-to-selected-servers</id>
     <content type="html"><![CDATA[<p>想必大家都用过 <a href="http://capistranorb.com/">capistrano</a> 了，部署代码到多个服务器上的神器。
 不过使用中有个不太方便的地方是，某些情况下只想部署到其中几台。</p>
 
@@ -852,9 +852,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[如何开发 ruby 命令行工具]]></title>
-    <link href="http://q.pnq.cc/blog/2014/11/16/a-little-project-for-download-huaban-pins/"/>
+    <link href="https://q.pnq.cc/blog/2014/11/16/a-little-project-for-download-huaban-pins/"/>
     <updated>2014-11-16T15:54:01+08:00</updated>
-    <id>http://q.pnq.cc/blog/2014/11/16/a-little-project-for-download-huaban-pins</id>
+    <id>https://q.pnq.cc/blog/2014/11/16/a-little-project-for-download-huaban-pins</id>
     <content type="html"><![CDATA[<p>最近 @季子乌 的 <a href="http://huaban.com/pigeonzhu">花瓣账号</a> 突然被封，苦心采集的很多图片一下子全部看不到了！</p>
 
 <p>后来虽然联系客服重新开通了账号，但还是心有余悸，觉得还是 <a href="http://www.pinterest.com/">pinterest</a> 靠谱一些，准备把图片全部迁移到 pinterest 上。由于图片数量比较多，我就用 ruby 写了一个工具，将花瓣上的图片下载下来。（不过 pinterest 不能批量上传，这些图片也只是备份到本地，这是后话了）</p>
@@ -933,9 +933,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[SSL Notes With Ruby on Rails]]></title>
-    <link href="http://q.pnq.cc/blog/2014/10/13/ssl-notes-with-rails/"/>
+    <link href="https://q.pnq.cc/blog/2014/10/13/ssl-notes-with-rails/"/>
     <updated>2014-10-13T15:54:01+08:00</updated>
-    <id>http://q.pnq.cc/blog/2014/10/13/ssl-notes-with-rails</id>
+    <id>https://q.pnq.cc/blog/2014/10/13/ssl-notes-with-rails</id>
     <content type="html"><![CDATA[<p>上周我给<a href="https://xiaotuhe.com">小兔盒</a>加上了https，比想象中容易许多。记录一下</p>
 
 <h3>免费的CA:</h3>
@@ -1004,9 +1004,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[石潭村游记]]></title>
-    <link href="http://q.pnq.cc/blog/2014/04/08/shi-tan-cun-you-ji/"/>
+    <link href="https://q.pnq.cc/blog/2014/04/08/shi-tan-cun-you-ji/"/>
     <updated>2014-04-08T20:58:38+08:00</updated>
-    <id>http://q.pnq.cc/blog/2014/04/08/shi-tan-cun-you-ji</id>
+    <id>https://q.pnq.cc/blog/2014/04/08/shi-tan-cun-you-ji</id>
     <content type="html"><![CDATA[<p><img src="http://pnqcc.qiniudn.com/shitancun2674856703781518773.jpg" alt="石潭村" /></p>
 
 <p>石潭村在安徽省黄山市徽州区歙县霞坑镇，距离黄山市50多公里，离杭州余杭150公里多点。我们在杭州，所以过去很近，非常适合清明小长假自驾游。从杭州往西，一路有天目山、青山湖这样的景区，即便是在高速公路上，也能看到路边的小风景。</p>
@@ -1123,9 +1123,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[chinese_number: 一个解析汉字数字的 ~rubygem]]></title>
-    <link href="http://q.pnq.cc/blog/2014/03/18/chinse-number-gem/"/>
+    <link href="https://q.pnq.cc/blog/2014/03/18/chinse-number-gem/"/>
     <updated>2014-03-18T17:45:38+08:00</updated>
-    <id>http://q.pnq.cc/blog/2014/03/18/chinse-number-gem</id>
+    <id>https://q.pnq.cc/blog/2014/03/18/chinse-number-gem</id>
     <content type="html"><![CDATA[<p><a href="http://ruby-china.org">ruby-china</a> 上有人问到<a href="http://ruby-china.org/topics/17913">怎么优雅地解析汉字数字</a>，比如 <code>二十五</code> 解析成 <code>25</code> 。我第一反应是应该查一下有没有这样的 gem，因为是一个很普遍的需求，说不定已经有人实现了呢！</p>
 
 <p>不过很可惜，不知道是不是我没有查到，还是真的没有，总之没有找到。所以我就写了一个这样的 gem &mdash; <strong><a href="https://github.com/qhwa/chinese_number">chinese_number</a></strong></p>
@@ -1173,9 +1173,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[《代码的未来》 阅读笔记（1）—— JavaScript/CoffeScript/ruby 局部变量处理的异同]]></title>
-    <link href="http://q.pnq.cc/blog/2014/03/18/variable-scope-in-js-coffeescript-and-ruby/"/>
+    <link href="https://q.pnq.cc/blog/2014/03/18/variable-scope-in-js-coffeescript-and-ruby/"/>
     <updated>2014-03-18T16:21:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2014/03/18/variable-scope-in-js-coffeescript-and-ruby</id>
+    <id>https://q.pnq.cc/blog/2014/03/18/variable-scope-in-js-coffeescript-and-ruby</id>
     <content type="html"><![CDATA[<blockquote><p>…… 身为 JavaScript 程序员的好友说，对 javascript 的不满之一，就是它的变量声明和作用域。 —— Mats</p></blockquote>
 
 <h2>JavaScript</h2>
@@ -1311,9 +1311,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[编程原则]]></title>
-    <link href="http://q.pnq.cc/blog/2013/07/18/programing-on-principles/"/>
+    <link href="https://q.pnq.cc/blog/2013/07/18/programing-on-principles/"/>
     <updated>2013-07-18T11:49:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2013/07/18/programing-on-principles</id>
+    <id>https://q.pnq.cc/blog/2013/07/18/programing-on-principles</id>
     <content type="html"><![CDATA[<ol>
 <li>in/out 原则：签入的代码一定要比签出时更好</li>
 <li>变量命名选用最贴切、最短的</li>
@@ -1326,9 +1326,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[折纸折叠菜单效果]]></title>
-    <link href="http://q.pnq.cc/blog/2012/11/30/fancy-paper-list/"/>
+    <link href="https://q.pnq.cc/blog/2012/11/30/fancy-paper-list/"/>
     <updated>2012-11-30T00:00:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2012/11/30/fancy-paper-list</id>
+    <id>https://q.pnq.cc/blog/2012/11/30/fancy-paper-list</id>
     <content type="html"><![CDATA[<p>这个效果原先是给团队内部的一个协作网站开发的</p>
 
 <iframe src="http://cssdeck.com/labs/full/fancy-paper-list" width="100%" height="700" ></iframe>
@@ -1340,9 +1340,9 @@ ex_doc 是 elixir 代码生成文档的工具。</p>
   
   <entry>
     <title type="html"><![CDATA[利用 Grunt （几乎）无痛地做前端开发 (一)]]></title>
-    <link href="http://q.pnq.cc/blog/2012/11/30/_grunt-1/"/>
+    <link href="https://q.pnq.cc/blog/2012/11/30/_grunt-1/"/>
     <updated>2012-11-30T00:00:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2012/11/30/_grunt-1</id>
+    <id>https://q.pnq.cc/blog/2012/11/30/_grunt-1</id>
     <content type="html"><![CDATA[<h2>前言</h2>
 
 <blockquote><p>如果你想开发一个js应用，甭管多简单，都要先创建整个宇宙</p></blockquote>
@@ -1609,9 +1609,9 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
   
   <entry>
     <title type="html"><![CDATA[Ruby 如何“反转义”字符串]]></title>
-    <link href="http://q.pnq.cc/blog/2012/06/07/ruby-undecoding/"/>
+    <link href="https://q.pnq.cc/blog/2012/06/07/ruby-undecoding/"/>
     <updated>2012-06-07T00:00:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2012/06/07/ruby-undecoding</id>
+    <id>https://q.pnq.cc/blog/2012/06/07/ruby-undecoding</id>
     <content type="html"><![CDATA[<p>我们知道Ruby中转义字符串可以用inspect或者dump可以将字符串转义：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1644,9 +1644,9 @@ watch 就是这样的一个任务，监测一些文件，都有更新的时候�
   
   <entry>
     <title type="html"><![CDATA[使用Apache Benmark(ab) 对一个 Ruby Web 程序做性能测试]]></title>
-    <link href="http://q.pnq.cc/blog/2012/06/07/ab/"/>
+    <link href="https://q.pnq.cc/blog/2012/06/07/ab/"/>
     <updated>2012-06-07T00:00:00+08:00</updated>
-    <id>http://q.pnq.cc/blog/2012/06/07/ab</id>
+    <id>https://q.pnq.cc/blog/2012/06/07/ab</id>
     <content type="html"><![CDATA[<p>最近要在一些内部系统中嵌入<a href="https://github.com/qhwa/fdlint-host/">fdlint</a>的功能，检查HTML的语法是否正确。涉及到了系统性能测试的问题，学习了一下，在这里记录一下。</p>
 
 <p>首先是工具的选择，apache自带的性能测试工具ab简单方便，就用他了！</p>
