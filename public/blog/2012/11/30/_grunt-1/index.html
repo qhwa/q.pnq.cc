@@ -101,7 +101,7 @@
 
 <p>以一个jQuery插件的开发为例。 开始之前，让我们先安装Grunt.</p>
 
-<p>首先需要<a href="http://nodejs.org/">Nodejs</a>环境，这里假设你已经安装好了<a href="http://nodejs.org/">Nodejs</a>和<a href="https://npmjs.org/">NPM</a>.</p>
+<p>首先需要<a href="https://nodejs.org/">Nodejs</a>环境，这里假设你已经安装好了<a href="https://nodejs.org/">Nodejs</a>和<a href="https://npmjs.org/">NPM</a>.</p>
 
 <p>然后安装 grunt :</p>
 
@@ -119,7 +119,7 @@
 
 <p>这时grunt会问你一些问题，比如项目名称, git地址,作者等等，比如:</p>
 
-<p><img src="http://img03.taobaocdn.com/tfscom/T1EwSRXyNhXXaCwpjX.png_620x10000.jpg" alt="initing" /></p>
+<p><img src="https://img03.taobaocdn.com/tfscom/T1EwSRXyNhXXaCwpjX.png_620x10000.jpg" alt="initing" /></p>
 
 <p>可以看到，grunt已经帮我们创建了一些经常出现的文件(README, LICENSE等), 单元测试也准备好了。</p>
 
@@ -143,9 +143,9 @@
 </pre></td><td class='code'><pre><code class='html'><span class='line'>...
 </span><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;qunit-fixture&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#functional-link&quot;</span><span class="nt">&gt;</span>#nogo<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://style.china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://style.china.alibaba.com&quot;</span><span class="nt">&gt;</span>grunt<span class="nt">&lt;/a&gt;</span>
 </span><span class='line'>    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://q.pnq.cc&quot;</span><span class="nt">&gt;</span>qhwa<span class="nt">&lt;/a&gt;</span>
 </span><span class='line'><span class="nt">&lt;/div&gt;</span>
 </span><span class='line'>....
@@ -206,7 +206,7 @@
 </span><span class='line'>
 </span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">elems</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 </span><span class='line'>    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">if</span><span class="p">(</span> <span class="sr">/^http:\/\/((.+)\.)?alibaba\.com/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span> <span class="sr">/^https:\/\/((.+)\.)?alibaba\.com/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">href</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>      <span class="nx">ok</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">));</span>
 </span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span><span class='line'>      <span class="nx">ok</span><span class="p">(</span><span class="o">!</span><span class="nx">self</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">&#39;ali-link&#39;</span><span class="p">));</span>
@@ -220,13 +220,13 @@
 <p>然后在命令行运行一下<code>grunt qunit</code>
 运行结果是这样的：</p>
 
-<p><img src="http://img03.taobaocdn.com/tfscom/T181NBFn4fXXaCwpjX.png" alt="grunt qunit first run" /></p>
+<p><img src="https://img03.taobaocdn.com/tfscom/T181NBFn4fXXaCwpjX.png" alt="grunt qunit first run" /></p>
 
 <p>各种报错，对吧？不要紧，因为我们还没有开始写代码。接下来我们的目标就是写功能代码，让这个测试通过。</p>
 
 <p>经过一番敲击键盘，以及运行了几次<code>grunt qunit</code>，终于，激动人心时刻到来了，我们通过了所有的单元测试:</p>
 
-<p><img src="http://img01.taobaocdn.com/tfscom/T1p5RDFn4bXXaCwpjX.png_620x10000.jpg" alt="grunt qunit pass" /></p>
+<p><img src="https://img01.taobaocdn.com/tfscom/T1p5RDFn4bXXaCwpjX.png_620x10000.jpg" alt="grunt qunit pass" /></p>
 
 <p>最终的功能js如下：</p>
 
@@ -262,7 +262,7 @@
 </span><span class='line'>
 </span><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">ALI_LINK_REG</span> <span class="o">=</span> <span class="sr">/^http:\/\/(.+\.)?alibaba\.com/</span><span class="p">;</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">ALI_LINK_REG</span> <span class="o">=</span> <span class="sr">/^https:\/\/(.+\.)?alibaba\.com/</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="c1">// Collection method.</span>
 </span><span class='line'>  <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">alilink</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -301,13 +301,13 @@
 
 <p>运行命令 <code>grunt lint</code> ，果然有报警：</p>
 
-<p><img src="http://img03.taobaocdn.com/tfscom/T1qp8CFmXbXXaCwpjX.png_620x10000.jpg" alt="grunt lint fail" /></p>
+<p><img src="https://img03.taobaocdn.com/tfscom/T1qp8CFmXbXXaCwpjX.png_620x10000.jpg" alt="grunt lint fail" /></p>
 
 <p>嗯，我们的正则表达式写法不太好，那就来优化一下吧！</p>
 
 <p>又经过一阵修改，我们的代码终于在 <code>grunt lint</code> 时没有报警了，不错！</p>
 
-<p><img src="http://img01.taobaocdn.com/tfscom/T1KuBqFhthXXaCwpjX.png_620x10000.jpg" alt="grunt lint pass" /></p>
+<p><img src="https://img01.taobaocdn.com/tfscom/T1KuBqFhthXXaCwpjX.png_620x10000.jpg" alt="grunt lint pass" /></p>
 
 <p>运行一下 <code>grunt qunit</code> ，看到单元测试还能通过，功能正常，不错！</p>
 
@@ -318,7 +318,7 @@
 <p>很简单，运行<code>grunt watch</code> 就好了。然后试一下修改 src/ 下面的 js，就不需要手动去运行qunit和lint任务了。
 watch 就是这样的一个任务，监测一些文件，都有更新的时候，自动运行需要的任务。</p>
 
-<p><img src="http://img03.taobaocdn.com/tfscom/T1bb4BFodfXXaCwpjX.png_620x10000.jpg" alt="grunt watch" /></p>
+<p><img src="https://img03.taobaocdn.com/tfscom/T1bb4BFodfXXaCwpjX.png_620x10000.jpg" alt="grunt watch" /></p>
 
 <p>grunt 还自带了一些其他的任务，比如</p>
 
