@@ -9,7 +9,7 @@ categories:
 I have heard some ones complaining that setting up a [Webpack][Webpack] + [React][React] project is not an easy job. It's only partly true. [Webpack][Webpack] is not well documented at this moment, and has many powerful features and plugins. This makes configuration on [Webpack][Webpack] seem difficult to new developers. To make things even worse, there are tons of 'starter kit' projects over there, most of which are lack of maintainance.
 
 
-![Yeoman](http://yeoman.io/static/yeoman-02.83c46c7213.png)
+![Yeoman](https://yeoman.io/static/yeoman-02.83c46c7213.png)
 
 Indeed, it is super easy to setup a brand new [Webpack][Webpack] + [React][React] project using [Yeoman][Yeoman].
 

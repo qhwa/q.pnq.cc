@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://q.pnq.cc/sitemap.xml 
+Sitemap: https://q.pnq.cc/sitemap.xml 
